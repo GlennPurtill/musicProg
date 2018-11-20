@@ -38,6 +38,9 @@ export class AppComponent {
   A = ['A4','B4','C#5','D5','E5','F#5','G#5']
   ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
   B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
+  
+  all_scales = [this.C, this.CSHARP, this.D, this.DSHARP, this.E, this.F, this.FSHARP, this.G, this.GSHARP, this.A, this.ASHARP, this.B]
+
 
   chordClicked(chord, num){
     switch(chord) {
@@ -118,20 +121,25 @@ export class AppComponent {
   }
   temp = []
   play() {
-    switch(this.tonicRoot){
-      case 'C':
-      let x = this.chord1
-      this.temp[0] = this.C[parseInt(this.chord1)-1] 
-      this.temp[1] = this.C[parseInt(this.chord2)-1] 
-      this.temp[2] = this.C[parseInt(this.chord3)-1] 
-      this.temp[3] = this.C[parseInt(this.chord4)-1] 
-      this.temp[4] = this.C[parseInt(this.chord5)-1] 
-      this.temp[5] = this.C[parseInt(this.chord6)-1] 
-      this.temp[6] = this.C[parseInt(this.chord7)-1] 
-      this.temp[7] = this.C[parseInt(this.chord8)-1] 
-      console.log(this.temp)
-      break
-    }
+    
+    
+    
+    let x = this.chord1
+
+  
+    let num = 0;
+    for (num = 0; num<8; num++){
+      var s = (num + 1) + ""
+      s = "this.chord" + s
+      var chord = s
+      this.temp[num] = this.tonicRoot[parseInt(this[chord]) - 1]
+      console.log(parseInt(this[chord]))
+    } 
+    console.log(this.temp)
+    
+
+      
+    
     console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
 }
