@@ -129,17 +129,18 @@ export class AppComponent {
   
     let num = 0;
     for (num = 0; num<8; num++){
-      var s = (num + 1) + ""
-      s = "this.chord" + s
-      var chord = s
-      this.temp[num] = this.tonicRoot[parseInt(this[chord]) - 1]
-      console.log(parseInt(this[chord]))
+      let c = (num + 1) + ""
+      c = "chord" + c
+      let tr = this.tonicRoot
+      // console.log(this[tr])
+      this.temp[num] = this[tr][this[c] - 1]
+      // console.log(this[c])
     } 
     console.log(this.temp)
     
 
       
     
-    console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
+    // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
 }
