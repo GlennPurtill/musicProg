@@ -25,7 +25,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/tone/build/Tone.js"]
           },
           "configurations": {
             "production": {

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import * as tone from 'tone'
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'musicProg';
   chord1 = '1'
   curActiveC1 = ''
@@ -122,21 +124,26 @@ export class AppComponent {
   temp = []
   play() {
     
-    
-    
-    let x = this.chord1
+ //create a synth and connect it to the master output (your speakers)
+      var synth = new tone.FMSynth().toMaster()
+
+      // //play a middle 'C' for the duration of an 8th note
+      synth.triggerAttackRelease('C4', '0.5', 1)
+      synth.triggerAttackRelease('C4', '0.5', 2)
+ 
+    // let x = this.chord1
 
   
-    let num = 0;
-    for (num = 0; num<8; num++){
-      let c = (num + 1) + ""
-      c = "chord" + c
-      let tr = this.tonicRoot
-      // console.log(this[tr])
-      this.temp[num] = this[tr][this[c] - 1]
-      // console.log(this[c])
-    } 
-    console.log(this.temp)
+    // let num = 0;
+    // for (num = 0; num<8; num++){
+    //   let c = (num + 1) + ""
+    //   c = "chord" + c
+    //   let tr = this.tonicRoot
+    //   // console.log(this[tr])
+    //   this.temp[num] = this[tr][this[c] - 1]
+    //   // console.log(this[c])
+    // } 
+    // console.log(this.temp)
     
 
       
