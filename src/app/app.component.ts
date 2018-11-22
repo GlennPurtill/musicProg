@@ -166,7 +166,11 @@ export class AppComponent {
   
   temp = []
   play() {
-    
+    let synth = new tone.FMSynth().toMaster()
+    synth.triggerAttackRelease('C4', 0.5, 0)
+    synth.triggerAttackRelease('E4', 0.5, 1)
+    synth.triggerAttackRelease('G4', 0.5, 2)
+    synth.triggerAttackRelease('B4', 0.5, 3)
     let x = this.chord1
 
   
@@ -178,17 +182,30 @@ export class AppComponent {
       let example = "D"
       //get mode 
       let mode = this.mode
-      //console.log(this.mode + "." + this.tonicRoot)
       let tr = this.tonicRoot
-      // console.log(this[tr])
       this.temp[num] = this[mode][tr][this[c] - 1]
-      // console.log(this[c])
+      // if(num == 7){
+      //   this.playSound()
+      // }
     } 
     console.log(this.temp)
     
-
-      
-    
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
+  // playSound(){
+  //   let synth = new tone.FMSynth().toMaster()
+  //   synth.triggerAttackRelease('C5','0.44', 0.44)
+    
+    // while(true){
+    //   synth.triggerAttackRelease(this.temp[0],'0.44', 0.44)
+    //   synth.triggerAttackRelease(this.temp[1],'0.44', 0.88)
+    //   synth.triggerAttackRelease(this.temp[2],'0.44', 1.32)
+    //   synth.triggerAttackRelease(this.temp[3],'0.44', 1.76)
+    //   synth.triggerAttackRelease(this.temp[4],'0.44', 2.20)
+    //   synth.triggerAttackRelease(this.temp[5],'0.44', 2.64)
+    //   synth.triggerAttackRelease(this.temp[6],'0.44', 3.08)
+    //   synth.triggerAttackRelease(this.temp[7],'0.44', 3.52)
+    //   break
+    // }
+  // }
 }
