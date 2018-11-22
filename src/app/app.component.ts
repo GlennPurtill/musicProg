@@ -25,21 +25,53 @@ export class AppComponent {
   curActiveC8 = ''
   tonicRoot = 'C'
   curTonicRoot = ''
-  mode = 'Ionian'
-  C = ['C4','D4','E4','F4','G4','A4','B4']
-  CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
-  D = ['D4','E4','F#4','G4','A4','B4','C#5']
-  DSHARP = ['D#4','F4','G4','G#4','A#4','C5','D5']
-  E = ['E4','F#4','G#4','A4','B4','C#5','D#5']
-  F = ['F4','G4','A4','A#4','C5','D5','E5']
-  FSHARP = ['F#4','G#4','A#4','B4','C#5','D#5','F5']
-  G = ['G4','A4','B4','C5','D5','E5','F#5']
-  GSHARP = ['G#4','A#4','C5','C#5','D#5','F5','G#5']
-  A = ['A4','B4','C#5','D5','E5','F#5','G#5']
-  ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
-  B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
+
+  mode = 'ionian'
+  curMode = ''
+
+  //  C = ['C4','D4','E4','F4','G4','A4','B4']
+  // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
+  // D = ['D4','E4','F#4','G4','A4','B4','C#5']
+  // DSHARP = ['D#4','F4','G4','G#4','A#4','C5','D5']
+  // E = ['E4','F#4','G#4','A4','B4','C#5','D#5']
+  // F = ['F4','G4','A4','A#4','C5','D5','E5']
+  // FSHARP = ['F#4','G#4','A#4','B4','C#5','D#5','F5']
+  // G = ['G4','A4','B4','C5','D5','E5','F#5']
+  // GSHARP = ['G#4','A#4','C5','C#5','D#5','F5','G#5']
+  // A = ['A4','B4','C#5','D5','E5','F#5','G#5']
+  // ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
+  // B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
   
-  all_scales = [this.C, this.CSHARP, this.D, this.DSHARP, this.E, this.F, this.FSHARP, this.G, this.GSHARP, this.A, this.ASHARP, this.B]
+  ionian = { 
+    C : ['C4','D4','E4','F4','G4','A4','B4'],
+    CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5'],
+    D : ['D4','E4','F#4','G4','A4','B4','C#5'],
+    DSHARP : ['D#4','F4','G4','G#4','A#4','C5','D5'],
+    E : ['E4','F#4','G#4','A4','B4','C#5','D#5'],
+    F : ['F4','G4','A4','A#4','C5','D5','E5'],
+    FSHARP : ['F#4','G#4','A#4','B4','C#5','D#5','F5'],
+    G : ['G4','A4','B4','C5','D5','E5','F#5'],
+    GSHARP : ['G#4','A#4','C5','C#5','D#5','F5','G#5'],
+    A : ['A4','B4','C#5','D5','E5','F#5','G#5'],
+    ASHARP : ['A#4','C5','D5','D#5','F5','G5','A5'],
+    B : ['B4','C#5','D#5','E5','F#5','G#5','A#5']
+ };
+
+  aeolian = { 
+    C : ['C4','D4','D#4','F4','G4','G#4','A#4'],
+    CSHARP : ['C#4','D#4','E4','F#4','G#4','A4','B4'],
+    D : ['D4','E4','F4','G4','A4','A#4','C5'],
+    DSHARP : ['D#4','F4','F#4','G#4','A#4','B5','C#5'],
+    E : ['E4','F#4','G4','A4','B4','C5','D5'],
+    F : ['F4','G4','G#4','A#4','C5','C#5','D#5'],
+    FSHARP : ['F#4','G#4','A4','B4','C#5','D5','E5'],
+    G : ['G4','A4','A#4','C5','D5','D#5','F5'],
+    GSHARP : ['G#4','A#4','B5','C#5','D#5','E5','G5'],
+    A : ['A4','B4','C5','D5','E5','F5','G5'],
+    ASHARP : ['A#4','C5','C#5','D#5','F5','F#5','G#5'],
+    B : ['B4','C#5','D5','E5','F#5','G5','A5']
+};
+  //all_ionian_scales = [this.ionian.C, this.ionian.CSHARP, this.ionian.D, this.ionian.DSHARP, this.ionian.E, this.ionian.F, this.ionian.FSHARP, this.ionian.G, this.ionian.GSHARP, this.ionian.A, this.ionian.ASHARP, this.ionian.B]
 
 
   chordClicked(chord, num){
@@ -111,6 +143,16 @@ export class AppComponent {
     }
   }
 
+  changeMode(val){
+    
+    this.mode = val
+    if(this.curMode != ''){
+      document.getElementById(this.curMode).style.backgroundColor = '';
+    }
+    document.getElementById(val).style.backgroundColor = 'red';
+    this.curMode = val
+  }
+
   changeTonicRoot(val){
     this.tonicRoot = val
     if(this.curTonicRoot != ''){
@@ -119,10 +161,9 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curTonicRoot = val
   }
+  
   temp = []
   play() {
-    
-    
     
     let x = this.chord1
 
@@ -131,9 +172,14 @@ export class AppComponent {
     for (num = 0; num<8; num++){
       let c = (num + 1) + ""
       c = "chord" + c
+      let d = "ionian" 
+      let example = "D"
+      //get mode 
+      let mode = this.mode
+      //console.log(this.mode + "." + this.tonicRoot)
       let tr = this.tonicRoot
       // console.log(this[tr])
-      this.temp[num] = this[tr][this[c] - 1]
+      this.temp[num] = this[mode][tr][this[c] - 1]
       // console.log(this[c])
     } 
     console.log(this.temp)
