@@ -2,7 +2,7 @@
     background-color: rgb(158, 158, 158);
     align-content: center;
 }
-button:hover { 
+button:hover {
     background-color: yellow;
 }
 .active {
@@ -59,4 +59,10 @@ button:active{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 15px;
+}
+.bpmClass{
+  border: 5px black;
+  padding: 5px;
+  border-radius: 5px;
+  /* width: 400px; */
 }
