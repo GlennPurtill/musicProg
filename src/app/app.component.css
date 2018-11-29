@@ -16,18 +16,21 @@ button:active{
 }
 .col {
     width: 15%;
-    padding: 2px
+    padding: 2px;
+    background-color: rgba(128, 128, 128, 0.404);
 }
 .chordRow {
-    padding: 5px
+    background-color: rgba(128, 128, 128, 0.301);
 }
 .tonicRoot {
     /* background-color: red; */
-    padding:5px
+    padding:5px;
+    background-color: rgba(128, 128, 128, 0.301);
 }
 
 .mode {
     /* background-color: purple; */
+    background-color: rgba(128, 128, 128, 0.301);
     padding:5px
 }
 .trBut{
@@ -46,6 +49,7 @@ button:active{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
+    width: 80px;
 }
 .playBut{
     background-color: rgb(255, 218, 10);
@@ -77,5 +81,12 @@ button:active{
   border: 5px black;
   padding: 5px;
   border-radius: 5px;
+  
   /* width: 400px; */
+}
+.border{
+    margin: 5px;
+}
+.bpm{
+    background-color: rgba(128, 128, 128, 0.301);
 }

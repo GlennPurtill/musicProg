@@ -28,7 +28,7 @@ export class AppComponent {
   curActiveC8 = 'chord81'
   tonicRoot = 'C'
   curTonicRoot = 'C'
-
+  curBlue = ''
   mode = 'ionian'
   curMode = 'ionian'
 
@@ -189,6 +189,13 @@ export class AppComponent {
     let counter = 0
     var loop = new tone.Loop(function(time){
       synth.triggerAttackRelease(tempArr[index], 0.2, time)
+      console.log(this.curBlue)
+      if(this.curBlue!=undefined){
+        document.getElementById(this.curBlue).style.backgroundColor= '';
+      }
+      document.getElementById(index.toString()).style.backgroundColor= 'blue';
+      this.curBlue = index.toString()
+      
       index++
       if(index == 8){
         index = 0
