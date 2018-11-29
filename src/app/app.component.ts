@@ -181,14 +181,9 @@ export class AppComponent {
         index = 0
       }
       console.log();
-    }, "10n").start(0);
+    }, "1n").start(0);
 
-
-    tone.Transport.start();
-
-  
-    let num = 0;
-    for (num = 0; num<8; num++){
+    for (let num = 0; num<8; num++){
       let c = (num + 1) + ""
       c = "chord" + c
       let d = "ionian" 
@@ -196,26 +191,16 @@ export class AppComponent {
       //get mode 
       let mode = this.mode
       let tr = this.tonicRoot
-      this.temp[num] = this[mode][tr][this[c] - 1]
+      tempArr[num] = this[mode][tr][this[c] - 1]
+      if(num == 7){
+        tone.Transport.stop();
+        tone.Transport.start();
+      }
     } 
     // console.log(this.temp)
     
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
-  // playSound(){
-  //   let synth = new tone.FMSynth().toMaster()
-  //   synth.triggerAttackRelease('C5','0.44', 0.44)
-    
-    // while(true){
-    //   synth.triggerAttackRelease(this.temp[0],'0.44', 0.44)
-    //   synth.triggerAttackRelease(this.temp[1],'0.44', 0.88)
-    //   synth.triggerAttackRelease(this.temp[2],'0.44', 1.32)
-    //   synth.triggerAttackRelease(this.temp[3],'0.44', 1.76)
-    //   synth.triggerAttackRelease(this.temp[4],'0.44', 2.20)
-    //   synth.triggerAttackRelease(this.temp[5],'0.44', 2.64)
-    //   synth.triggerAttackRelease(this.temp[6],'0.44', 3.08)
-    //   synth.triggerAttackRelease(this.temp[7],'0.44', 3.52)
-    //   break
-    // }
-  // }
+
+
 }
