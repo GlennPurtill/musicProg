@@ -7,29 +7,30 @@ import * as tone from 'tone'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
   title = 'musicProg';
+  bpm = '1n'
+  curBpm = '1n'
   chord1 = '1'
-  curActiveC1 = ''
+  curActiveC1 = 'chord11'
   chord2 = '1'
-  curActiveC2 = ''
+  curActiveC2 = 'chord21'
   chord3 = '1'
-  curActiveC3 = ''
+  curActiveC3 = 'chord31'
   chord4 = '1'
-  curActiveC4 = ''
+  curActiveC4 = 'chord41'
   chord5 = '1'
-  curActiveC5 = ''
+  curActiveC5 = 'chord51'
   chord6 = '1'
-  curActiveC6 = ''
+  curActiveC6 = 'chord61'
   chord7 = '1'
-  curActiveC7 = ''
+  curActiveC7 = 'chord71'
   chord8 = '1'
-  curActiveC8 = ''
+  curActiveC8 = 'chord81'
   tonicRoot = 'C'
-  curTonicRoot = ''
+  curTonicRoot = 'C'
 
   mode = 'ionian'
-  curMode = ''
+  curMode = 'ionian'
 
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
   // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
@@ -75,6 +76,17 @@ export class AppComponent {
 };
   //all_ionian_scales = [this.ionian.C, this.ionian.CSHARP, this.ionian.D, this.ionian.DSHARP, this.ionian.E, this.ionian.F, this.ionian.FSHARP, this.ionian.G, this.ionian.GSHARP, this.ionian.A, this.ionian.ASHARP, this.ionian.B]
 
+
+  changeBPM(val){
+    this.bpm = val + "n"
+    if(this.curBpm != ''){
+      document.getElementById(this.curBpm).style.backgroundColor = '';
+    }
+    document.getElementById(this.bpm).style.backgroundColor = 'red';
+    this.curBpm = val + "n"
+
+    console.log(this.bpm)
+  }
 
   chordClicked(chord, num){
     switch(chord) {
@@ -167,21 +179,22 @@ export class AppComponent {
   temp = []
   
   play() {
-    let synth = new tone.FMSynth().toMaster()
+  
+    let synth = new tone.Synth().toMaster()
     let x = this.chord1
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
 
-
+    let counter = 0
     var loop = new tone.Loop(function(time){
-      synth.triggerAttackRelease(tempArr[index], 0.1, time)
+      synth.triggerAttackRelease(tempArr[index], 0.2, time)
       index++
-      if(index == 7){
+      if(index == 8){
         index = 0
       }
-      console.log();
-    }, "1n").start(0);
+      console.log(counter++);
+    }, this.bpm).start(0);
 
     for (let num = 0; num<8; num++){
       let c = (num + 1) + ""
@@ -193,14 +206,15 @@ export class AppComponent {
       let tr = this.tonicRoot
       tempArr[num] = this[mode][tr][this[c] - 1]
       if(num == 7){
-        tone.Transport.stop();
         tone.Transport.start();
       }
     } 
-    // console.log(this.temp)
+    console.log(tempArr)
     
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
-
+  stop() {
+    tone.Transport.cancel()
+  }
 
 }
