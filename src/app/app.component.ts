@@ -165,13 +165,26 @@ export class AppComponent {
   }
   
   temp = []
+  
   play() {
     let synth = new tone.FMSynth().toMaster()
-    synth.triggerAttackRelease('C4', 0.5, 0)
-    synth.triggerAttackRelease('E4', 0.5, 1)
-    synth.triggerAttackRelease('G4', 0.5, 2)
-    synth.triggerAttackRelease('B4', 0.5, 3)
     let x = this.chord1
+    let time = 5
+    let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
+    let index = 0;
+
+
+    var loop = new tone.Loop(function(time){
+      synth.triggerAttackRelease(tempArr[index], 0.1, time)
+      index++
+      if(index == 7){
+        index = 0
+      }
+      console.log();
+    }, "10n").start(0);
+
+
+    tone.Transport.start();
 
   
     let num = 0;
@@ -184,11 +197,8 @@ export class AppComponent {
       let mode = this.mode
       let tr = this.tonicRoot
       this.temp[num] = this[mode][tr][this[c] - 1]
-      // if(num == 7){
-      //   this.playSound()
-      // }
     } 
-    console.log(this.temp)
+    // console.log(this.temp)
     
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }

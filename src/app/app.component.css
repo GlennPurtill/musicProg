@@ -35,7 +35,7 @@ button:active{
     padding: 5px;
 }
 .b {
-    background-color: rgb(78, 78, 78); /* Green */
+    background-color: rgb(78, 78, 78);
     border: none;
     color: white;
     padding: 5px;
@@ -48,7 +48,7 @@ button:active{
     border-radius: 12px;
 }
 .playBut{
-    background-color: rgb(255, 218, 10); /* Green */
+    background-color: rgb(255, 218, 10);
     border: none;
     color: white;
     padding: 10px;
