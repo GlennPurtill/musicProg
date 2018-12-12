@@ -113,73 +113,6 @@ export class AppComponent {
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
-    
-    // switch(chord) {
-    //   case "chord1":
-    //       this.chord1 = num
-    //       if(this.curActiveC1 != ''){
-    //         document.getElementById(this.curActiveC1).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC1 = chord+num
-    //       break
-    //   case "chord2":
-    //       this.chord2 = num 
-    //       if(this.curActiveC2 != ''){
-    //         document.getElementById(this.curActiveC2).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC2 = chord+num
-    //       break
-    //   case "chord3":
-    //       this.chord3 = num 
-    //       if(this.curActiveC3 != ''){
-    //         document.getElementById(this.curActiveC3).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC3 = chord+num
-    //       break
-    //   case "chord4":
-    //       this.chord4 = num
-    //       if(this.curActiveC4 != ''){
-    //         document.getElementById(this.curActiveC4).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC4 = chord+num 
-    //       break
-    //   case "chord5":
-    //       this.chord5 = num 
-    //       if(this.curActiveC5 != ''){
-    //         document.getElementById(this.curActiveC5).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC5 = chord+num
-    //       break
-    //   case "chord6":
-    //       this.chord6 = num 
-    //       if(this.curActiveC6 != ''){
-    //         document.getElementById(this.curActiveC6).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC6 = chord+num
-    //       break
-    //   case "chord7":
-    //       this.chord7 = num 
-    //       if(this.curActiveC7 != ''){
-    //         document.getElementById(this.curActiveC7).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC7 = chord+num
-    //       break
-    //   case "chord8":
-    //       this.chord8 = num 
-    //       if(this.curActiveC8 != ''){
-    //         document.getElementById(this.curActiveC8).style.backgroundColor = '';
-    //       }
-    //       document.getElementById(chord+num).style.backgroundColor = 'red';
-    //       this.curActiveC8 = chord+num
-    //       break
-    // }
   }
 
   changeMode(val){
@@ -206,6 +139,9 @@ export class AppComponent {
   addCol(){
     if(parseInt(this.curAmountCols) < 15){
       let x = parseInt(this.curAmountCols) + 1
+
+      console.log(x)
+      
       this.curAmountCols = x.toString();
       document.getElementById(this.curAmountCols).style.display = "block"
     }
@@ -213,9 +149,11 @@ export class AppComponent {
   
   removeCol(){
     if(parseInt(this.curAmountCols) > 7){
-      let x = parseInt(this.curAmountCols) - 1
-      this.curAmountCols = x.toString();
       document.getElementById(this.curAmountCols).style.display = "none"
+      let x = parseInt(this.curAmountCols) - 1
+      console.log(x)    
+      
+      this.curAmountCols = x.toString();
     }
   }
   
