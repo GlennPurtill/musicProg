@@ -1,11 +1,13 @@
 import { Component } from '@angular/core'
 import * as tone from 'tone'
+import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'musicProg';
   bpm = '1n'
@@ -178,6 +180,50 @@ export class AppComponent {
   
   temp = []
   
+ 
+  playCurrentSound() {
+    resetAllColours()
+    
+
+    let synth = new tone.Synth().toMaster()
+    let x = this.chord1
+    let time = 5
+    let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
+    let index = 0;
+
+    let counter = 0
+    var loop = new tone.Loop(function(time){
+      synth.triggerAttackRelease(tempArr[index], 0.2, time)
+      console.log(this.curBlue)
+      if(this.curBlue!=undefined){
+        document.getElementById(this.curBlue).style.backgroundColor= '';
+      }
+      document.getElementById(index.toString()).style.backgroundColor= 'blue';
+      this.curBlue = index.toString()
+      
+      index++
+      if(index == 8){ // out of bounds
+        index = 0
+      }
+      console.log(counter++);
+    }, this.bpm).start(0);
+
+    for (let num = 0; num<8; num++){
+      let c = (num + 1) + ""
+      c = "chord" + c
+      let d = "ionian" 
+      let example = "D"
+      //get mode 
+      let mode = this.mode
+      let tr = this.tonicRoot
+      tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
+      if(num == 7){
+        tone.Transport.start(); //BPM
+      }
+    } 
+    console.log(tempArr)
+
+  }
   play() {
   
     let synth = new tone.Synth().toMaster()
@@ -197,7 +243,7 @@ export class AppComponent {
       this.curBlue = index.toString()
       
       index++
-      if(index == 8){
+      if(index == 8){ // out of bounds
         index = 0
       }
       console.log(counter++);
@@ -211,15 +257,23 @@ export class AppComponent {
       //get mode 
       let mode = this.mode
       let tr = this.tonicRoot
-      tempArr[num] = this[mode][tr][this[c] - 1]
+      tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
       if(num == 7){
-        tone.Transport.start();
+        tone.Transport.start(); //BPM
       }
     } 
     console.log(tempArr)
     
+    this.saveCurrentPattern(tempArr)
+    
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
+  
+  saveCurrentPattern(arr){
+
+  }
+
+
   stop() {
     tone.Transport.cancel()
   }
