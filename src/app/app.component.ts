@@ -50,6 +50,9 @@ export class AppComponent {
   mode = 'ionian'
   curMode = 'ionian'
   curAmountCols = '7'
+  rows_that_need_adding = 0
+  newRowInnerHtml = 1
+  octives = 2
 
 
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
@@ -147,6 +150,7 @@ export class AppComponent {
       
       this.curAmountCols = x.toString();
       document.getElementById(this.curAmountCols).style.display = "block"
+      this.addCertainAmountOfButtons(x)
     }
   }
   
@@ -159,23 +163,44 @@ export class AppComponent {
       this.curAmountCols = x.toString();
     }
   }
-  
-<<<<<<< HEAD
-  addButton(){
-    var element = document.createElement("button");
-    element.innerHTML = "hello"
-    for(let i = 0; i < parseInt(this.curAmountCols)+1; i++){
+
+  addCertainAmountOfButtons(at){
+    let counter = 1
+    for(let i = 1; i < this.rows_that_need_adding+1; i++){
+      if(counter == 8){
+        counter = 1
+      }
       let element = (<HTMLElement><any>document.createElement("button"));
-      let foo = document.getElementById(i.toString());
+      let foo = document.getElementById(at.toString());
       foo.appendChild(element);
-      element.innerHTML = "1"
+      element.innerHTML = counter.toString() + "(" + this.octives + ")"
+      counter++
+      this.newRowInnerHtml.toString()
       element.classList.add("col-sm-12")
       element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
   }
-=======
- 
->>>>>>> bfe637cf843c3efe479c9f1017ebd75e16771f0a
+  
+
+  addButton(){
+    this.rows_that_need_adding++
+    if(this.newRowInnerHtml == 8){
+      this.newRowInnerHtml = 1
+      this.octives++
+    }
+    var element = document.createElement("button");
+    element.innerHTML = "hello"
+    for(let i = 0; i < parseInt(this.curAmountCols)+1; i++){
+      console.log(this.curAmountCols)
+      let element = (<HTMLElement><any>document.createElement("button"));
+      let foo = document.getElementById(i.toString());
+      foo.appendChild(element);
+      element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
+      element.classList.add("col-sm-12")
+      element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+    }
+    this.newRowInnerHtml++
+  }
 
   play() {
   
