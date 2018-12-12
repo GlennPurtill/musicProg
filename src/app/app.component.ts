@@ -67,8 +67,8 @@ export class AppComponent {
   // A = ['A4','B4','C#5','D5','E5','F#5','G#5']
   // ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
   // B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
-  
-  ionian = { 
+
+  ionian = {
     C : ['C4','D4','E4','F4','G4','A4','B4','C4','D4','E4','F4','G4','A4','B4'],
     CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5'],
     D : ['D4','E4','F#4','G4','A4','B4','C#5'],
@@ -83,7 +83,7 @@ export class AppComponent {
     B : ['B4','C#5','D#5','E5','F#5','G#5','A#5']
  };
 
-  aeolian = { 
+  aeolian = {
     C : ['C4','D4','D#4','F4','G4','G#4','A#4'],
     CSHARP : ['C#4','D#4','E4','F#4','G#4','A4','B4'],
     D : ['D4','E4','F4','G4','A4','A#4','C5'],
@@ -112,6 +112,7 @@ export class AppComponent {
   }
 
   chordClicked(chord, num, c){
+    this.stop()
     this[chord] = num
     let curAct = "curActiveC" + c
     if(this[curAct] != ''){
@@ -122,7 +123,7 @@ export class AppComponent {
   }
 
   changeMode(val){
-    
+
     this.mode = val
     if(this.curMode != ''){
       document.getElementById(this.curMode).style.backgroundColor = '';
@@ -139,30 +140,32 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curTonicRoot = val
   }
-  
+
   temp = []
 
   addCol(){
     if(parseInt(this.curAmountCols) < 15){
       let x = parseInt(this.curAmountCols) + 1
 
-      console.log(x)
-      
+      console.log("Added Col: " + x)
+
       this.curAmountCols = x.toString();
       document.getElementById(this.curAmountCols).style.display = "block"
       this.addCertainAmountOfButtons(x)
     }
   }
-  
+
   removeCol(){
     if(parseInt(this.curAmountCols) > 7){
       document.getElementById(this.curAmountCols).style.display = "none"
       let x = parseInt(this.curAmountCols) - 1
-      console.log(x)    
-      
+
+      console.log("Removed Col: " + x)
+
       this.curAmountCols = x.toString();
     }
   }
+
 
   addCertainAmountOfButtons(at){
     let counter = 1
@@ -180,6 +183,7 @@ export class AppComponent {
       element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
   }
+
   
 
   addButton(){
@@ -201,18 +205,62 @@ export class AppComponent {
     }
     this.newRowInnerHtml++
   }
+playCurrentTrack(){
+  this.stop()
+  let synth = new tone.Synth().toMaster()
+  let x = this.chord1 //num value of button pressed (1..7)
+  let time = 5
+  let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
+  let index = 0;
+  let curCols = parseInt(this.curAmountCols) + 1
+  console.log("CurCols: " + curCols)
+  let counter = 0
+  var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
+    synth.triggerAttackRelease(tempArr[index], 0.2, time)
+    //console.log(this.curBlue)
+    if(this.curBlue!=undefined){
+      document.getElementById(this.curBlue).style.backgroundColor= '';
+    }
+    document.getElementById(index.toString()).style.backgroundColor= 'blue';
+    this.curBlue = index.toString()
+
+    index++
+    if(index == curCols){
+      this.stop()
+    }
+    //console.log(counter++);
+  }, this.bpm).start(0);
+
+  for (let num = 0; num<curCols+1; num++){
+    let c = (num + 1) + ""
+    c = "chord" + c
+    let d = "ionian"
+    let example = "D"
+    //get mode
+    let mode = this.mode
+    let tr = this.tonicRoot
+    tempArr[num] = this[mode][tr][this[c] - 1]
+    if(num == 7){
+      tone.Transport.start();
+    }
+  }
+  console.log(tempArr)
+
+
+}
+
 
   play() {
-  
+
     let synth = new tone.Synth().toMaster()
-    let x = this.chord1
+    let x = this.chord1 //num value of button pressed (1..7)
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
     let curCols = parseInt(this.curAmountCols) + 1
-    console.log(curCols)
+    console.log("CurCols: " + curCols)
     let counter = 0
-    var loop = new tone.Loop(function(time){
+    var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
       synth.triggerAttackRelease(tempArr[index], 0.2, time)
       console.log(this.curBlue)
       if(this.curBlue!=undefined){
@@ -220,7 +268,7 @@ export class AppComponent {
       }
       document.getElementById(index.toString()).style.backgroundColor= 'blue';
       this.curBlue = index.toString()
-      
+
       index++
       if(index == curCols){
         index = 0
@@ -231,24 +279,33 @@ export class AppComponent {
     for (let num = 0; num<curCols+1; num++){
       let c = (num + 1) + ""
       c = "chord" + c
-      let d = "ionian" 
+      let d = "ionian"
       let example = "D"
-      //get mode 
+      //get mode
       let mode = this.mode
       let tr = this.tonicRoot
       tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
       if(num == 7){
         tone.Transport.start(); //BPM
       }
-    } 
+    }
     console.log(tempArr)
+
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
   
   
 
   stop() {
+
+    for(let i = 0; i<parseInt(this.curAmountCols)+1; i++){
+
+      document.getElementById(i.toString()).style.backgroundColor= '';
+
+    }
+
     tone.Transport.cancel()
+
   }
 
 }
