@@ -240,8 +240,8 @@
                 </div>
                 <div class="col-sm-2 justify-content-center">
                     <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
-                    <div class="col-sm-3"> <button class="testPlayBut" (click)="playCurrentSound()">TEST PLAY</button></div>
-                    <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>  
+                    <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
+                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
                 </div>
             </div>
         </div>
@@ -270,7 +270,7 @@
                   <button id = "ionian" class="b" style="background-color: red;" (click)="changeMode('ionian')">Ionian</button>
                   <button id = "aeolian" class="b" (click)="changeMode('aeolian')">Aeolian</button>
               </div>
-              <div class="bpm col-sm-4 border rounded">    
+              <div class="bpm col-sm-4 border rounded">
                 <h4>BPM</h4>
                 <div class="bpmClass">
                     <button id='1n' (click)="changeBPM('1')" style="background-color: red;" class="b">30</button>
@@ -285,5 +285,3 @@
             </div>
             </div>
           </div>
-    
-      
