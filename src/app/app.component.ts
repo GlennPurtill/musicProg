@@ -49,6 +49,7 @@ export class AppComponent {
   curMode = 'ionian'
   curAmountCols = '7'
 
+
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
   // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
   // D = ['D4','E4','F#4','G4','A4','B4','C#5']
@@ -157,6 +158,19 @@ export class AppComponent {
     }
   }
   
+  addButton(){
+    var element = document.createElement("button");
+    element.innerHTML = "hello"
+    for(let i = 0; i < parseInt(this.curAmountCols)+1; i++){
+      let element = (<HTMLElement><any>document.createElement("button"));
+      let foo = document.getElementById(i.toString());
+      foo.appendChild(element);
+      element.innerHTML = "1"
+      element.classList.add("col-sm-12")
+      element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+    }
+  }
+
   play() {
   
     let synth = new tone.Synth().toMaster()
