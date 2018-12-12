@@ -241,8 +241,13 @@
                 <div class="col-sm-2 justify-content-center">
                     <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
                     <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
-                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
+                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div> 				
                 </div>
+				<div class="mode col-sm-2 border rounded">
+					<h4>Distortion</h4>
+					<button id = "nodistortion" class="b" (click)="distortionSwitch('off')">off</button>
+					<button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
+				</div>	
             </div>
         </div>
           <div class="row justify-content-center col-sm-12">

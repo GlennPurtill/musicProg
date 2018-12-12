@@ -53,6 +53,8 @@ export class AppComponent {
   rows_that_need_adding = 0
   newRowInnerHtml = 1
   octives = 2
+  
+  disto = "off"
 
 
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
@@ -131,6 +133,18 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curMode = val
   }
+  
+   distortionSwitch(val){
+    this.disto = val
+    if(this.disto == "on"){
+      document.getElementById("distortion").style.backgroundColor = 'red';
+	  document.getElementById("nodistortion").style.backgroundColor = '';
+    }
+    else{
+		document.getElementById("distortion").style.backgroundColor = '';
+		document.getElementById("nodistortion").style.backgroundColor = 'red';
+	}
+  }
 
   changeTonicRoot(val){
     this.tonicRoot = val
@@ -206,7 +220,14 @@ export class AppComponent {
   }
 playCurrentTrack(){
   this.stop()
-  let synth = new tone.Synth().toMaster()
+    var dist = new tone.Distortion(0.9).toMaster();
+	if(this.disto == "on"){
+		var synth = new tone.Synth().connect(dist);
+	}
+	else{
+		var synth = new tone.Synth().toMaster();
+	}
+  
   let x = this.chord1 //num value of button pressed (1..7)
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
@@ -251,7 +272,14 @@ playCurrentTrack(){
 
   play() {
 
-    let synth = new tone.Synth().toMaster()
+    var dist = new tone.Distortion(0.9).toMaster();
+	if(this.disto == "on"){
+		var synth = new tone.Synth().connect(dist);
+	}
+	else{
+		var synth = new tone.Synth().toMaster();
+	}
+	
     let x = this.chord1 //num value of button pressed (1..7)
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
@@ -304,6 +332,7 @@ playCurrentTrack(){
   }
   
   
+  
 
   stop() {
 
@@ -334,9 +363,10 @@ playCurrentTrack(){
         step_opt4.onclick = step_opt4_handler;	*/
 		var step_opt4 = <HTMLElement>document.getElementById('option-four') as HTMLInputElement;
 		step_opt4.checked = true;//default value
-		
 		var maxl = 6;
 		this.drawing(maxl);
+		// audio 
+		this.distortionSwitch("off");
   }
   
 
