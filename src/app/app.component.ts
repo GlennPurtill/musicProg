@@ -26,11 +26,28 @@ export class AppComponent {
   curActiveC7 = 'chord71'
   chord8 = '1'
   curActiveC8 = 'chord81'
+  chord9 = '1'
+  curActiveC9 = 'chord91'
+  chord10 = '1'
+  curActiveC10 = 'chord101'
+  chord11 = '1'
+  curActiveC11 = 'chord111'
+  chord12 = '1'
+  curActiveC12 = 'chord121'
+  chord13 = '1'
+  curActiveC13 = 'chord131'
+  chord14 = '1'
+  curActiveC14 = 'chord141'
+  chord15 = '1'
+  curActiveC15 = 'chord151'
+  chord16 = '1'
+  curActiveC16 = 'chord161'
   tonicRoot = 'C'
   curTonicRoot = 'C'
   curBlue = ''
   mode = 'ionian'
   curMode = 'ionian'
+  curAmountCols = '7'
 
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
   // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
@@ -46,7 +63,7 @@ export class AppComponent {
   // B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
   
   ionian = { 
-    C : ['C4','D4','E4','F4','G4','A4','B4'],
+    C : ['C4','D4','E4','F4','G4','A4','B4','C4','D4','E4','F4','G4','A4','B4'],
     CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5'],
     D : ['D4','E4','F#4','G4','A4','B4','C#5'],
     DSHARP : ['D#4','F4','G4','G#4','A#4','C5','D5'],
@@ -88,73 +105,81 @@ export class AppComponent {
     console.log(this.bpm)
   }
 
-  chordClicked(chord, num){
-    switch(chord) {
-      case "chord1":
-          this.chord1 = num
-          if(this.curActiveC1 != ''){
-            document.getElementById(this.curActiveC1).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC1 = chord+num
-          break
-      case "chord2":
-          this.chord2 = num 
-          if(this.curActiveC2 != ''){
-            document.getElementById(this.curActiveC2).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC2 = chord+num
-          break
-      case "chord3":
-          this.chord3 = num 
-          if(this.curActiveC3 != ''){
-            document.getElementById(this.curActiveC3).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC3 = chord+num
-          break
-      case "chord4":
-          this.chord4 = num
-          if(this.curActiveC4 != ''){
-            document.getElementById(this.curActiveC4).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC4 = chord+num 
-          break
-      case "chord5":
-          this.chord5 = num 
-          if(this.curActiveC5 != ''){
-            document.getElementById(this.curActiveC5).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC5 = chord+num
-          break
-      case "chord6":
-          this.chord6 = num 
-          if(this.curActiveC6 != ''){
-            document.getElementById(this.curActiveC6).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC6 = chord+num
-          break
-      case "chord7":
-          this.chord7 = num 
-          if(this.curActiveC7 != ''){
-            document.getElementById(this.curActiveC7).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC7 = chord+num
-          break
-      case "chord8":
-          this.chord8 = num 
-          if(this.curActiveC8 != ''){
-            document.getElementById(this.curActiveC8).style.backgroundColor = '';
-          }
-          document.getElementById(chord+num).style.backgroundColor = 'red';
-          this.curActiveC8 = chord+num
-          break
+  chordClicked(chord, num, c){
+    this[chord] = num
+    let curAct = "curActiveC" + c
+    if(this[curAct] != ''){
+      document.getElementById(this[curAct]).style.backgroundColor = '';
     }
+    document.getElementById(chord+num).style.backgroundColor = 'red';
+    this[curAct] = chord+num
+    
+    // switch(chord) {
+    //   case "chord1":
+    //       this.chord1 = num
+    //       if(this.curActiveC1 != ''){
+    //         document.getElementById(this.curActiveC1).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC1 = chord+num
+    //       break
+    //   case "chord2":
+    //       this.chord2 = num 
+    //       if(this.curActiveC2 != ''){
+    //         document.getElementById(this.curActiveC2).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC2 = chord+num
+    //       break
+    //   case "chord3":
+    //       this.chord3 = num 
+    //       if(this.curActiveC3 != ''){
+    //         document.getElementById(this.curActiveC3).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC3 = chord+num
+    //       break
+    //   case "chord4":
+    //       this.chord4 = num
+    //       if(this.curActiveC4 != ''){
+    //         document.getElementById(this.curActiveC4).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC4 = chord+num 
+    //       break
+    //   case "chord5":
+    //       this.chord5 = num 
+    //       if(this.curActiveC5 != ''){
+    //         document.getElementById(this.curActiveC5).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC5 = chord+num
+    //       break
+    //   case "chord6":
+    //       this.chord6 = num 
+    //       if(this.curActiveC6 != ''){
+    //         document.getElementById(this.curActiveC6).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC6 = chord+num
+    //       break
+    //   case "chord7":
+    //       this.chord7 = num 
+    //       if(this.curActiveC7 != ''){
+    //         document.getElementById(this.curActiveC7).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC7 = chord+num
+    //       break
+    //   case "chord8":
+    //       this.chord8 = num 
+    //       if(this.curActiveC8 != ''){
+    //         document.getElementById(this.curActiveC8).style.backgroundColor = '';
+    //       }
+    //       document.getElementById(chord+num).style.backgroundColor = 'red';
+    //       this.curActiveC8 = chord+num
+    //       break
+    // }
   }
 
   changeMode(val){
@@ -177,6 +202,22 @@ export class AppComponent {
   }
   
   temp = []
+
+  addCol(){
+    if(parseInt(this.curAmountCols) < 15){
+      let x = parseInt(this.curAmountCols) + 1
+      this.curAmountCols = x.toString();
+      document.getElementById(this.curAmountCols).style.display = "block"
+    }
+  }
+  
+  removeCol(){
+    if(parseInt(this.curAmountCols) > 7){
+      let x = parseInt(this.curAmountCols) - 1
+      this.curAmountCols = x.toString();
+      document.getElementById(this.curAmountCols).style.display = "none"
+    }
+  }
   
   play() {
   
@@ -185,7 +226,8 @@ export class AppComponent {
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
-
+    let curCols = parseInt(this.curAmountCols) + 1
+    console.log(curCols)
     let counter = 0
     var loop = new tone.Loop(function(time){
       synth.triggerAttackRelease(tempArr[index], 0.2, time)
@@ -197,13 +239,13 @@ export class AppComponent {
       this.curBlue = index.toString()
       
       index++
-      if(index == 8){
+      if(index == curCols){
         index = 0
       }
       console.log(counter++);
     }, this.bpm).start(0);
 
-    for (let num = 0; num<8; num++){
+    for (let num = 0; num<curCols+1; num++){
       let c = (num + 1) + ""
       c = "chord" + c
       let d = "ionian" 
