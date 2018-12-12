@@ -1,125 +1,213 @@
+<!-- <div class="container-fluid" style="text-align:center">
+    <div class="container col-sm-12">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 border">
+             <div class="col-sm-1">
+              <button id="chord11" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord1', 1)">1</button>
+              <button id="chord12" class="b col-sm-12" (click)="chordClicked('chord1', 2)">2</button>
+              <button id="chord13" class="b col-sm-12" (click)="chordClicked('chord1', 3)">3</button>
+              <button id="chord14" class="b col-sm-12" (click)="chordClicked('chord1', 4)">4</button>
+              <button id="chord15" class="b col-sm-12" (click)="chordClicked('chord1', 5)">5</button>
+              <button id="chord16" class="b col-sm-12" (click)="chordClicked('chord1', 6)">6</button>
+              <button id="chord17" class="b col-sm-12" (click)="chordClicked('chord1', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord21" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord2', 1)">1</button>
+                <button id="chord22" class="b col-sm-12" (click)="chordClicked('chord2', 2)">2</button>
+                <button id="chord23" class="b col-sm-12" (click)="chordClicked('chord2', 3)">3</button>
+                <button id="chord24" class="b col-sm-12" (click)="chordClicked('chord2', 4)">4</button>
+                <button id="chord25" class="b col-sm-12" (click)="chordClicked('chord2', 5)">5</button>
+                <button id="chord26" class="b col-sm-12" (click)="chordClicked('chord2', 6)">6</button>
+                <button id="chord27" class="b col-sm-12" (click)="chordClicked('chord2', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord31" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord3', 1)">1</button>
+                <button id="chord32" class="b col-sm-12" (click)="chordClicked('chord3', 2)">2</button>
+                <button id="chord33" class="b col-sm-12" (click)="chordClicked('chord3', 3)">3</button>
+                <button id="chord34" class="b col-sm-12" (click)="chordClicked('chord3', 4)">4</button>
+                <button id="chord35" class="b col-sm-12" (click)="chordClicked('chord3', 5)">5</button>
+                <button id="chord36" class="b col-sm-12" (click)="chordClicked('chord3', 6)">6</button>
+                <button id="chord37" class="b col-sm-12" (click)="chordClicked('chord3', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord41" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord4', 1)">1</button>
+                <button id="chord42" class="b col-sm-12" (click)="chordClicked('chord4', 2)">2</button>
+                <button id="chord43" class="b col-sm-12" (click)="chordClicked('chord4', 3)">3</button>
+                <button id="chord44" class="b col-sm-12" (click)="chordClicked('chord4', 4)">4</button>
+                <button id="chord45" class="b col-sm-12" (click)="chordClicked('chord4', 5)">5</button>
+                <button id="chord46" class="b col-sm-12" (click)="chordClicked('chord4', 6)">6</button>
+                <button id="chord47" class="b col-sm-12" (click)="chordClicked('chord4', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord51" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord5', 1)">1</button>
+                <button id="chord52" class="b col-sm-12" (click)="chordClicked('chord5', 2)">2</button>
+                <button id="chord53" class="b col-sm-12" (click)="chordClicked('chord5', 3)">3</button>
+                <button id="chord54" class="b col-sm-12" (click)="chordClicked('chord5', 4)">4</button>
+                <button id="chord55" class="b col-sm-12" (click)="chordClicked('chord5', 5)">5</button>
+                <button id="chord56" class="b col-sm-12" (click)="chordClicked('chord5', 6)">6</button>
+                <button id="chord57" class="b col-sm-12" (click)="chordClicked('chord5', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord61" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord6', 1)">1</button>
+                <button id="chord62" class="b col-sm-12" (click)="chordClicked('chord6', 2)">2</button>
+                <button id="chord63" class="b col-sm-12" (click)="chordClicked('chord6', 3)">3</button>
+                <button id="chord64" class="b col-sm-12" (click)="chordClicked('chord6', 4)">4</button>
+                <button id="chord65" class="b col-sm-12" (click)="chordClicked('chord6', 5)">5</button>
+                <button id="chord66" class="b col-sm-12" (click)="chordClicked('chord6', 6)">6</button>
+                <button id="chord67" class="b col-sm-12" (click)="chordClicked('chord6', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord71" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord7', 1)">1</button>
+                <button id="chord72" class="b col-sm-12" (click)="chordClicked('chord7', 2)">2</button>
+                <button id="chord73" class="b col-sm-12" (click)="chordClicked('chord7', 3)">3</button>
+                <button id="chord74" class="b col-sm-12" (click)="chordClicked('chord7', 4)">4</button>
+                <button id="chord75" class="b col-sm-12" (click)="chordClicked('chord7', 5)">5</button>
+                <button id="chord76" class="b col-sm-12" (click)="chordClicked('chord7', 6)">6</button>
+                <button id="chord77" class="b col-sm-12" (click)="chordClicked('chord7', 7)">7</button>
+            </div>
+            <div class="col-sm-1">
+                <button id="chord81" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord8', 1)">1</button>
+                <button id="chord82" class="b col-sm-12" (click)="chordClicked('chord8', 2)">2</button>
+                <button id="chord83" class="b col-sm-12" (click)="chordClicked('chord8', 3)">3</button>
+                <button id="chord84" class="b col-sm-12" (click)="chordClicked('chord8', 4)">4</button>
+                <button id="chord85" class="b col-sm-12" (click)="chordClicked('chord8', 5)">5</button>
+                <button id="chord86" class="b col-sm-12" (click)="chordClicked('chord8', 6)">6</button>
+                <button id="chord87" class="b col-sm-12" (click)="chordClicked('chord8', 7)">7</button>
+            </div>
+        </div>
+        <div class="col-sm-2" style="background-color: blue;">
+
+        </div>
+      </div>
+    </div>
+</div> -->
+
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <div class="container-fluid">
-      <div class="row chordRow">
-        <!-- style="background-color:blue; -->
-        <h1>Chord Progression</h1>
-        <div class="col-sm-1"></div>
-          <div class="col-sm-1">
-            <button id="chord11" class="b col-sm-12" (click)="chordClicked('chord1', 1)">1</button>
-            <button id="chord12" class="b col-sm-12" (click)="chordClicked('chord1', 2)">2</button>
-            <button id="chord13" class="b col-sm-12" (click)="chordClicked('chord1', 3)">3</button>
-            <button id="chord14" class="b col-sm-12" (click)="chordClicked('chord1', 4)">4</button>
-            <button id="chord15" class="b col-sm-12" (click)="chordClicked('chord1', 5)">5</button>
-            <button id="chord16" class="b col-sm-12" (click)="chordClicked('chord1', 6)">6</button>
-            <button id="chord17" class="b col-sm-12" (click)="chordClicked('chord1', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord21" class="b col-sm-12" (click)="chordClicked('chord2', 1)">1</button>
-              <button id="chord22" class="b col-sm-12" (click)="chordClicked('chord2', 2)">2</button>
-              <button id="chord23" class="b col-sm-12" (click)="chordClicked('chord2', 3)">3</button>
-              <button id="chord24" class="b col-sm-12" (click)="chordClicked('chord2', 4)">4</button>
-              <button id="chord25" class="b col-sm-12" (click)="chordClicked('chord2', 5)">5</button>
-              <button id="chord26" class="b col-sm-12" (click)="chordClicked('chord2', 6)">6</button>
-              <button id="chord27" class="b col-sm-12" (click)="chordClicked('chord2', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord31" class="b col-sm-12" (click)="chordClicked('chord3', 1)">1</button>
-              <button id="chord32" class="b col-sm-12" (click)="chordClicked('chord3', 2)">2</button>
-              <button id="chord33" class="b col-sm-12" (click)="chordClicked('chord3', 3)">3</button>
-              <button id="chord34" class="b col-sm-12" (click)="chordClicked('chord3', 4)">4</button>
-              <button id="chord35" class="b col-sm-12" (click)="chordClicked('chord3', 5)">5</button>
-              <button id="chord36" class="b col-sm-12" (click)="chordClicked('chord3', 6)">6</button>
-              <button id="chord37" class="b col-sm-12" (click)="chordClicked('chord3', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord41" class="b col-sm-12" (click)="chordClicked('chord4', 1)">1</button>
-              <button id="chord42" class="b col-sm-12" (click)="chordClicked('chord4', 2)">2</button>
-              <button id="chord43" class="b col-sm-12" (click)="chordClicked('chord4', 3)">3</button>
-              <button id="chord44" class="b col-sm-12" (click)="chordClicked('chord4', 4)">4</button>
-              <button id="chord45" class="b col-sm-12" (click)="chordClicked('chord4', 5)">5</button>
-              <button id="chord46" class="b col-sm-12" (click)="chordClicked('chord4', 6)">6</button>
-              <button id="chord47" class="b col-sm-12" (click)="chordClicked('chord4', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord51" class="b col-sm-12" (click)="chordClicked('chord5', 1)">1</button>
-              <button id="chord52" class="b col-sm-12" (click)="chordClicked('chord5', 2)">2</button>
-              <button id="chord53" class="b col-sm-12" (click)="chordClicked('chord5', 3)">3</button>
-              <button id="chord54" class="b col-sm-12" (click)="chordClicked('chord5', 4)">4</button>
-              <button id="chord55" class="b col-sm-12" (click)="chordClicked('chord5', 5)">5</button>
-              <button id="chord56" class="b col-sm-12" (click)="chordClicked('chord5', 6)">6</button>
-              <button id="chord57" class="b col-sm-12" (click)="chordClicked('chord5', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord61" class="b col-sm-12" (click)="chordClicked('chord6', 1)">1</button>
-              <button id="chord62" class="b col-sm-12" (click)="chordClicked('chord6', 2)">2</button>
-              <button id="chord63" class="b col-sm-12" (click)="chordClicked('chord6', 3)">3</button>
-              <button id="chord64" class="b col-sm-12" (click)="chordClicked('chord6', 4)">4</button>
-              <button id="chord65" class="b col-sm-12" (click)="chordClicked('chord6', 5)">5</button>
-              <button id="chord66" class="b col-sm-12" (click)="chordClicked('chord6', 6)">6</button>
-              <button id="chord67" class="b col-sm-12" (click)="chordClicked('chord6', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord71" class="b col-sm-12" (click)="chordClicked('chord7', 1)">1</button>
-              <button id="chord72" class="b col-sm-12" (click)="chordClicked('chord7', 2)">2</button>
-              <button id="chord73" class="b col-sm-12" (click)="chordClicked('chord7', 3)">3</button>
-              <button id="chord74" class="b col-sm-12" (click)="chordClicked('chord7', 4)">4</button>
-              <button id="chord75" class="b col-sm-12" (click)="chordClicked('chord7', 5)">5</button>
-              <button id="chord76" class="b col-sm-12" (click)="chordClicked('chord7', 6)">6</button>
-              <button id="chord77" class="b col-sm-12" (click)="chordClicked('chord7', 7)">7</button>
-          </div>
-          <div class="col-sm-1">
-              <button id="chord81" class="b col-sm-12" (click)="chordClicked('chord8', 1)">1</button>
-              <button id="chord82" class="b col-sm-12" (click)="chordClicked('chord8', 2)">2</button>
-              <button id="chord83" class="b col-sm-12" (click)="chordClicked('chord8', 3)">3</button>
-              <button id="chord84" class="b col-sm-12" (click)="chordClicked('chord8', 4)">4</button>
-              <button id="chord85" class="b col-sm-12" (click)="chordClicked('chord8', 5)">5</button>
-              <button id="chord86" class="b col-sm-12" (click)="chordClicked('chord8', 6)">6</button>
-              <button id="chord87" class="b col-sm-12" (click)="chordClicked('chord8', 7)">7</button>
-          </div>
-          <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button> </div>
-      </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="tonicRoot col-sm-6">
-            <h4>Tonic/Root</h4>
-            <div class="row">
-            <button id="C" class="b trBut" (click)="changeTonicRoot('C')">C</button>
-            <button id="CSHARP" class="b trBut" (click)="changeTonicRoot('CSHARP')">C#</button>
-            <button id="D" class="b trBut" (click)="changeTonicRoot('D')">D</button>
-            <button id="DSHARP" class="b trBut" (click)="changeTonicRoot('DSHARP')">D#</button>
-            <button id="E" class="b trBut" (click)="changeTonicRoot('E')">E</button>
-            <button id="F" class="b trBut" (click)="changeTonicRoot('F')">F</button>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                <h1>Chord Progression</h1>
             </div>
-            <div class="row">
-            <button id="FSHARP" class="b trBut" (click)="changeTonicRoot('FSHARP')">F#</button>
-            <button id="G" class="b trBut" (click)="changeTonicRoot('G')">G</button>
-            <button id="GSHARP" class="b trBut" (click)="changeTonicRoot('GSHARP')">G#</button>
-            <button id="A" class="b trBut" (click)="changeTonicRoot('A')">A</button>
-            <button id="ASHARP" class="b trBut" (click)="changeTonicRoot('ASHARP')">A#</button>
-            <button id="B" class="b trBut" (click)="changeTonicRoot('B')">B</button>
+            <div class="row justify-content-center col-sm-12">
+                <div class="row chordRow col-sm-8 justify-content-center border rounded">
+                    <div id="0" class="col border rounded">
+                        <button id="chord11" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord1', 1)">1</button>
+                        <button id="chord12" class="b col-sm-12" (click)="chordClicked('chord1', 2)">2</button>
+                        <button id="chord13" class="b col-sm-12" (click)="chordClicked('chord1', 3)">3</button>
+                        <button id="chord14" class="b col-sm-12" (click)="chordClicked('chord1', 4)">4</button>
+                        <button id="chord15" class="b col-sm-12" (click)="chordClicked('chord1', 5)">5</button>
+                        <button id="chord16" class="b col-sm-12" (click)="chordClicked('chord1', 6)">6</button>
+                        <button id="chord17" class="b col-sm-12" (click)="chordClicked('chord1', 7)">7</button>
+                    </div>
+                    <div id="1" class="col border rounded">
+                        <button id="chord21" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord2', 1)">1</button>
+                        <button id="chord22" class="b col-sm-12" (click)="chordClicked('chord2', 2)">2</button>
+                        <button id="chord23" class="b col-sm-12" (click)="chordClicked('chord2', 3)">3</button>
+                        <button id="chord24" class="b col-sm-12" (click)="chordClicked('chord2', 4)">4</button>
+                        <button id="chord25" class="b col-sm-12" (click)="chordClicked('chord2', 5)">5</button>
+                        <button id="chord26" class="b col-sm-12" (click)="chordClicked('chord2', 6)">6</button>
+                        <button id="chord27" class="b col-sm-12" (click)="chordClicked('chord2', 7)">7</button>
+                    </div>
+                    <div id="2" class="col border rounded">
+                            <button id="chord31" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord3', 1)">1</button>
+                            <button id="chord32" class="b col-sm-12" (click)="chordClicked('chord3', 2)">2</button>
+                            <button id="chord33" class="b col-sm-12" (click)="chordClicked('chord3', 3)">3</button>
+                            <button id="chord34" class="b col-sm-12" (click)="chordClicked('chord3', 4)">4</button>
+                            <button id="chord35" class="b col-sm-12" (click)="chordClicked('chord3', 5)">5</button>
+                            <button id="chord36" class="b col-sm-12" (click)="chordClicked('chord3', 6)">6</button>
+                            <button id="chord37" class="b col-sm-12" (click)="chordClicked('chord3', 7)">7</button>
+                        </div>
+                        <div id="3" class="col border rounded">
+                            <button id="chord41" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord4', 1)">1</button>
+                            <button id="chord42" class="b col-sm-12" (click)="chordClicked('chord4', 2)">2</button>
+                            <button id="chord43" class="b col-sm-12" (click)="chordClicked('chord4', 3)">3</button>
+                            <button id="chord44" class="b col-sm-12" (click)="chordClicked('chord4', 4)">4</button>
+                            <button id="chord45" class="b col-sm-12" (click)="chordClicked('chord4', 5)">5</button>
+                            <button id="chord46" class="b col-sm-12" (click)="chordClicked('chord4', 6)">6</button>
+                            <button id="chord47" class="b col-sm-12" (click)="chordClicked('chord4', 7)">7</button>
+                        </div>
+                        <div id="4" class="col border rounded">
+                            <button id="chord51" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord5', 1)">1</button>
+                            <button id="chord52" class="b col-sm-12" (click)="chordClicked('chord5', 2)">2</button>
+                            <button id="chord53" class="b col-sm-12" (click)="chordClicked('chord5', 3)">3</button>
+                            <button id="chord54" class="b col-sm-12" (click)="chordClicked('chord5', 4)">4</button>
+                            <button id="chord55" class="b col-sm-12" (click)="chordClicked('chord5', 5)">5</button>
+                            <button id="chord56" class="b col-sm-12" (click)="chordClicked('chord5', 6)">6</button>
+                            <button id="chord57" class="b col-sm-12" (click)="chordClicked('chord5', 7)">7</button>
+                        </div>
+                        <div id="5" class="col border rounded">
+                            <button id="chord61" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord6', 1)">1</button>
+                            <button id="chord62" class="b col-sm-12" (click)="chordClicked('chord6', 2)">2</button>
+                            <button id="chord63" class="b col-sm-12" (click)="chordClicked('chord6', 3)">3</button>
+                            <button id="chord64" class="b col-sm-12" (click)="chordClicked('chord6', 4)">4</button>
+                            <button id="chord65" class="b col-sm-12" (click)="chordClicked('chord6', 5)">5</button>
+                            <button id="chord66" class="b col-sm-12" (click)="chordClicked('chord6', 6)">6</button>
+                            <button id="chord67" class="b col-sm-12" (click)="chordClicked('chord6', 7)">7</button>
+                        </div>
+                        <div id="6" class="col border rounded">
+                            <button id="chord71" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord7', 1)">1</button>
+                            <button id="chord72" class="b col-sm-12" (click)="chordClicked('chord7', 2)">2</button>
+                            <button id="chord73" class="b col-sm-12" (click)="chordClicked('chord7', 3)">3</button>
+                            <button id="chord74" class="b col-sm-12" (click)="chordClicked('chord7', 4)">4</button>
+                            <button id="chord75" class="b col-sm-12" (click)="chordClicked('chord7', 5)">5</button>
+                            <button id="chord76" class="b col-sm-12" (click)="chordClicked('chord7', 6)">6</button>
+                            <button id="chord77" class="b col-sm-12" (click)="chordClicked('chord7', 7)">7</button>
+                        </div>
+                        <div id="7" class="col border rounded">
+                            <button id="chord81" class="b col-sm-12" style="background-color: red;" (click)="chordClicked('chord8', 1)">1</button>
+                            <button id="chord82" class="b col-sm-12" (click)="chordClicked('chord8', 2)">2</button>
+                            <button id="chord83" class="b col-sm-12" (click)="chordClicked('chord8', 3)">3</button>
+                            <button id="chord84" class="b col-sm-12" (click)="chordClicked('chord8', 4)">4</button>
+                            <button id="chord85" class="b col-sm-12" (click)="chordClicked('chord8', 5)">5</button>
+                            <button id="chord86" class="b col-sm-12" (click)="chordClicked('chord8', 6)">6</button>
+                            <button id="chord87" class="b col-sm-12" (click)="chordClicked('chord8', 7)">7</button>
+                        </div>
+                </div>
+                <div class="col-sm-2 justify-content-center">
+                    <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
+                    <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>  
+                </div>
             </div>
         </div>
-        <div class="mode col-sm-6">
-            <h4>Mode</h4>
-            <button id = "ionian" class="b" (click)="changeMode('ionian')">Ionian</button>
-            <button id = "aeolian" class="b" (click)="changeMode('aeolian')">Aeolian</button>
-        </div>
-
-        <div>
-      <h4>BPM</h4>
-      <div  class="bpmClass">
-        <button class="b">45</button>
-        <button class="b">60</button>
-        <button class="b">75</button>
-        <button class="b">90</button>
-        <button class="b">105</button>
-        <button class="b">120</button>
-        <button class="b">135</button>
-        <button class="b">150</button>
-      </div>
-    </div>
-    </div>
-    </div>
-</div>
+          <div class="row justify-content-center col-sm-12">
+              <div class="tonicRoot col-sm-5 border rounded">
+                  <h4>Tonic/Root</h4>
+                    <div class="row justify-content-center">
+                        <button id="C" class="b trBut" style="background-color: red;" (click)="changeTonicRoot('C')">C</button>
+                        <button id="CSHARP" class="b trBut" (click)="changeTonicRoot('CSHARP')">C#</button>
+                        <button id="D" class="b trBut" (click)="changeTonicRoot('D')">D</button>
+                        <button id="DSHARP" class="b trBut" (click)="changeTonicRoot('DSHARP')">D#</button>
+                        <button id="E" class="b trBut" (click)="changeTonicRoot('E')">E</button>
+                        <button id="F" class="b trBut" (click)="changeTonicRoot('F')">F</button>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button id="FSHARP" class="b trBut" (click)="changeTonicRoot('FSHARP')">F#</button>
+                        <button id="G" class="b trBut" (click)="changeTonicRoot('G')">G</button>
+                        <button id="GSHARP" class="b trBut" (click)="changeTonicRoot('GSHARP')">G#</button>
+                        <button id="A" class="b trBut" (click)="changeTonicRoot('A')">A</button>
+                        <button id="ASHARP" class="b trBut" (click)="changeTonicRoot('ASHARP')">A#</button>
+                        <button id="B" class="b trBut" (click)="changeTonicRoot('B')">B</button>
+                    </div>
+                </div>
+              <div class="mode col-sm-2 border rounded">
+                  <h4>Mode</h4>
+                  <button id = "ionian" class="b" style="background-color: red;" (click)="changeMode('ionian')">Ionian</button>
+                  <button id = "aeolian" class="b" (click)="changeMode('aeolian')">Aeolian</button>
+              </div>
+              <div class="bpm col-sm-4 border rounded">    
+                <h4>BPM</h4>
+                <div class="bpmClass">
+                    <button id='1n' (click)="changeBPM('1')" style="background-color: red;" class="b">30</button>
+                    <button id='2n' (click)="changeBPM('2')" class="b">60</button>
+                    <button id='3n' (click)="changeBPM('3')" class="b">90</button>
+                    <button id='4n' (click)="changeBPM('4')" class="b">120</button>
+                    <button id='5n' (click)="changeBPM('5')" class="b">150</button>
+                    <button id='6n' (click)="changeBPM('6')" class="b">180</button>
+                    <button id='7n' (click)="changeBPM('7')" class="b">210</button>
+                    <button id='8n' (click)="changeBPM('8')" class="b">240</button>
+                </div>
+            </div>
+            </div>
+          </div>
+    
+      
