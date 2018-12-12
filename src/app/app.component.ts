@@ -160,7 +160,6 @@ export class AppComponent {
     }
   }
   
-<<<<<<< HEAD
   addButton(){
     var element = document.createElement("button");
     element.innerHTML = "hello"
@@ -173,9 +172,6 @@ export class AppComponent {
       element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
   }
-=======
- 
->>>>>>> bfe637cf843c3efe479c9f1017ebd75e16771f0a
 
   play() {
   
