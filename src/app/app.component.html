@@ -284,4 +284,28 @@
                 </div>
             </div>
             </div>
+			
+		<h1>Arpeggio Pattern</h1>
+		<canvas id="myCanvas" width="420" height="420" style="border:3px solid #892c76;">Your browser does not support the HTML5 canvas tag.</canvas> 
+
+		<form>
+			<div class="radio-group">
+				<input type="radio" id="option-one" (click)="step_opt1_handler()" name="selector"><label for="option-one">3 notes</label>
+				<input type="radio" id="option-two" (click)="step_opt2_handler()" name="selector"><label for="option-two">4 notes</label>
+				<input type="radio" id="option-three" (click)="step_opt3_handler()" name="selector"><label for="option-three">5 notes</label>
+				<input type="radio" id="option-four" (click)="step_opt4_handler()" name="selector"><label for="option-four">6 notes</label>
+			</div>
+		</form>
+   
+		<div id="container" class="quantity">
+			<input type="number" name="value" id="value1" min="1" max="6" value="1" (click)="autodraw()">
+			<input type="number" name="value" id="value2" min="1" max="6" value="2" (click)="autodraw()">
+			<input type="number" name="value" id="value3" min="1" max="6" value="3" (click)="autodraw()">
+			<input type="number" name="value" id="value4" min="1" max="6" value="4" (click)="autodraw()">
+			<input type="number" name="value" id="value5" min="1" max="6" value="5" (click)="autodraw()">
+			<input type="number" name="value" id="value6" min="1" max="6" value="6" (click)="autodraw()">
+		</div><br><br>		
+			
+			
+			
           </div>
