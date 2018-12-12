@@ -88,6 +88,19 @@
             <div class="col-sm-12">
                 <h1>Chord Progression</h1>
             </div>
+            <div class="row col-sm-3 justify-content-center">
+                <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
+                <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
+                <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
+            </div>
+            <div class="row col-sm-3 justify-content-center">
+                <div class="col-sm-3"> <button class="playBut" (click)="entirePlayBut()">PLAY PATTERNS</button></div>
+                <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
+                <div class="col-sm-3">   
+                    <div class="col-sm-1"> <button class="playCurrentBut" (click)="addPattern()">+</button></div>  
+                    <div class="col-sm-1"> <button class="playCurrentBut" (click)="removeLastPattern()">-</button></div>  
+                </div>
+            </div>
             <div class="row justify-content-center col-sm-12">
                 Columns: <button (click)="addCol()">+</button>
                 <button (click)="removeCol()">-</button>
@@ -238,11 +251,7 @@
                             <button id="chord167" class="b col-sm-11" (click)="chordClicked('chord16', 7, 16)">7</button>
                         </div>
                 </div>
-                <div class="col-sm-2 justify-content-center">
-                    <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
-                    <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
-                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
-                </div>
+                
             </div>
         </div>
           <div class="row justify-content-center col-sm-12">
