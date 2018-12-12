@@ -1,11 +1,13 @@
 import { Component } from '@angular/core'
 import * as tone from 'tone'
+import { attachEmbeddedView } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'musicProg';
   bpm = '1n'
@@ -158,6 +160,7 @@ export class AppComponent {
     }
   }
   
+<<<<<<< HEAD
   addButton(){
     var element = document.createElement("button");
     element.innerHTML = "hello"
@@ -170,6 +173,9 @@ export class AppComponent {
       element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
   }
+=======
+ 
+>>>>>>> bfe637cf843c3efe479c9f1017ebd75e16771f0a
 
   play() {
   
@@ -205,15 +211,17 @@ export class AppComponent {
       //get mode 
       let mode = this.mode
       let tr = this.tonicRoot
-      tempArr[num] = this[mode][tr][this[c] - 1]
+      tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
       if(num == 7){
-        tone.Transport.start();
+        tone.Transport.start(); //BPM
       }
     } 
     console.log(tempArr)
-    
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
+  
+  
+
   stop() {
     tone.Transport.cancel()
   }
