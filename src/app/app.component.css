@@ -77,11 +77,24 @@ button:active{
     cursor: pointer;
     border-radius: 15px;
 }
+.playCBut{
+    background-color: purple;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
+}
 .bpmClass{
   border: 5px black;
   padding: 5px;
   border-radius: 5px;
-  
+
   /* width: 400px; */
 }
 .border{
