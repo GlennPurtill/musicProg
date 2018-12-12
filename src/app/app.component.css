@@ -103,3 +103,88 @@ button:active{
 .bpm{
     background-color: rgba(128, 128, 128, 0.301);
 }
+
+
+
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+label {
+  color: #892c76;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  box-sizing: content-box;
+  width: 60px;
+  padding: 10px 20px;
+  margin: -7px;
+  
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+     user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+input[type=radio]:checked + label {
+  color: black;
+  background: #42f4bc;
+}
+
+label + input[type=radio] + label {
+  border-left: solid 3px #42f4bc;
+}
+
+.radio-group {
+  border: solid 3px #42f4bc;
+  display: inline-block;
+  margin: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/*input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button{
+-webkit-appearance: none;
+margin: 0;
+}
+
+input[type=number]{
+-moz-appearance: textfield;
+}*/
+
+
+
+canvas {
+	margin:auto;
+}
+	
+/*input {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}*/
+.loader {
+    font-family: sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%);
+    display: none;
+}
+.loader.loading  { display: block; }
+
+/*---------------------------- number input --------------------------------------------------*/
+input[type=number]{
+  color: white;
+  background: #332f35;
+  border: 3px solid #892c76;
+  border-radius: 60px;
+  padding:10px;
+  width: 60px;
+  margin: 5px;
+}
