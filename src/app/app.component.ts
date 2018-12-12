@@ -177,11 +177,11 @@ export class AppComponent {
     var loop = new tone.Loop(function(time){
       synth.triggerAttackRelease(tempArr[index], 0.1, time)
       index++
-      if(index == 7){
+      if(index == 8){
         index = 0
       }
       console.log();
-    }, "1n").start(0);
+    }, "8n").start(0);
 
     for (let num = 0; num<8; num++){
       let c = (num + 1) + ""
