@@ -54,7 +54,9 @@ export class AppComponent {
   newRowInnerHtml = 1
   octives = 2
   
-  disto = "off"
+  distortionS = "off"
+  reverbS = "off"
+  delayS = "off"
 
 
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
@@ -135,14 +137,38 @@ export class AppComponent {
   }
   
    distortionSwitch(val){
-    this.disto = val
-    if(this.disto == "on"){
+    this.distortionS = val
+    if(this.distortionS == "on"){
       document.getElementById("distortion").style.backgroundColor = 'red';
 	  document.getElementById("nodistortion").style.backgroundColor = '';
     }
     else{
 		document.getElementById("distortion").style.backgroundColor = '';
 		document.getElementById("nodistortion").style.backgroundColor = 'red';
+	}
+  }
+  
+   reverbSwitch(val){
+    this.reverbS = val
+    if(this.reverbS == "on"){
+      document.getElementById("reverb").style.backgroundColor = 'red';
+	  document.getElementById("noreverb").style.backgroundColor = '';
+    }
+    else{
+		document.getElementById("reverb").style.backgroundColor = '';
+		document.getElementById("noreverb").style.backgroundColor = 'red';
+	}
+  }
+  
+   delaySwitch(val){
+    this.delayS = val
+    if(this.delayS == "on"){
+      document.getElementById("delay").style.backgroundColor = 'red';
+	  document.getElementById("nodelay").style.backgroundColor = '';
+    }
+    else{
+		document.getElementById("delay").style.backgroundColor = '';
+		document.getElementById("nodelay").style.backgroundColor = 'red';
 	}
   }
 
@@ -221,7 +247,7 @@ export class AppComponent {
 playCurrentTrack(){
   this.stop()
     var dist = new tone.Distortion(0.9).toMaster();
-	if(this.disto == "on"){
+	if(this.distortionS == "on"){
 		var synth = new tone.Synth().connect(dist);
 	}
 	else{
@@ -272,13 +298,24 @@ playCurrentTrack(){
 
   play() {
 
-    var dist = new tone.Distortion(0.9).toMaster();
-	if(this.disto == "on"){
-		var synth = new tone.Synth().connect(dist);
+    var dist = new tone.Distortion(0.9);
+	var reverb = new tone.JCReverb(0.9);
+	var delay = new tone.FeedbackDelay(0.8);
+	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+	if(this.distortionS == "off"){
+		dist.wet.value = 0;
 	}
-	else{
+	if(this.reverbS == "off"){
+		reverb.wet.value = 0;
+	}
+	if(this.delayS == "off"){
+		delay.wet.value = 0;
+	}
+	//var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+
+	/*else{
 		var synth = new tone.Synth().toMaster();
-	}
+	}*/
 	
     let x = this.chord1 //num value of button pressed (1..7)
     let time = 5
@@ -367,6 +404,8 @@ playCurrentTrack(){
 		this.drawing(maxl);
 		// audio 
 		this.distortionSwitch("off");
+		this.reverbSwitch("off");
+		this.delaySwitch("off");
   }
   
 
