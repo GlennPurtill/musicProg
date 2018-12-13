@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
-
+import * as p5 from 'p5';
+let setVol
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -60,10 +61,10 @@ export class AppComponent {
   end = 7
   alreadyDone = 8
   octives = 2
-  
-  distortionS = "off"
-  reverbS = "off"
-  delayS = "off"
+
+  distortionS = "on"
+  reverbS = "on"
+  delayS = "on"
 
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
@@ -144,42 +145,47 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curMode = val
   }
-  
+
    distortionSwitch(val){
-    this.distortionS = val
-    if(this.distortionS == "on"){
+    if(this.distortionS == "off"){
+      document.getElementById("distortion").innerHTML="ON";
       document.getElementById("distortion").style.backgroundColor = 'red';
-	  document.getElementById("nodistortion").style.backgroundColor = '';
+      this.distortionS = "on";
     }
     else{
-		document.getElementById("distortion").style.backgroundColor = '';
-		document.getElementById("nodistortion").style.backgroundColor = 'red';
-	}
+      document.getElementById("distortion").innerHTML="OFF";
+  		document.getElementById("distortion").style.backgroundColor = '';
+      this.distortionS = "off";
+	   }
   }
-  
+
+
+
    reverbSwitch(val){
-    this.reverbS = val
-    if(this.reverbS == "on"){
-      document.getElementById("reverb").style.backgroundColor = 'red';
-	  document.getElementById("noreverb").style.backgroundColor = '';
-    }
-    else{
-		document.getElementById("reverb").style.backgroundColor = '';
-		document.getElementById("noreverb").style.backgroundColor = 'red';
-	}
+     if(this.reverbS == "off"){
+       document.getElementById("reverb").innerHTML="ON";
+       document.getElementById("reverb").style.backgroundColor = 'red';
+       this.reverbS = "on";
+     }
+     else{
+       document.getElementById("reverb").innerHTML="OFF";
+ 		   document.getElementById("reverb").style.backgroundColor = '';
+       this.reverbS = "off";
+ 	   }
   }
-  
+
    delaySwitch(val){
-    this.delayS = val
-    if(this.delayS == "on"){
-      document.getElementById("delay").style.backgroundColor = 'red';
-	  document.getElementById("nodelay").style.backgroundColor = '';
-    }
-    else{
-		document.getElementById("delay").style.backgroundColor = '';
-		document.getElementById("nodelay").style.backgroundColor = 'red';
-	}
-  }
+     if(this.delayS == "off"){
+     document.getElementById("delay").innerHTML="ON";
+     document.getElementById("delay").style.backgroundColor = 'red';
+     this.delayS = "on";
+     }
+     else{
+       document.getElementById("delay").innerHTML="OFF";
+ 		   document.getElementById("delay").style.backgroundColor = '';
+       this.delayS = "off";
+ 	   }
+   }
 
   changeTonicRoot(val){
     this.tonicRoot = val
@@ -233,11 +239,17 @@ export class AppComponent {
         this.check[at]==true
       }
     }
+<<<<<<< Updated upstream
     
       console.log(this.check)
     
     }
   
+=======
+  }
+
+
+>>>>>>> Stashed changes
   addButton(){
     if(this.curAmountRows < 28){
       this.rows_that_need_adding++
@@ -273,7 +285,7 @@ playCurrentTrack(){
 	else{
 		var synth = new tone.Synth().toMaster();
 	}
-  
+
   let x = this.chord1 //num value of button pressed (1..7)
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
@@ -313,7 +325,7 @@ playCurrentTrack(){
   play() {
     
 
-    var dist = new tone.Distortion(0.9);
+  var dist = new tone.Distortion(0.9);
 	var reverb = new tone.JCReverb(0.9);
 	var delay = new tone.FeedbackDelay(0.8);
 	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
@@ -331,23 +343,33 @@ playCurrentTrack(){
 	/*else{
 		var synth = new tone.Synth().toMaster();
 	}*/
-	
+
     let x = this.chord1 //num value of button pressed (1..7)
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
+<<<<<<< Updated upstream
     let curCols = this.curAmountCols++
 	
+=======
+
+>>>>>>> Stashed changes
 		//arpeggio
 	let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 	var maxl= parseInt(eleml[0].max);
 	var pattern = [];
 	for (var i = 0; i < maxl; ++i) {// reads pattern input values
-		pattern.push(eleml[i].value);	
+		pattern.push(eleml[i].value);
 	}
+<<<<<<< Updated upstream
 	
 	
     // curCols = parseInt(this.curAmountCols) + 1
+=======
+
+
+    let curCols = parseInt(this.curAmountCols) + 1
+>>>>>>> Stashed changes
     console.log("CurCols: " + curCols)
     let counter = 0
     var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
@@ -385,6 +407,13 @@ playCurrentTrack(){
 
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
+<<<<<<< Updated upstream
+=======
+
+
+
+
+>>>>>>> Stashed changes
   stop() {
     // for(let i = 0; i < this.curAmountCols+1; i++){
     //   document.getElementById(i.toString()).style.backgroundColor= '';
@@ -392,9 +421,9 @@ playCurrentTrack(){
     tone.Transport.cancel()
   }
 
-  
+
   //--------------------------------------------------------------------------------------------------------------------------------------------
-//---------------------------------------------------------------- visual -------------------------------------------------------------------- 
+//---------------------------------------------------------------- visual --------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------------
   ngOnInit(){
 			//radio btn handlers
@@ -411,21 +440,25 @@ playCurrentTrack(){
 		step_opt4.checked = true;//default value
 		var maxl = 6;
 		this.drawing(maxl);
-		// audio 
+		// audio
 		this.distortionSwitch("off");
 		this.reverbSwitch("off");
 		this.delaySwitch("off");
+    this.distSlide();
   }
-  
 
-  
+  // Slider for distortion intensity
+  distSlide(){
+  //  setVol = p5.createSlider(0, 1, 0, 0);
+  }
+
   	 autodraw() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		var maxl= parseInt(elem[0].max);
 		this.drawing(maxl);
 	}
-	
-	
+
+
    valcheck(val) { //this function reduces the value of input if it is greater than acceptable maximum limit
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		var maxl= parseInt(elem[0].max);
@@ -433,13 +466,13 @@ playCurrentTrack(){
 			while(parseInt(elem[i].value) > maxl){
 				console.log(elem);
 				let temp = parseInt(elem[i].value) - 1;
-				elem[i].value = "" + (temp);	
+				elem[i].value = "" + (temp);
 			}
-	
+
 		}
 	}
-	
-	
+
+
 	 drawing(val){ // this function draws the arpeggio pattern on canvas
 		var maxl = val;
 		var ar6 = [360,300,240,180,120,60];
@@ -478,7 +511,7 @@ playCurrentTrack(){
 				ctx.stroke();
 				ctx.fill();
 			};
-			ctx.closePath();			
+			ctx.closePath();
 		}
 		if(maxl==4){
 			for(i=0; i< 4;i++){
@@ -512,7 +545,7 @@ playCurrentTrack(){
 				ctx.stroke();
 				ctx.fill();
 			};
-			ctx.closePath();			
+			ctx.closePath();
 		}
 		if(maxl==6){
 			for(i=0; i< 6;i++){
@@ -529,16 +562,16 @@ playCurrentTrack(){
 				ctx.stroke();
 				ctx.fill();
 			};
-			ctx.closePath();			
+			ctx.closePath();
 		}
-		
+
 	}
 
      step_opt1_handler() {
 		var maxl=3;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
-			elem[i].max = "3";	
+			elem[i].max = "3";
 			if(i >= 3){
 				elem[i].style.display = "none";
 			}
@@ -548,12 +581,12 @@ playCurrentTrack(){
 		}
 		this.drawing(maxl);
     }
-	
+
 	 step_opt2_handler() {
 		var maxl=4;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
-			elem[i].max = "4";	
+			elem[i].max = "4";
 			if(i >= 4){
 				elem[i].style.display = "none";
 			}
@@ -563,12 +596,12 @@ playCurrentTrack(){
 		}
 		this.drawing(maxl);
     }
-	
+
 	 step_opt3_handler() {
 		var maxl=5;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
-			elem[i].max = "5";	
+			elem[i].max = "5";
 			if(i >= 5){
 				elem[i].style.display = "none";
 			}
@@ -578,20 +611,20 @@ playCurrentTrack(){
 		}
 		this.drawing(maxl);
     }
-	
+
 	 step_opt4_handler() {
 		var maxl=6;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
-			elem[i].max = "6";	
+			elem[i].max = "6";
 			elem[i].style.display = "inline-block";
 		}
 		this.drawing(maxl);
     }
 
-	
-	
-	
+
+
+
 // --------------------------------------- FFT Visualizer --------------------------------------------------------
 /*
 function toggleSong() {
@@ -631,5 +664,5 @@ function draw() {
   }
 }*/
 
-  
+
 }
