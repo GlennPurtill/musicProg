@@ -14,6 +14,7 @@ let bassSynth = new tone.MembraneSynth().toMaster()
 export class AppComponent {
 
   play() {
+    console.log("HEL")
     loopBeat = new tone.loop(bassTrack, '4n')
     tone.Transport.start()
     loopBeat.start(0)
