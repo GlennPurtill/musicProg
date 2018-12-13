@@ -156,41 +156,6 @@ export class AppComponent {
     this.curTonicRoot = val
   }
 
-
- 
-
-
-  play() {
-
-    let bassSynth = new tone.PluckSynth().toMaster()
-    let synth2 = new tone.FMSynth().toMaster()
-   
-    
-
-    var loopBeat = new tone.Loop(bass,  "8n").start();
-
-    tone.Transport.start()
-    loopBeat.start(0);
-
-
-
-    function bass(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
-      let currentBeat = tone.Transport.position.split(":")
-      if(currentBeat[0] == 0 || currentBeat[0] == 1){
-        console.log("bass")
-        bassSynth.triggerAttackRelease("D3", "4n", time , 1)
-      }
-      let element = (<HTMLElement><any>document.createElement("button"));
-      let foo = document.getElementById(at.toString());
-      foo.appendChild(element);
-      element.innerHTML = counter.toString() + "(" + this.octives + ")"
-      counter++
-      this.newRowInnerHtml.toString()
-      element.classList.add("col-sm-12")
-      element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
-    }
-  }
-
   
   addButton(){
     this.rows_that_need_adding++
