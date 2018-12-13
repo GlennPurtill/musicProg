@@ -241,8 +241,23 @@
                 <div class="col-sm-2 justify-content-center">
                     <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
                     <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
+<<<<<<< HEAD
                     <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
+=======
+                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div> 				
+>>>>>>> 8b5715b3cb6335cbdc8ed6efe889269ee8e6ffe2
                 </div>
+				<div class="mode col-sm-2 border rounded">
+					<h4>Distortion</h4>
+					<button id = "nodistortion" class="b" (click)="distortionSwitch('off')">off</button>
+					<button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
+					<h4>Reverb</h4>
+					<button id = "noreverb" class="b" (click)="reverbSwitch('off')">off</button>
+					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
+					<h4>Delay</h4>
+					<button id = "nodelay" class="b" (click)="delaySwitch('off')">off</button>
+					<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+				</div>	
             </div>
         </div>
           <div class="row justify-content-center col-sm-12">
@@ -284,4 +299,28 @@
                 </div>
             </div>
             </div>
+			
+		<h1>Arpeggio Pattern</h1>
+		<canvas id="myCanvas" width="420" height="420" style="border:3px solid #892c76;">Your browser does not support the HTML5 canvas tag.</canvas> 
+
+		<form>
+			<div class="radio-group">
+				<input type="radio" id="option-one" (click)="step_opt1_handler()" name="selector"><label for="option-one">3 notes</label>
+				<input type="radio" id="option-two" (click)="step_opt2_handler()" name="selector"><label for="option-two">4 notes</label>
+				<input type="radio" id="option-three" (click)="step_opt3_handler()" name="selector"><label for="option-three">5 notes</label>
+				<input type="radio" id="option-four" (click)="step_opt4_handler()" name="selector"><label for="option-four">6 notes</label>
+			</div>
+		</form>
+   
+		<div id="container" class="quantity">
+			<input type="number" name="value" id="value1" min="1" max="6" value="1" (click)="autodraw()">
+			<input type="number" name="value" id="value2" min="1" max="6" value="2" (click)="autodraw()">
+			<input type="number" name="value" id="value3" min="1" max="6" value="3" (click)="autodraw()">
+			<input type="number" name="value" id="value4" min="1" max="6" value="4" (click)="autodraw()">
+			<input type="number" name="value" id="value5" min="1" max="6" value="5" (click)="autodraw()">
+			<input type="number" name="value" id="value6" min="1" max="6" value="6" (click)="autodraw()">
+		</div><br><br>		
+			
+			
+			
           </div>
