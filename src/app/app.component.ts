@@ -3,15 +3,45 @@ import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 
 let loopBeat;
-let bassSynth = new tone.MembraneSynth().toMaster()
-let arpeggioSynth = new tone.MonoSynth().toMaster()
+let bassSynth = new tone.MembraneSynth().toMaster();
+let arpeggioSynth = new tone.MonoSynth(
+  {
+    "frequency"  : "C4" ,
+    "detune"  : 0 ,
+    "oscillator"  : {
+      "type"  : "square"
+    }  ,
+    "filter"  : {
+    "Q"  : 6 ,
+    "type"  : "lowpass" ,
+    "rolloff"  : -24
+    }  ,
+    "envelope"  : {
+    "attack"  : 0.005 ,
+    "decay"  : 0.1 ,
+    "sustain"  : 0.9 ,
+    "release"  : 1
+    }  ,
+    "filterEnvelope"  : {
+    "attack"  : 0.06 ,
+    "decay"  : 0.2 ,
+    "sustain"  : 0.5 ,
+    "release"  : 2 ,
+    "baseFrequency"  : 200 ,
+    "octaves"  : 7 ,
+    "exponent"  : 2
+    }
+  }
+).toMaster();
 let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
 let tempArpeggio = ['C6','D6','E6','F6','G6','A6']
+let tempArpeggioIndex = 0;
 let index = 0;
 let counter = 0;
 let curCols;
 let maxl;
 let pattern;
+let flag_raise = true;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -212,9 +242,7 @@ addButton(){
 
   play() {
     let x = this.chord1 //num value of button pressed (1..7)
-    
-
-    loopBeat = new tone.Loop(this.bothTracks, "6n"); // second parameter shoudld be how many notes selected from arpeggaitor
+    loopBeat = new tone.Loop(this.bothTracks, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
     tone.Transport.start();
     loopBeat.start(0);
     let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
@@ -236,12 +264,12 @@ addButton(){
       //get mode
       let mode = this.mode
       let tr = this.tonicRoot
-      tempArr[num] = this[mode][tr][1] //dynamically changing scale
+      tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
     }
 
     for (let num =0 ; num<maxl; num++){
-      let d = (num + 1) + ""
-      var c = "value" + d
+      // let d = (num + 1) + ""
+      // var c = "value" + d
       let mode = this.mode
       let tr = this.tonicRoot
       tempArpeggio[num] = this[mode][tr][pattern[num]-1] 
@@ -252,9 +280,25 @@ addButton(){
 
 
   bothTracks(time){
+    
     let currentBeat = tone.Transport.position.split(":");
     console.log(currentBeat)
-    arpeggioSynth.triggerAttackRelease(tempArpeggio[index], '8n', time, 0.2)   // parameters are note, duration, time, velocity(vel in normal range)
+
+    console.log("bass .. " + tempArr[index])
+    bassSynth.triggerAttackRelease(tempArr[index], '1n', time, 1)
+    
+    loopBeat = new tone.Loop(function(){
+      console.log("arpeggio .. " + tempArpeggio[index])
+      arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
+      tempArpeggioIndex++;
+      
+      if(tempArpeggioIndex == 6){
+        tempArpeggioIndex = 0
+      }
+    }, this.bpm).start(0); 
+    
+    
+       // parameters are note, duration, time, velocity(vel in normal range)
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
     }
@@ -264,7 +308,7 @@ addButton(){
     if(index == curCols){
       index = 0
       }
-      console.log(counter++);
+    
   }
 
   
