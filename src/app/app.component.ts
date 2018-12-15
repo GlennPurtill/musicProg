@@ -1,8 +1,13 @@
 import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
+import * as p5 from 'p5';
+import "p5/lib/addons/p5.sound";
+import "p5/lib/addons/p5.dom";
 
 let loopBeat;
+let bass = new tone.DuoSynth().toMaster()
+let arpeggio = new tone.PluckSynth().toMaster()
 
 @Component({
   selector: 'app-root',
@@ -136,15 +141,15 @@ export class AppComponent {
   }
   
    delaySwitch(val){
-    this.delayS = val
-    if(this.delayS == "on"){
-      document.getElementById("delay").style.backgroundColor = 'red';
-	  document.getElementById("nodelay").style.backgroundColor = '';
+      this.delayS = val
+      if(this.delayS == "on"){
+        document.getElementById("delay").style.backgroundColor = 'red';
+      document.getElementById("nodelay").style.backgroundColor = '';
+      }
+      else{
+      document.getElementById("delay").style.backgroundColor = '';
+      document.getElementById("nodelay").style.backgroundColor = 'red';
     }
-    else{
-		document.getElementById("delay").style.backgroundColor = '';
-		document.getElementById("nodelay").style.backgroundColor = 'red';
-	}
   }
 
   changeTonicRoot(val){
@@ -176,158 +181,63 @@ export class AppComponent {
     }
     this.newRowInnerHtml++
   }
-playCurrentTrack(){
-  this.stop()
-    var dist = new tone.Distortion(0.9).toMaster();
-	if(this.distortionS == "on"){
-		var synth = new tone.Synth().connect(dist);
-	}
-	else{
-		var synth = new tone.Synth().toMaster();
-	}
-  
-  let x = this.chord1 //num value of button pressed (1..7)
-  let time = 5
-  let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
-  let index = 0;
-  let curCols = parseInt(this.curAmountCols) + 1
-  console.log("CurCols: " + curCols)
-  let counter = 0
-  var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
-    synth.triggerAttackRelease(tempArr[index], 0.2, time)
-    //console.log(this.curBlue)
-    if(this.curBlue!=undefined){
-      document.getElementById(this.curBlue).style.backgroundColor= '';
-    }
-    document.getElementById(index.toString()).style.backgroundColor= 'blue';
-    this.curBlue = index.toString()
-
-    index++
-    if(index == curCols){
-      this.stop()
-    }
-    //console.log(counter++);
-  }, this.bpm).start(0);
-
-  for (let num = 0; num<curCols+1; num++){
-    let c = (num + 1) + ""
-    c = "chord" + c
-    let d = "ionian"
-    let example = "D"
-    //get mode
-    let mode = this.mode
-    let tr = this.tonicRoot
-    tempArr[num] = this[mode][tr][this[c] - 1]
-    if(num == 7){
-      tone.Transport.start();
-    }
-  }
-  console.log(tempArr)
-
-
-}
-
 
   play() {
 
-    var dist = new tone.Distortion(0.9);
-	var reverb = new tone.JCReverb(0.9);
-	var delay = new tone.FeedbackDelay(0.8);
-	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
-	if(this.distortionS == "off"){
-		dist.wet.value = 0;
-	}
-	if(this.reverbS == "off"){
-		reverb.wet.value = 0;
-	}
-	if(this.delayS == "off"){
-		delay.wet.value = 0;
-	}
-	//var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
-
-	/*else{
-		var synth = new tone.Synth().toMaster();
-	}*/
-	
+    
     let x = this.chord1 //num value of button pressed (1..7)
-    let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
-	
-		//arpeggio
-	let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-	var maxl= parseInt(eleml[0].max);
-	var pattern = [];
-	for (var i = 0; i < maxl; ++i) {// reads pattern input values
-		pattern.push(eleml[i].value);	
-	}
+    let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+    var maxl= parseInt(eleml[0].max);
+    var pattern = [];
+    for (var i = 0; i < maxl; ++i) {// reads pattern input values
+      pattern.push(eleml[i].value);	
+    }
 	
 	
-    // let curCols = parseInt(this.curAmountCols) + 1
-    // console.log("CurCols: " + curCols)
-    // let counter = 0
-    // var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
-    //   synth.triggerAttackRelease(tempArr[index], 0.2, time)
-    //   console.log(this.curBlue)
-    //   if(this.curBlue!=undefined){
-    //     document.getElementById(this.curBlue).style.backgroundColor= '';
-    //   }
-    //   if(currentBeat[0] == 0){
-       
-
-    //     if (currentBeat[1] == 0){
-    //       synth2.triggerAttackRelease("D5", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 1){
-    //       synth2.triggerAttackRelease("D6", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 2){
-    //       synth2.triggerAttackRelease("A5", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 3){
-    //       synth2.triggerAttackRelease("G5", "4n", time, 1)
-    //     }
-        
-        
-    //   }
-
-    //   if(currentBeat[0] == 1){
-    //     if (currentBeat[1] == 0){
-    //       synth2.triggerAttackRelease("G6", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 1){
-    //       synth2.triggerAttackRelease("A5", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 2){
-    //       synth2.triggerAttackRelease("F#6", "4n", time, 1)
-    //     }
-    //     if (currentBeat[1] == 3){
-    //       synth2.triggerAttackRelease("A5", "4n", time, 1)
-    //     }
-    //   }
-      
-    //   console.log(tone.Transport.position)
-      
-    // }
+    let curCols = parseInt(this.curAmountCols) + 1
+    console.log("CurCols: " + curCols)
+    tone.Transport.start()
+    var loop = new tone.Loop(this.drumTrack, this.bpm).start(0)
 
   }
-  
-  
+
+  drumTrack(time){
+
+  }
   
 
 
   stop() {
-
-
-    tone.Transport.cancel()
-
+      for(let i = 0; i < parseInt(this.curAmountCols)+1; i++){
+        document.getElementById(i.toString()).style.backgroundColor= '';
+      }
+      tone.Transport.cancel()
   }
-
   
   //--------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------- visual -------------------------------------------------------------------- 
 //--------------------------------------------------------------------------------------------------------------------------------------------
   ngOnInit(){
+
+    console.log(p5)
+    var myp5 = new p5( function( sketch ) {
+
+      var x = 100; 
+      var y = 100;
+    
+      sketch.setup = function() {
+        sketch.createCanvas(200, 200);
+      };
+    
+      sketch.draw = function() {
+        sketch.background(0);
+        sketch.fill(255);
+        sketch.rect(x,y,50,50);
+      };
+    });
+    
 			//radio btn handlers
       /*  var step_opt1 = document.getElementById('option-one');
         var step_opt2 = document.getElementById('option-two');
