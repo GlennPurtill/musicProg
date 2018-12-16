@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
 
 import { DrumsoundsService } from './drumsounds.service';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({

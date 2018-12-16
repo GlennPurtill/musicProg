@@ -235,9 +235,7 @@ export class AppComponent {
 
    
       
-      this.myFirstService.getData().subscribe(data => {
-        this.records = (data.txt)
-      });
+      this.myFirstService.getData().subscribe(results => mySound = results);
       
     
     // this.myFirstService.getData().subscribe(data => {
@@ -259,7 +257,7 @@ export class AppComponent {
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   res.end(); //end the response
 // }).listen(8080);
-    console.log(this.records)
+    
     var myp5 = new p5( function( sketch ) {
       let hh;
       var x = 100; 
@@ -276,8 +274,8 @@ export class AppComponent {
         tone.Transport.start();
         
         
-        hh = sketch.loadSound(mySound)
-          
+        //hh = sketch.loadSound(mySound)
+        //hh.play()
           
         
         console.log(typeof mySound)
