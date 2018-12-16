@@ -56,7 +56,7 @@ export class AppComponent {
   // octives = 3
   curAmountRows = 7
   rowsNeedAddingButtons = 7
-  
+
   start = 7
   end = 7
   alreadyDone = 8
@@ -222,34 +222,25 @@ export class AppComponent {
         if(counter == 8){
           counter = 1
         }
-  
+
         // let element = (<HTMLElement><any>document.createElement("button"));
         let html = '<button id="chord'+ (at+1).toString() + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
         let foo = document.getElementById(at.toString())
         foo.insertAdjacentHTML('beforeend', html)
-        
+
         let element = document.getElementById('chord'+ (at+1).toString() + (i+1))
         // // this.rowsNeedAddingButtons++
         element.innerHTML = counter.toString() + "(" + this.octives + ")"
         counter++
         // // this.newRowInnerHtml.toString()
-        element.addEventListener("click", this.here.bind(this)); 
+        element.addEventListener("click", this.here.bind(this));
         element.classList.add("col-sm-11")
         element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
         this.check[at]==true
       }
     }
-<<<<<<< Updated upstream
-    
-      console.log(this.check)
-    
     }
-  
-=======
-  }
 
-
->>>>>>> Stashed changes
   addButton(){
     if(this.curAmountRows < 28){
       this.rows_that_need_adding++
@@ -268,7 +259,7 @@ export class AppComponent {
         let element= document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
         element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
         element.classList.add("col-sm-11")
-        element.addEventListener("click", this.here.bind(this)); 
+        element.addEventListener("click", this.here.bind(this));
         element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
       }
       this.newRowInnerHtml++
@@ -323,7 +314,7 @@ playCurrentTrack(){
 }
 
   play() {
-    
+
 
   var dist = new tone.Distortion(0.9);
 	var reverb = new tone.JCReverb(0.9);
@@ -348,12 +339,7 @@ playCurrentTrack(){
     let time = 5
     let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
     let index = 0;
-<<<<<<< Updated upstream
-    let curCols = this.curAmountCols++
-	
-=======
 
->>>>>>> Stashed changes
 		//arpeggio
 	let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 	var maxl= parseInt(eleml[0].max);
@@ -361,15 +347,7 @@ playCurrentTrack(){
 	for (var i = 0; i < maxl; ++i) {// reads pattern input values
 		pattern.push(eleml[i].value);
 	}
-<<<<<<< Updated upstream
-	
-	
-    // curCols = parseInt(this.curAmountCols) + 1
-=======
-
-
-    let curCols = parseInt(this.curAmountCols) + 1
->>>>>>> Stashed changes
+    let curCols = this.curAmountCols++;
     console.log("CurCols: " + curCols)
     let counter = 0
     var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
@@ -407,13 +385,6 @@ playCurrentTrack(){
 
     // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
   }
-<<<<<<< Updated upstream
-=======
-
-
-
-
->>>>>>> Stashed changes
   stop() {
     // for(let i = 0; i < this.curAmountCols+1; i++){
     //   document.getElementById(i.toString()).style.backgroundColor= '';
