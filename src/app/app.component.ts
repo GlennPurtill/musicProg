@@ -2,7 +2,8 @@ import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 
-let loopBeat;
+let bassLoop;
+let arpeggioLoop;
 let bassSynth = new tone.MembraneSynth().toMaster();
 let arpeggioSynth = new tone.MonoSynth(
   {
@@ -241,10 +242,28 @@ addButton(){
 }
 
   play() {
+    let arpeggioSpeed = '6n'
     let x = this.chord1 //num value of button pressed (1..7)
-    loopBeat = new tone.Loop(this.bothTracks, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+    bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+    //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
     tone.Transport.start();
-    loopBeat.start(0);
+    bassLoop.start(0);
+    //arpeggioLoop.start(0);
+    //schedule a few notes
+    //tone.Transport.schedule(this.secondLoop, 0)
+    
+    let s = arpeggioSpeed.charAt(0);
+    for (let i = 0; i < parseInt(s); i++){
+      let ns = parseInt(s);
+      let k = 4*(i/ns);
+      let usi = "0:"+k
+      tone.Transport.schedule(this.secondLoop, usi);
+      console.log(i, ns , k);
+    }
+
+    //set the transport to repeat
+    tone.Transport.loopEnd = '1m'
+    tone.Transport.loop = true
     let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
     maxl= parseInt(eleml[0].max);
     pattern = [];
@@ -277,25 +296,40 @@ addButton(){
     
   }
 
-
-
-  bothTracks(time){
+  secondLoop(time){
     
-    let currentBeat = tone.Transport.position.split(":");
-    console.log(currentBeat)
-
-    console.log("bass .. " + tempArr[index])
-    bassSynth.triggerAttackRelease(tempArr[index], '1n', time, 1)
-    
-    loopBeat = new tone.Loop(function(){
-      console.log("arpeggio .. " + tempArpeggio[index])
+      
+      
+      console.log("arpeggio :" )
+      console.log(tempArpeggio[tempArpeggioIndex])
       arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
       tempArpeggioIndex++;
-      
       if(tempArpeggioIndex == 6){
         tempArpeggioIndex = 0
       }
-    }, this.bpm).start(0); 
+      console.log("arpeggio closed" )
+      
+  }
+    
+  
+
+    firstLoop(time){
+    
+    
+      let currentBeat = tone.Transport.position.split(":");
+      console.log(currentBeat)
+    console.log("bass .. " + tempArr[index])
+    bassSynth.triggerAttackRelease(tempArr[index], '2n', time, 1)
+    
+    // loopBeat = new tone.Loop(function(){
+    //   console.log("arpeggio .. " + tempArpeggio[index])
+    //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
+    //   tempArpeggioIndex++;
+      
+    //   if(tempArpeggioIndex == 6){
+    //     tempArpeggioIndex = 0
+    //   }
+    // }, this.bpm).start(0); 
     
     
        // parameters are note, duration, time, velocity(vel in normal range)
