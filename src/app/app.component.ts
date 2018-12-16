@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 import * as p5 from 'p5';
+import * as server from 'server';
 import "p5/lib/addons/p5.sound";
 import "p5/lib/addons/p5.dom";
 
@@ -220,15 +221,36 @@ export class AppComponent {
 //---------------------------------------------------------------- visual -------------------------------------------------------------------- 
 //--------------------------------------------------------------------------------------------------------------------------------------------
   ngOnInit(){
+    // app.use(function(req, res, next) {
+    //   res.header("Access-Control-Allow-Origin", "*");
+    //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //  next();
+    // });
 
+    var http = server.require('http');
+
+//create a server object:
+http.createServer(function (req, res) {
+  res.write('Hello World!'); //write a response to the client
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.end(); //end the response
+}).listen(8080);
     console.log(p5)
     var myp5 = new p5( function( sketch ) {
-
+      let hh;
       var x = 100; 
       var y = 100;
+      let hPat;
     
+
+
       sketch.setup = function() {
         sketch.createCanvas(200, 200);
+        hh = sketch.loadSound("http://192.168.56.1:8080")
+        
+        hPat = [1,1,1,1];
+        //hPhrase = new sketch.Phrase()
       };
     
       sketch.draw = function() {

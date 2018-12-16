@@ -23,8 +23,10 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
+    "cors": "^2.8.5",
     "p5": "^0.7.2",
     "rxjs": "~6.2.0",
+    "server": "^1.0.18",
     "tone": "^13.3.11",
     "zone.js": "~0.8.26"
   },
