@@ -5,10 +5,14 @@ import * as p5 from 'p5';
 import * as server from 'server';
 import "p5/lib/addons/p5.sound";
 import "p5/lib/addons/p5.dom";
+import { DrumsoundsService } from './drumsounds.service'
 
 let loopBeat;
 let bass = new tone.DuoSynth().toMaster()
 let arpeggio = new tone.PluckSynth().toMaster()
+interface myData {
+  obj: Object
+}
 
 @Component({
   selector: 'app-root',
@@ -220,38 +224,79 @@ export class AppComponent {
   //--------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------- visual -------------------------------------------------------------------- 
 //--------------------------------------------------------------------------------------------------------------------------------------------
+  records = {}
+
+  constructor(private myFirstService : DrumsoundsService) {
+        
+  }
+  
   ngOnInit(){
+    let mySound;
+
+   
+      
+      this.myFirstService.getData().subscribe(data => {
+        this.records = (data.txt)
+      });
+      
+    
+    // this.myFirstService.getData().subscribe(data => {
+     
+    //  console.log("We got " , data)
+    // });
     // app.use(function(req, res, next) {
     //   res.header("Access-Control-Allow-Origin", "*");
     //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     //  next();
     // });
 
-    var http = server.require('http');
+//     var http = server.require('http');
 
-//create a server object:
-http.createServer(function (req, res) {
-  res.write('Hello World!'); //write a response to the client
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.end(); //end the response
-}).listen(8080);
-    console.log(p5)
+// //create a server object:
+// http.createServer(function (req, res) {
+//   res.write('Hello World!'); //write a response to the client
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   res.end(); //end the response
+// }).listen(8080);
+    console.log(this.records)
     var myp5 = new p5( function( sketch ) {
       let hh;
       var x = 100; 
       var y = 100;
       let hPat;
-    
+      let myPhrase; 
+      let myPart;
+      
+      var pattern = [1,0,0,2,0,2,0,0];
+      let cymbalSynth = new tone.MetalSynth().toMaster();
 
+
+      sketch.preload = function() {
+        tone.Transport.start();
+        
+        
+        hh = sketch.loadSound(mySound)
+          
+          
+        
+        console.log(typeof mySound)
+      }
 
       sketch.setup = function() {
         sketch.createCanvas(200, 200);
-        hh = sketch.loadSound("http://192.168.56.1:8080")
-        
+        myPhrase = new p5.Phrase('d', makeSound, pattern);
+        myPart = new p5.Part();
+        myPart.addPhrase(myPhrase);
+        myPart.setBPM(60);
         hPat = [1,1,1,1];
         //hPhrase = new sketch.Phrase()
       };
+
+      function makeSound(time, playbackRate) {
+        mySound.rate(playbackRate);
+        mySound.play(time);
+      }
     
       sketch.draw = function() {
         sketch.background(0);
