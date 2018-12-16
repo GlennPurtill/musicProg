@@ -146,7 +146,6 @@ changeBPM(val){
   document.getElementById(this.bpm).style.backgroundColor = 'red';
   this.curBpm = val + "n"
 
-  console.log(this.bpm)
 }
 
 chordClicked(chord, num, c){
@@ -184,9 +183,6 @@ temp = []
 addCol(){
   if(parseInt(this.curAmountCols) < 15){
     let x = parseInt(this.curAmountCols) + 1
-
-    console.log("Added Col: " + x)
-
     this.curAmountCols = x.toString();
     document.getElementById(this.curAmountCols).style.display = "block"
     this.addCertainAmountOfButtons(x)
@@ -197,9 +193,6 @@ removeCol(){
   if(parseInt(this.curAmountCols) > 7){
     document.getElementById(this.curAmountCols).style.display = "none"
     let x = parseInt(this.curAmountCols) - 1
-
-    console.log("Removed Col: " + x)
-
     this.curAmountCols = x.toString();
   }
 }
@@ -230,7 +223,6 @@ addButton(){
   var element = document.createElement("button");
   element.innerHTML = "hello"
   for(let i = 0; i < parseInt(this.curAmountCols)+1; i++){
-    console.log(this.curAmountCols)
     let element = (<HTMLElement><any>document.createElement("button"));
     let foo = document.getElementById(i.toString());
     foo.appendChild(element);
@@ -256,9 +248,9 @@ addButton(){
     for (let i = 0; i < parseInt(s); i++){
       let ns = parseInt(s);
       let k = 4*(i/ns);
-      let usi = "0:"+k
+      let usi = "0:"+k + ":0"
       tone.Transport.schedule(this.secondLoop, usi);
-      console.log(i, ns , k);
+      console.log(usi);
     }
 
     //set the transport to repeat
@@ -301,7 +293,7 @@ addButton(){
       
       
       console.log("arpeggio :" )
-      console.log(tempArpeggio[tempArpeggioIndex])
+      console.log("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
       arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
       tempArpeggioIndex++;
       if(tempArpeggioIndex == 6){
@@ -318,7 +310,6 @@ addButton(){
     
       let currentBeat = tone.Transport.position.split(":");
       console.log(currentBeat)
-    console.log("bass .. " + tempArr[index])
     bassSynth.triggerAttackRelease(tempArr[index], '2n', time, 1)
     
     // loopBeat = new tone.Loop(function(){
