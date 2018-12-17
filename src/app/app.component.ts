@@ -4,7 +4,7 @@ import { attachEmbeddedView } from '@angular/core/src/view';
 
 let bassLoop;
 let arpeggioLoop;
-let bassSynth = new tone.MembraneSynth().toMaster();
+let bassSynth = new tone.DuoSynth().toMaster();
 let arpeggioSynth = new tone.MonoSynth(
   {
     "frequency"  : "C4" ,
@@ -28,8 +28,8 @@ let arpeggioSynth = new tone.MonoSynth(
     "decay"  : 0.2 ,
     "sustain"  : 0.5 ,
     "release"  : 2 ,
-    "baseFrequency"  : 200 ,
-    "octaves"  : 7 ,
+    "baseFrequency"  : 400 ,
+    "octaves"  : 4 ,
     "exponent"  : 2
     }
   }
@@ -50,14 +50,6 @@ let flag_raise = true;
 })
 
 export class AppComponent {
-
-  //arpeggio definitions
-  ch1 = '1'
-  ch2 = '2'
-  ch3 = '3'
-  ch4 = '4'
-  ch5 = '5'
-  ch6 = '6'
 
   title = 'musicProg';
   bpm = '1n'
@@ -289,9 +281,6 @@ addButton(){
   }
 
   secondLoop(time){
-    
-      
-      
       console.log("arpeggio :" )
       console.log("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
       arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
@@ -300,18 +289,14 @@ addButton(){
         tempArpeggioIndex = 0
       }
       console.log("arpeggio closed" )
-      
   }
     
   
 
     firstLoop(time){
-    
-    
-      let currentBeat = tone.Transport.position.split(":");
-      console.log(currentBeat)
+    let currentBeat = tone.Transport.position.split(":");
+    console.log(currentBeat)
     bassSynth.triggerAttackRelease(tempArr[index], '2n', time, 1)
-    
     // loopBeat = new tone.Loop(function(){
     //   console.log("arpeggio .. " + tempArpeggio[index])
     //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
@@ -321,8 +306,6 @@ addButton(){
     //     tempArpeggioIndex = 0
     //   }
     // }, this.bpm).start(0); 
-    
-    
        // parameters are note, duration, time, velocity(vel in normal range)
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
@@ -332,8 +315,7 @@ addButton(){
     index++
     if(index == curCols){
       index = 0
-      }
-    
+    }
   }
 
   
@@ -341,17 +323,11 @@ addButton(){
   
   
   stop() {
-
     for(let i = 0; i<parseInt(this.curAmountCols)+1; i++){
-
       document.getElementById(i.toString()).style.backgroundColor= '';
-
     }
-
     tone.Transport.cancel()
-
   } 
-  
 }
 
 
