@@ -3,6 +3,48 @@ import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 import * as p5 from 'p5';
 let setVol
+
+let bassLoop;
+let arpeggioLoop;
+let bassSynth = new tone.DuoSynth().toMaster();
+let arpeggioSynth = new tone.MonoSynth(
+  {
+    "frequency"  : "C4" ,
+    "detune"  : 0 ,
+    "oscillator"  : {
+      "type"  : "square"
+    }  ,
+    "filter"  : {
+    "Q"  : 6 ,
+    "type"  : "lowpass" ,
+    "rolloff"  : -24
+    }  ,
+    "envelope"  : {
+    "attack"  : 0.005 ,
+    "decay"  : 0.1 ,
+    "sustain"  : 0.9 ,
+    "release"  : 1
+    }  ,
+    "filterEnvelope"  : {
+    "attack"  : 0.06 ,
+    "decay"  : 0.2 ,
+    "sustain"  : 0.5 ,
+    "release"  : 2 ,
+    "baseFrequency"  : 400 ,
+    "octaves"  : 4 ,
+    "exponent"  : 2
+    }
+  }
+).toMaster();
+let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
+let tempArpeggio = ['C6','D6','E6','F6','G6','A6']
+let tempArpeggioIndex = 0;
+let index = 0;
+let counter = 0;
+let curCols;
+let maxl;
+let pattern;
+let flag_raise = true;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +52,7 @@ let setVol
 })
 
 export class AppComponent {
+
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
@@ -120,6 +163,7 @@ export class AppComponent {
     document.getElementById(this.bpm).style.backgroundColor = 'red';
     this.curBpm = val + "n"
   }
+  
 
   chordClicked(chord, num, c){
     this.stop()
@@ -131,6 +175,7 @@ export class AppComponent {
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
   }
+  
 
   here(c) {
     let temp = c.toElement.value.split(',')
@@ -145,7 +190,7 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curMode = val
   }
-
+  
    distortionSwitch(val){
     if(this.distortionS == "off"){
       document.getElementById("distortion").innerHTML="ON";
@@ -158,8 +203,6 @@ export class AppComponent {
       this.distortionS = "off";
 	   }
   }
-
-
 
    reverbSwitch(val){
      if(this.reverbS == "off"){
@@ -195,6 +238,7 @@ export class AppComponent {
     document.getElementById(val).style.backgroundColor = 'red';
     this.curTonicRoot = val
   }
+  
 
   temp = []
 
@@ -239,7 +283,7 @@ export class AppComponent {
         this.check[at]==true
       }
     }
-    }
+  }
 
   addButton(){
     if(this.curAmountRows < 28){
@@ -314,76 +358,120 @@ playCurrentTrack(){
 }
 
   play() {
-
-
-  var dist = new tone.Distortion(0.9);
-	var reverb = new tone.JCReverb(0.9);
-	var delay = new tone.FeedbackDelay(0.8);
-	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
-	if(this.distortionS == "off"){
-		dist.wet.value = 0;
-	}
-	if(this.reverbS == "off"){
-		reverb.wet.value = 0;
-	}
-	if(this.delayS == "off"){
-		delay.wet.value = 0;
-	}
-	//var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
-
-	/*else{
-		var synth = new tone.Synth().toMaster();
-	}*/
-
-    let x = this.chord1 //num value of button pressed (1..7)
-    let time = 5
-    let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
-    let index = 0;
-
-		//arpeggio
-	let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-	var maxl= parseInt(eleml[0].max);
-	var pattern = [];
-	for (var i = 0; i < maxl; ++i) {// reads pattern input values
-		pattern.push(eleml[i].value);
-	}
-    let curCols = this.curAmountCols++;
-    console.log("CurCols: " + curCols)
-    let counter = 0
-    var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
-      synth.triggerAttackRelease(tempArr[index], 0.2, time)
-      if(this.curBlue!=undefined){
-        document.getElementById(this.curBlue).style.backgroundColor= '';
-      }
-      document.getElementById(index.toString()).style.backgroundColor= 'blue';
-      this.curBlue = index.toString()
-      console.log(index)
-      index++
-      if(index == curCols+1){
-        index = 0
-      }
-    }, this.bpm).start(0);
-
-    for (let num = 0; num<curCols+1; num++){
-      let c = (num + 1) + ""
-      if(num == 10){
-        c+="1"
-        console.log(c)
-      }
-      c = "chord" + c
-      let d = "ionian"
-      let example = "D"
-      //get mode
-      let mode = this.mode
-      let tr = this.tonicRoot
-      tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
-      if(num == curCols){
-        tone.Transport.start(); //BPM
-        console.log(tempArr)
-      }
+    var dist = new tone.Distortion(0.9);
+    var reverb = new tone.JCReverb(0.9);
+    var delay = new tone.FeedbackDelay(0.8);
+    var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+    if(this.distortionS == "off"){
+      dist.wet.value = 0;
     }
+    if(this.reverbS == "off"){
+      reverb.wet.value = 0;
+    }
+    if(this.delayS == "off"){
+      delay.wet.value = 0;
+    }
+    //var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+
+    /*else{
+      var synth = new tone.Synth().toMaster();
+    }*/
+
+      let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
+      let index = 0;
+
+      let arpeggioSpeed = '6n'
+      let x = this.chord1 //num value of button pressed (1..7)
+      bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+      tone.Transport.start();
+      bassLoop.start(0);
+      
+      let s = arpeggioSpeed.charAt(0);
+      for (let i = 0; i < parseInt(s); i++){
+        let ns = parseInt(s);
+        let k = 4*(i/ns);
+        let usi = "0:"+k + ":0"
+        tone.Transport.schedule(this.secondLoop, usi);
+        console.log(usi);
+      }
+
+      //set the transport to repeat
+      tone.Transport.loopEnd = '1m'
+      tone.Transport.loop = true
+   
+      let curCols = this.curAmountCols++;
+      // let counter = 0
+
+      let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+      maxl= parseInt(eleml[0].max);
+      pattern = [];
+      for (var i = 0; i < maxl; ++i) {// reads pattern input values
+        pattern.push(eleml[i].value);	
+        
+      }
+      
+      for (let num = 0; num<curCols+1; num++){
+        
+        let c = (num + 1) + ""
+        if(num == 10){
+          c+="1"
+        }
+        c = "chord" + c
+        let d = "ionian"
+        let example = "D"
+        //get mode
+        let mode = this.mode
+        let tr = this.tonicRoot
+        tempArr[num] = this[mode][tr][this[c] - 1] //dynamically changing scale
+        if(num == curCols){
+          tone.Transport.start(); //BPM
+          console.log("temp arr before transport start()", tempArr)
+        }
+      }
 
   }
+
+  
+  secondLoop(time){
+    console.log("arpeggio :" )
+    console.log("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
+    arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
+    tempArpeggioIndex++;
+    if(tempArpeggioIndex == 6){
+      tempArpeggioIndex = 0
+    }
+    console.log("arpeggio closed" )
+}
+  
+
+
+  firstLoop(time){
+    let currentBeat = tone.Transport.position.split(":");
+    console.log(currentBeat)
+    console.log("tempArr", tempArr)
+    bassSynth.triggerAttackRelease(tempArr[index], '2n', time, 1)
+    // loopBeat = new tone.Loop(function(){
+    //   console.log("arpeggio .. " + tempArpeggio[index])
+    //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
+    //   tempArpeggioIndex++;
+      
+    //   if(tempArpeggioIndex == 6){
+    //     tempArpeggioIndex = 0
+    //   }
+    // }, this.bpm).start(0); 
+      // parameters are note, duration, time, velocity(vel in normal range)
+    if(this.curBlue!=undefined){
+      document.getElementById(this.curBlue).style.backgroundColor= '';
+    }
+    document.getElementById(index.toString()).style.backgroundColor= 'blue';
+    this.curBlue = index.toString()
+    index++
+    if(index == curCols){
+      index = 0
+    }
+}
+
+
   stop() {
     for(let i = 0; i < this.curAmountCols+1; i++){
       document.getElementById(i.toString()).style.backgroundColor= '';
@@ -408,7 +496,7 @@ playCurrentTrack(){
         step_opt4.onclick = step_opt4_handler;	*/
 		var step_opt4 = <HTMLElement>document.getElementById('option-four') as HTMLInputElement;
 		step_opt4.checked = true;//default value
-		var maxl = 6;
+		maxl = 6;
 		this.drawing(maxl);
 		// audio
 		this.distortionSwitch("off");
@@ -424,14 +512,14 @@ playCurrentTrack(){
 
   	 autodraw() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-		var maxl= parseInt(elem[0].max);
+		maxl= parseInt(elem[0].max);
 		this.drawing(maxl);
 	}
 
 
    valcheck(val) { //this function reduces the value of input if it is greater than acceptable maximum limit
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-		var maxl= parseInt(elem[0].max);
+		maxl= parseInt(elem[0].max);
 		for (var i = 0; i < maxl; ++i) {
 			while(parseInt(elem[i].value) > maxl){
 				console.log(elem);
@@ -444,7 +532,7 @@ playCurrentTrack(){
 
 
 	 drawing(val){ // this function draws the arpeggio pattern on canvas
-		var maxl = val;
+		maxl = val;
 		var ar6 = [360,300,240,180,120,60];
 		var ar5 =[350,280,210,140,70];
 		var ar4 =[336,252,168,84];
@@ -452,7 +540,7 @@ playCurrentTrack(){
 		const canvas = <HTMLCanvasElement>document.getElementById("myCanvas");
 		const ctx = canvas.getContext("2d");
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-		var pattern = []; // clears the array to prevent the from stacking inputs
+		pattern = []; // clears the array to prevent the from stacking inputs
 		this.valcheck(maxl);
 
 		for (var i = 0; i < maxl; ++i) {// reads pattern input values
@@ -538,7 +626,7 @@ playCurrentTrack(){
 	}
 
      step_opt1_handler() {
-		var maxl=3;
+		maxl=3;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "3";
@@ -553,7 +641,7 @@ playCurrentTrack(){
     }
 
 	 step_opt2_handler() {
-		var maxl=4;
+		maxl=4;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "4";
@@ -568,7 +656,7 @@ playCurrentTrack(){
     }
 
 	 step_opt3_handler() {
-		var maxl=5;
+		maxl=5;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "5";
@@ -583,7 +671,7 @@ playCurrentTrack(){
     }
 
 	 step_opt4_handler() {
-		var maxl=6;
+		maxl=6;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "6";
@@ -591,48 +679,6 @@ playCurrentTrack(){
 		}
 		this.drawing(maxl);
     }
-
-
-
-
-// --------------------------------------- FFT Visualizer --------------------------------------------------------
-/*
-function toggleSong() {
-  if (song.isPlaying()) {
-    song.pause();
-  } else {
-    song.play();
-  }
-}
-
-function preload() {
-  song = loadSound('acdc.flac');
-}
-
-function setup() {
-  var cnv = createCanvas(windowWidth, 256);
-  cnv.style('block');
-  cnv.position(0,0);
-  colorMode(HSB);
-  button = createButton('toggle');
-  button.mousePressed(toggleSong);
-  song.play();
-  fft = new p5.FFT(0.2, 256);
-}
-
-function draw() {
-  background(0);
-  var spectrum = fft.analyze();
-  var w;
-  w = windowWidth / spectrum.length;
-
-  for (var i = 0; i < spectrum.length; i++) {
-    var amp = spectrum[i];
-    var y = map(amp,0,256,height,0);
-    stroke(i, 255, 255);
-    line(i*w, height, i*w, y);
-  }
-}*/
 
 
 }
