@@ -6,7 +6,11 @@ let setVol
 let bassLoop;
 let arpeggioLoop;
 let curAmountCols = 8;
-let bassSynth = new tone.FMSynth().toMaster();
+
+var dist = new tone.Distortion(0.9);
+var reverb = new tone.JCReverb(0.9);
+var delay = new tone.FeedbackDelay(0.8);
+let bassSynth = new tone.FMSynth().chain(delay, reverb, dist, tone.Master);
 let arpeggioSynth = new tone.MonoSynth(
 
   {
@@ -36,7 +40,8 @@ let arpeggioSynth = new tone.MonoSynth(
     "exponent"  : 2
     }
   }
-).toMaster();
+).chain(delay, reverb, dist, tone.Master);
+
 let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
 let tempArpeggio = ['C6','D6','E6','F6','G6','A6']
 let tempArpeggioIndex = 0;
@@ -352,14 +357,20 @@ export class AppComponent {
 
 playCurrentTrack(){
   this.stop()
-    var dist = new tone.Distortion(0.9).toMaster();
-	if(this.distortionS == "on"){
-		var synth = new tone.Synth().connect(dist);
+    /*var dist = new tone.Distortion(0.9);
+	var reverb = new tone.JCReverb(0.9);
+	var delay = new tone.FeedbackDelay(0.8);*/
+	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+	if(this.distortionS == "off"){
+		dist.wet.value = 0;
 	}
-	else{
-		var synth = new tone.Synth().toMaster();
+	if(this.reverbS == "off"){
+		reverb.wet.value = 0;
 	}
-
+	if(this.delayS == "off"){
+		delay.wet.value = 0;
+	}
+	
   let x = this.chord1 //num value of button pressed (1..7)
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
@@ -399,18 +410,27 @@ playCurrentTrack(){
   play() {
 
 
-  var dist = new tone.Distortion(0.9);
+  /*var dist = new tone.Distortion(0.9);
 	var reverb = new tone.JCReverb(0.9);
 	var delay = new tone.FeedbackDelay(0.8);
-	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);*/
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
+	}
+	else{
+		dist.wet.value = 1;
 	}
 	if(this.reverbS == "off"){
 		reverb.wet.value = 0;
 	}
+	else{
+		reverb.wet.value = 1;
+	}
 	if(this.delayS == "off"){
 		delay.wet.value = 0;
+	}
+	else{
+		delay.wet.value = 1;
 	}
   console.log(this.bpm)
   let arpeggioSpeed = this.bpm 
