@@ -5,8 +5,10 @@ import * as p5 from 'p5';
 let setVol
 let bassLoop;
 let arpeggioLoop;
+let curAmountCols = 8;
 let bassSynth = new tone.FMSynth().toMaster();
 let arpeggioSynth = new tone.MonoSynth(
+
   {
     "frequency"  : "C4" ,
     "detune"  : 0 ,
@@ -92,7 +94,7 @@ export class AppComponent {
   curBlue = ''
   mode = 'ionian'
   curMode = 'ionian'
-  curAmountCols = 8
+  // curAmountCols = 8
   scurAmountCols = '8'
   rows_that_need_adding = 0
   newRowInnerHtml = 1
@@ -279,21 +281,21 @@ export class AppComponent {
   temp = []
 
   addCol(){
-    if(this.curAmountCols < 15){
-      this.curAmountCols++
-      this.scurAmountCols = "" + this.curAmountCols
-      // console.log("Added Col: " + x)
-      let x = this.curAmountCols.toString();
+    if(curAmountCols < 15){
+      curAmountCols++
+      this.scurAmountCols = "" + curAmountCols
+      console.log("Added Col: " + curAmountCols)
+      let x = (curAmountCols-1).toString();
       document.getElementById(x).style.display = "block"
-      this.addCertainAmountOfButtons(this.curAmountCols)
+      this.addCertainAmountOfButtons(curAmountCols)
     }
   }
 
   removeCol(){
-    if(this.curAmountCols > 7){
-      document.getElementById(this.curAmountCols.toString()).style.display = "none"
-      this.curAmountCols--
-      this.scurAmountCols = "" +this.curAmountCols
+    if(curAmountCols > 7){
+      document.getElementById(curAmountCols.toString()).style.display = "none"
+      curAmountCols--
+      this.scurAmountCols = "" +curAmountCols
     }
   }
 
@@ -333,7 +335,7 @@ export class AppComponent {
       this.curAmountRows++
       this.rowsNeedAddingButtons++
       this.end++
-      for(let i = 0; i < this.curAmountCols+1; i++){
+      for(let i = 0; i < curAmountCols+1; i++){
         let html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
         let foo = document.getElementById(i.toString())
         foo.insertAdjacentHTML('beforeend', html)
@@ -362,12 +364,12 @@ playCurrentTrack(){
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
   let index = 0;
-  let curCols = this.curAmountCols++
-  this.scurAmountCols = "" + this.curAmountCols
+  let curCols = curAmountCols++
+  this.scurAmountCols = "" + curAmountCols
   let counter = 0
   var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
     synth.triggerAttackRelease(tempArr[index], 0.2, time)
-    //console.log(this.curBlue)
+    console.log(index.toString())
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
     }
@@ -441,10 +443,14 @@ playCurrentTrack(){
   }
   
   curCols = parseInt(this.scurAmountCols)
-  for (let num = 0; num<curCols-1; num++){
-    
+  for (let num = 0; num<curCols; num++){
     let c = (num + 1) + ""
-    c = "chord" + c
+    if(num == 10){
+      c = "chord1" + c
+    }
+    else{
+      c = "chord" + c
+    }
     let d = "ionian"
     let example = "D"
     //get mode
@@ -463,29 +469,29 @@ playCurrentTrack(){
     tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1] 
   }
 
-  // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
+  // //console.log\("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
 }
 
 
 secondLoop(time){
-  console.log("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
+  //console.log\("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.1)
   tempArpeggioIndex++;
   if(tempArpeggioIndex == 6){
     tempArpeggioIndex = 0
   }
-  console.log("arpeggio closed" )
+  //console.log\("arpeggio closed" )
 }
 
 
 
 firstLoop(time){
     let currentBeat = tone.Transport.position.split(":");
-    console.log(currentBeat)
+    // console.log(tempArr)
     bassSynth.triggerAttackRelease(tempArr[index], '6n', time, 1)
-    console.log("bass inside first loop", tempArr[index])
+    ////console.log\("bass inside first loop", tempArr[index])
     // loopBeat = new tone.Loop(function(){
-    //   console.log("arpeggio .. " + tempArpeggio[index])
+    //   ////console.log\("arpeggio .. " + tempArpeggio[index])
     //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
     //   tempArpeggioIndex++;
       
@@ -494,19 +500,20 @@ firstLoop(time){
     //   }
     // }, this.bpm).start(0); 
       // parameters are note, duration, time, velocity(vel in normal range)
+    console.log(document.getElementById(index.toString()))
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
     }
     document.getElementById(index.toString()).style.backgroundColor= 'blue';
     this.curBlue = index.toString()
     index++
-    if(index == this.curAmountCols){
+    if(index == curAmountCols){
       index = 0
     }
 }
 
 stop() {
-  for(let i = 0; i < this.curAmountCols+1; i++){
+  for(let i = 0; i < curAmountCols+1; i++){
     document.getElementById(i.toString()).style.backgroundColor= '';
   }
   tone.Transport.cancel()
@@ -554,7 +561,7 @@ stop() {
 		var maxl= parseInt(elem[0].max);
 		for (var i = 0; i < maxl; ++i) {
 			while(parseInt(elem[i].value) > maxl){
-				// console.log(elem);
+				// //console.log\(elem);
 				let temp = parseInt(elem[i].value) - 1;
 				elem[i].value = "" + (temp);
 			}
