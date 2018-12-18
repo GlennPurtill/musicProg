@@ -211,6 +211,7 @@ export class AppComponent {
     }
     document.getElementById(this.bpm).style.backgroundColor = 'red';
     this.curBpm = val + "n"
+	this.autoupdate();
   }
 
   chordClicked(chord, num, c){
@@ -222,6 +223,7 @@ export class AppComponent {
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
+	this.autoupdate();
   }
 
   here(c) {
@@ -286,6 +288,7 @@ export class AppComponent {
     }
     document.getElementById(val).style.backgroundColor = 'red';
     this.curTonicRoot = val
+	this.autoupdate();
   }
 
   temp = []
@@ -397,7 +400,7 @@ playCurrentTrack(){
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
 
-  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 6;
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 2;
   for (let i = 0; i < s; i++){
     let ns = s;
     let k = 4*(i/ns);
@@ -490,7 +493,10 @@ playCurrentTrack(){
     }
   }*/
 }
-
+	autoupdate(){
+		this.stop();
+		this.play();
+	}
   play() {
 	  this.stop();
 // Get Slider values
@@ -666,6 +672,7 @@ stop() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		var maxl= parseInt(elem[0].max);
 		this.drawing(maxl);
+		this.autoupdate();
 	}
 
 
@@ -826,6 +833,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt2_handler() {
@@ -841,6 +849,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt3_handler() {
@@ -856,6 +865,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt4_handler() {
@@ -871,6 +881,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt5_handler() {
@@ -886,6 +897,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt6_handler() {
@@ -896,6 +908,7 @@ stop() {
 			elem[i].style.display = "inline-block";
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 
