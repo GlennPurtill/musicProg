@@ -9,6 +9,7 @@ let bassLoop;
 let arpeggioLoop;
 let curAmountCols = 8;
 
+var vol = new tone.Volume(-10);
 var dist = new tone.Distortion(0.9);
 var reverb = new tone.JCReverb(0.9);
 var delay = new tone.FeedbackDelay(0.8);
@@ -42,10 +43,10 @@ let arpeggioSynth = new tone.MonoSynth(
     "exponent"  : 2
     }
   }
-).chain(delay, reverb, dist, tone.Master);
+).chain( vol, delay, reverb, dist, tone.Master);
 
 let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
-let tempArpeggio = ['C6','D6','E6','F6','G6','A6']
+let tempArpeggio = ['','','','','','','','']
 let tempArpeggioIndex = 0;
 let index = 0;
 let counter = 0;
@@ -53,6 +54,7 @@ let curCols;
 let maxl;
 let pattern;
 let flag_raise = true;
+let playerc= "multi"
 
 @Component({
   selector: 'app-root',
@@ -117,6 +119,7 @@ export class AppComponent {
   distortionS = "on"
   reverbS = "on"
   delayS = "on"
+  
 
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
@@ -359,9 +362,88 @@ export class AppComponent {
 
 playCurrentTrack(){
   this.stop()
-    /*var dist = new tone.Distortion(0.9);
-	var reverb = new tone.JCReverb(0.9);
-	var delay = new tone.FeedbackDelay(0.8);*/
+  	playerc = "single";
+  // Get Slider values
+  var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
+  var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
+  var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
+
+	if(this.distortionS == "off"){
+		dist.wet.value = 0;
+	}
+	else{
+		dist.wet.value =  (distSlideVal/100);
+	}
+	if(this.reverbS == "off"){
+		reverb.wet.value = 0;
+	}
+	else{
+		reverb.wet.value =  (reverbSlideVal/100);
+	}
+	if(this.delayS == "off"){
+		delay.wet.value = 0;
+	}
+	else{
+		delay.wet.value =  (delaySlideVal/100);
+	}
+  console.log(this.bpm)
+  let arpeggioSpeed = this.bpm
+  let x = this.chord1 //num value of button pressed (1..7)
+  bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+  //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+  tone.Transport.start();
+  bassLoop.start(0);
+  //arpeggioLoop.start(0);
+  //schedule a few notes
+  //tone.Transport.schedule(this.secondLoop, 0)
+
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 6;
+  for (let i = 0; i < s; i++){
+    let ns = s;
+    let k = 4*(i/ns);
+    let usi = "0:"+k + ":0"
+    tone.Transport.schedule(this.secondLoop, usi);
+  }
+
+  //set the transport to repeat
+  tone.Transport.loopEnd = '1m'
+  tone.Transport.loop = true
+  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  maxl= parseInt(eleml[0].max);
+  pattern = [];
+  for (var i = 0; i < maxl; ++i) {// reads pattern input values
+    pattern.push(eleml[i].value);
+
+  }
+
+  curCols = parseInt(this.scurAmountCols)
+  for (let num = 0; num<curCols; num++){
+    let c = (num + 1) + ""
+    if(num == 10){
+      c = "chord1" + c
+    }
+    else{
+      c = "chord" + c
+    }
+    let d = "ionian"
+    let example = "D"
+    //get mode
+    let mode = this.mode
+    let instrument = 'bass'
+    let tr = this.tonicRoot
+    tempArr[num] = this[mode][instrument][tr][this[c] - 1] //dynamically changing scale
+  }
+
+  for (let num =0 ; num<maxl; num++){
+    // let d = (num + 1) + ""
+    // var c = "value" + d
+    let mode = this.mode
+    let instrument = 'arpeggio'
+    let tr = this.tonicRoot
+    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1]
+  }
+
+    /*
 	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
@@ -406,11 +488,13 @@ playCurrentTrack(){
     if(num == 7){
       tone.Transport.start();
     }
-  }
+  }*/
 }
 
   play() {
+	  this.stop();
 // Get Slider values
+	playerc= "multi"
   var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
   var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
   var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
@@ -496,9 +580,9 @@ playCurrentTrack(){
 
 secondLoop(time){
   //console.log\("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
-  arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.1)
+  arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], "30n", time, 0.1)
   tempArpeggioIndex++;
-  if(tempArpeggioIndex == 6){
+  if(tempArpeggioIndex == maxl){
     tempArpeggioIndex = 0
   }
   //console.log\("arpeggio closed" )
@@ -529,7 +613,14 @@ firstLoop(time){
     this.curBlue = index.toString()
     index++
     if(index == curAmountCols){
-      index = 0
+		//alert(playerc)
+		if(playerc == "single"){
+			this.stop()
+			index = 0
+		}
+		else{
+			index = 0
+		}
     }
 }
 
@@ -537,6 +628,7 @@ stop() {
   for(let i = 0; i < curAmountCols+1; i++){
     document.getElementById(i.toString()).style.backgroundColor= '';
   }
+  tempArpeggioIndex = 0
   tone.Transport.cancel()
 }
 
