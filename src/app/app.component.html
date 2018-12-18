@@ -164,15 +164,14 @@
                 </div>
 				<div class="mode col-sm-2 border rounded">
 					<h4>Distortion</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide"></div>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
 					  <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
 					<h4>Reverb</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide"></div>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
   					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
 					<h4>Delay</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide"></div>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
   					<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
-					<br><button id = "update" class="b" (click)="autoupdate()">UPDATE effects</button>
 				</div>
             </div>
         </div>

@@ -216,7 +216,6 @@ export class AppComponent {
   }
 
   chordClicked(chord, num, c){
-    this.stop()
     this[chord] = num
     let curAct = "curActiveC" + c
     if(this[curAct] != ''){
@@ -252,6 +251,7 @@ export class AppComponent {
   		document.getElementById("distortion").style.backgroundColor = '';
       this.distortionS = "off";
 	   }
+	this.autoupdate();
   }
 
 
@@ -267,6 +267,7 @@ export class AppComponent {
  		   document.getElementById("reverb").style.backgroundColor = '';
        this.reverbS = "off";
  	   }
+	this.autoupdate();
   }
 
    delaySwitch(val){
@@ -280,6 +281,7 @@ export class AppComponent {
  		   document.getElementById("delay").style.backgroundColor = '';
        this.delayS = "off";
  	   }
+	this.autoupdate();
    }
 
   changeTonicRoot(val){
