@@ -412,8 +412,8 @@ playCurrentTrack(){
 	if(this.delayS == "off"){
 		delay.wet.value = 0;
 	}
-
-  let arpeggioSpeed = '6n'
+  console.log(this.bpm)
+  let arpeggioSpeed = this.bpm 
   let x = this.chord1 //num value of button pressed (1..7)
   bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
   //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
@@ -423,9 +423,9 @@ playCurrentTrack(){
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
   
-  let s = arpeggioSpeed.charAt(0);
-  for (let i = 0; i < parseInt(s); i++){
-    let ns = parseInt(s);
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 6;
+  for (let i = 0; i < s; i++){
+    let ns = s;
     let k = 4*(i/ns);
     let usi = "0:"+k + ":0"
     tone.Transport.schedule(this.secondLoop, usi);
