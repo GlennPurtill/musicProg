@@ -533,9 +533,9 @@ stop() {
         step_opt2.onclick = step_opt2_handler;
         step_opt3.onclick = step_opt3_handler;
         step_opt4.onclick = step_opt4_handler;	*/
-		var step_opt4 = <HTMLElement>document.getElementById('option-four') as HTMLInputElement;
-		step_opt4.checked = true;//default value
-		var maxl = 6;
+		var step_opt6 = <HTMLElement>document.getElementById('option-six') as HTMLInputElement;
+		step_opt6.checked = true;//default value
+		var maxl = 8;
 		this.drawing(maxl);
 		// audio
 		this.distortionSwitch("off");
@@ -572,6 +572,8 @@ stop() {
 
 	 drawing(val){ // this function draws the arpeggio pattern on canvas
 		var maxl = val;
+		var ar8 = [373,326,280,233,186,140,93,47];
+		var ar7 = [368,315,263,210,158,105,52];
 		var ar6 = [360,300,240,180,120,60];
 		var ar5 =[350,280,210,140,70];
 		var ar4 =[336,252,168,84];
@@ -661,6 +663,40 @@ stop() {
 			};
 			ctx.closePath();
 		}
+		if(maxl==7){
+			for(i=0; i< 7;i++){
+				var x = ar7[6-i];
+				var y = ar7[pattern[i]-1];
+				if(i<6){
+					var x1 = ar7[6-(i+1)];
+					var y1 = ar7[pattern[i+1]-1];
+				}
+				ctx.moveTo(x,y);
+				ctx.arc(x,y,5,0,2*Math.PI);
+				ctx.moveTo(x,y);
+				ctx.lineTo(x1,y1);
+				ctx.stroke();
+				ctx.fill();
+			};
+			ctx.closePath();
+		}
+		if(maxl==8){
+			for(i=0; i< 8;i++){
+				var x = ar8[7-i];
+				var y = ar8[pattern[i]-1];
+				if(i<7){
+					var x1 = ar8[7-(i+1)];
+					var y1 = ar8[pattern[i+1]-1];
+				}
+				ctx.moveTo(x,y);
+				ctx.arc(x,y,5,0,2*Math.PI);
+				ctx.moveTo(x,y);
+				ctx.lineTo(x1,y1);
+				ctx.stroke();
+				ctx.fill();
+			};
+			ctx.closePath();
+		}
 
 	}
 
@@ -714,6 +750,36 @@ stop() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "6";
+			if(i >= 6){
+				elem[i].style.display = "none";
+			}
+			else{
+				elem[i].style.display = "inline-block";
+			}
+		}
+		this.drawing(maxl);
+    }
+
+	 step_opt5_handler() {
+		var maxl=7;
+		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+		for (var i = 0; i < elem.length; ++i) {
+			elem[i].max = "7";
+			if(i >= 7){
+				elem[i].style.display = "none";
+			}
+			else{
+				elem[i].style.display = "inline-block";
+			}
+		}
+		this.drawing(maxl);
+    }
+	
+	 step_opt6_handler() {
+		var maxl=8;
+		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+		for (var i = 0; i < elem.length; ++i) {
+			elem[i].max = "8";
 			elem[i].style.display = "inline-block";
 		}
 		this.drawing(maxl);
