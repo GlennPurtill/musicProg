@@ -2,6 +2,8 @@ import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 import * as p5 from 'p5';
+declare var $: any;
+
 let setVol
 let bassLoop;
 let arpeggioLoop;
@@ -148,7 +150,7 @@ export class AppComponent {
     },
 
     arpeggio: {
-      
+
       C : ['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','D6','E6','F6','G6','A6','B6','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6','C#6','D#6','F6','F#6','G#6','A#6','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
       D : ['D4','E4','F#4','G4','A4','B4','C#5','D5','E5','F#5','G5','A5','B5','C#6','D6','E6','F#6','G6','A6','B6','C#5','D5','E5','F#5','G5','A5','B5','C#6'],
@@ -162,7 +164,7 @@ export class AppComponent {
       ASHARP : ['A#4','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6','A#6','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6'],
         B : ['B4','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6','B6','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6']
     }
-    
+
  };
 
   aeolian = {
@@ -182,7 +184,7 @@ export class AppComponent {
     },
 
     arpeggio: {
-      
+
       C : ['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','D6','E6','F6','G6','A6','B6','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6','C#6','D#6','F6','F#6','G#6','A#6','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
       D : ['D4','E4','F#4','G4','A4','B4','C#5','D5','E5','F#5','G5','A5','B5','C#6','D6','E6','F#6','G6','A6','B6','C#5','D5','E5','F#5','G5','A5','B5','C#6'],
@@ -370,7 +372,7 @@ playCurrentTrack(){
 	if(this.delayS == "off"){
 		delay.wet.value = 0;
 	}
-	
+
   let x = this.chord1 //num value of button pressed (1..7)
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
@@ -408,32 +410,31 @@ playCurrentTrack(){
 }
 
   play() {
+// Get Slider values
+  var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
+  var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
+  var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
 
-
-  /*var dist = new tone.Distortion(0.9);
-	var reverb = new tone.JCReverb(0.9);
-	var delay = new tone.FeedbackDelay(0.8);
-	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);*/
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
 	}
 	else{
-		dist.wet.value = 1;
+		dist.wet.value =  (distSlideVal/100);
 	}
 	if(this.reverbS == "off"){
 		reverb.wet.value = 0;
 	}
 	else{
-		reverb.wet.value = 1;
+		reverb.wet.value =  (reverbSlideVal/100);
 	}
 	if(this.delayS == "off"){
 		delay.wet.value = 0;
 	}
 	else{
-		delay.wet.value = 1;
+		delay.wet.value =  (delaySlideVal/100);
 	}
   console.log(this.bpm)
-  let arpeggioSpeed = this.bpm 
+  let arpeggioSpeed = this.bpm
   let x = this.chord1 //num value of button pressed (1..7)
   bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
   //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
@@ -442,7 +443,7 @@ playCurrentTrack(){
   //arpeggioLoop.start(0);
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
-  
+
   let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 6;
   for (let i = 0; i < s; i++){
     let ns = s;
@@ -458,10 +459,10 @@ playCurrentTrack(){
   maxl= parseInt(eleml[0].max);
   pattern = [];
   for (var i = 0; i < maxl; ++i) {// reads pattern input values
-    pattern.push(eleml[i].value);	
-     
+    pattern.push(eleml[i].value);
+
   }
-  
+
   curCols = parseInt(this.scurAmountCols)
   for (let num = 0; num<curCols; num++){
     let c = (num + 1) + ""
@@ -486,7 +487,7 @@ playCurrentTrack(){
     let mode = this.mode
     let instrument = 'arpeggio'
     let tr = this.tonicRoot
-    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1] 
+    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1]
   }
 
   // //console.log\("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
@@ -514,11 +515,11 @@ firstLoop(time){
     //   ////console.log\("arpeggio .. " + tempArpeggio[index])
     //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
     //   tempArpeggioIndex++;
-      
+
     //   if(tempArpeggioIndex == 6){
     //     tempArpeggioIndex = 0
     //   }
-    // }, this.bpm).start(0); 
+    // }, this.bpm).start(0);
       // parameters are note, duration, time, velocity(vel in normal range)
     console.log(document.getElementById(index.toString()))
     if(this.curBlue!=undefined){
@@ -794,7 +795,7 @@ stop() {
 		}
 		this.drawing(maxl);
     }
-	
+
 	 step_opt6_handler() {
 		var maxl=8;
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
