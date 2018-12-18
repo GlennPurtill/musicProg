@@ -8,6 +8,7 @@ let setVol
 let bassLoop;
 let arpeggioLoop;
 let curAmountCols = 8;
+let playstate = false;
 
 var vol = new tone.Volume(-10);
 var dist = new tone.Distortion(0.9);
@@ -365,6 +366,7 @@ export class AppComponent {
 
 playCurrentTrack(){
   this.stop()
+  playstate = true;
   	playerc = "single";
   // Get Slider values
   var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
@@ -494,11 +496,14 @@ playCurrentTrack(){
   }*/
 }
 	autoupdate(){
-		this.stop();
-		this.play();
+		if(playstate == true){
+			this.stop();
+			this.play();
+		}
 	}
   play() {
 	  this.stop();
+	  playstate = true;
 // Get Slider values
 	playerc= "multi"
   var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
@@ -631,6 +636,7 @@ firstLoop(time){
 }
 
 stop() {
+	playstate = false;
   for(let i = 0; i < curAmountCols+1; i++){
     document.getElementById(i.toString()).style.backgroundColor= '';
   }
