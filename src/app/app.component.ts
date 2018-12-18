@@ -1,7 +1,9 @@
 import { Component } from '@angular/core'
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
+import { Pattern } from './classes/pattern';
 import * as p5 from 'p5';
+//import { DataPatternsService } from './services/data-patterns.service';
 let setVol
 let bassLoop;
 let arpeggioLoop;
@@ -52,6 +54,11 @@ let flag_raise = true;
 })
 
 export class AppComponent {
+
+
+  // constructor(private patternService: DataPatternsService) {
+  // }
+
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
