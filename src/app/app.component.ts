@@ -389,10 +389,25 @@ export class AppComponent {
       this.rowsNeedAddingButtons++
       this.end++
       for(let i = 0; i < curAmountCols+1; i++){
-        let html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        let html = "here"
+        // let element = (<HTMLElement><any>document.createElement("button"));
+        if(i==10){
+          html = '<button id="chord'+ (i+1).toString() + '1' + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        else{
+          html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        console.log(html)
         let foo = document.getElementById(i.toString())
         foo.insertAdjacentHTML('beforeend', html)
-        let element= document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        let element = document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        if(i==10){
+          element = document.getElementById("chord" + (i+1).toString() + "1" + this.curAmountRows.toString());
+        }
+        else{
+          element = document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        }
+        // let element= document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
         element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
         element.classList.add("col-sm-11")
         element.addEventListener("click", this.here.bind(this));
