@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material';
 import { HttpModule } from '@angular/http';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { DataPatternsService } from './services/data-patterns.service';
+import { ParticlesModule } from 'angular-particle';
 import * as $ from 'jquery';
 
 @NgModule({
@@ -17,7 +18,8 @@ import * as $ from 'jquery';
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    HttpModule
+    HttpModule,
+    ParticlesModule
   ],
   providers: [DataPatternsService],
   bootstrap: [AppComponent]

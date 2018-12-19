@@ -72,6 +72,10 @@ var oriental_SCALE = [0,1,4,5,6,9,10,12];
 })
 
 export class AppComponent {
+  myStyle: object = {};
+  myParams: object = {};
+  width: number = 100;
+  height: number = 100;
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
@@ -141,6 +145,7 @@ export class AppComponent {
   
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
+  
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
   // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
   // D = ['D4','E4','F#4','G4','A4','B4','C#5']
@@ -340,20 +345,31 @@ export class AppComponent {
         if(counter == 8){
           counter = 1
         }
-
+        let html = ""
         // let element = (<HTMLElement><any>document.createElement("button"));
-        let html = '<button id="chord'+ (at+1).toString() + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        if(at==10){
+          html = '<button id="chord'+ (at+1).toString() + "1" + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        else{
+          html = '<button id="chord'+ (at+1).toString() + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        
         let foo = document.getElementById(at.toString())
         foo.insertAdjacentHTML('beforeend', html)
-
-        let element = document.getElementById('chord'+ (at+1).toString() + (i+1))
+        let element = document.getElementById('1')
+        if(at == 10){
+          element = document.getElementById('chord'+ (at+1).toString() + "1" + (i+1))
+        }
+        else {
+          element = document.getElementById('chord'+ (at+1).toString() + (i+1))
+        }
         // // this.rowsNeedAddingButtons++
         element.innerHTML = counter.toString() + "(" + this.octives + ")"
         counter++
         // // this.newRowInnerHtml.toString()
         element.addEventListener("click", this.here.bind(this));
         element.classList.add("col-sm-11")
-        element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
         this.check[at]==true
       }
     }
@@ -377,7 +393,7 @@ export class AppComponent {
         element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
         element.classList.add("col-sm-11")
         element.addEventListener("click", this.here.bind(this));
-        element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
       }
       this.newRowInnerHtml++
     }
@@ -678,6 +694,35 @@ stop() {
         step_opt2.onclick = step_opt2_handler;
         step_opt3.onclick = step_opt3_handler;
         step_opt4.onclick = step_opt4_handler;	*/
+
+
+        //particles.js
+        this.myStyle = {
+          'position': 'fixed',
+          'width': '100%',
+          'height': '100%',
+          'z-index': -1,
+          'top': 0,
+          'left': 0,
+          'right': 0,
+          'bottom': 0,
+          'background-color' : 'black'
+      };
+
+      this.myParams = {
+              particles: {
+                  number: {
+                      value: 50,
+                  },
+                  color: {
+                      value: '#ffffff'
+                  },
+                  shape: {
+                      type: 'triangle',
+                  },
+          }
+       };
+  
 		var step_opt6 = <HTMLElement>document.getElementById('option-six') as HTMLInputElement;
 		step_opt6.checked = true;//default value
 		var maxl = 8;
