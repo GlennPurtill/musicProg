@@ -10,6 +10,7 @@ declare var $: any;
 let setVol
 let bassLoop;
 let arpeggioLoop;
+let maxl = 8;
 let curAmountCols = 8;
 let playstate = false;
 
@@ -55,7 +56,7 @@ let tempArpeggioIndex = 0;
 let index = 0;
 let counter = 0;
 let curCols;
-let maxl;
+// let maxl;
 let pattern;
 let flag_raise = true;
 let playerc= "multi"
@@ -68,6 +69,19 @@ var arabian_SCALE =[0,1,4,5,7,8,11,12];
 var indian_SCALE =[0,1,3,4,7,8,10,12];
 var spanish_SCALE =[0,1,4,5,7,8,10,12];
 var oriental_SCALE = [0,1,4,5,6,9,10,12];
+var ethiopian_SCALE = [0,2,4,5,7,8,11,12];
+var blues_SCALE = [0,3,5,6,7,10,12];
+var natural_major_SCALE = [0,2,4,5,7,9,11,12];
+var chromatic_SCALE = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+var dorian_SCALE = [0,2,3,5,7,9,10,12];
+var balinese_SCALE = [0,1,3,7,8,12];
+var hungarian_major_SCALE = [0,3,4,6,7,9,10,12];
+var hungarian_minor_SCALE = [0,2,3,6,7,8,11,12];
+var pentatonic_major_SCALE = [0,2,4,7,9,12];
+var pentatonic_minor_SCALE = [0,3,5,7,10,12];
+var pentatonic_minor_SCALE =[0,2,4,5,7,8,9,11,12];
+var bebop_major_SCALE =[0,2,4,5,7,8,9,11,12];
+
 
 @Component({
   selector: 'app-root',
@@ -76,6 +90,7 @@ var oriental_SCALE = [0,1,4,5,6,9,10,12];
 })
 
 export class AppComponent {
+<<<<<<< HEAD
 
 
   constructor(private patternService: DataPatternsService) {
@@ -84,6 +99,12 @@ export class AppComponent {
   after_update_binding_patterns;
 
   pat_input;
+=======
+  myStyle: object = {};
+  myParams: object = {};
+  width: number = 100;
+  height: number = 100;
+>>>>>>> f4e3ac590998b794d999e0ea51d18a491ac75698
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
@@ -108,7 +129,7 @@ export class AppComponent {
   chord10 = '1'
   curActiveC10 = 'chord101'
   chord111 = '1'
-  curActiveC11 = 'chord11121'
+  curActiveC11 = 'chord1111'
   chord12 = '1'
   curActiveC12 = 'chord121'
   chord13 = '1'
@@ -148,11 +169,23 @@ export class AppComponent {
 	indian = this.makeScale(indian_SCALE);
 	spanish = this.makeScale(spanish_SCALE);
 	oriental = this.makeScale(oriental_SCALE);
+	ethiopian = this.makeScale(ethiopian_SCALE);
+	blues = this.makeScale(blues_SCALE);
+	natural_major = this.makeScale(natural_major_SCALE);
+	chromatic = this.makeScale(chromatic_SCALE);
+	dorian = this.makeScale(dorian_SCALE);
+	balinese = this.makeScale(balinese_SCALE);
+	hungarian_major = this.makeScale(hungarian_major_SCALE);
+	hungarian_minor = this.makeScale(hungarian_minor_SCALE);
+	pentatonic_major = this.makeScale(pentatonic_major_SCALE);
+	pentatonic_minor = this.makeScale(pentatonic_minor_SCALE);
+	bebop_major = this.makeScale(bebop_major_SCALE);
 	
   
   
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
+  
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
   // CSHARP = ['C#4','D#4','F4','F#4','G#4','A#4','C5']
   // D = ['D4','E4','F#4','G4','A4','B4','C#5']
@@ -258,10 +291,12 @@ export class AppComponent {
   }
 
   chordClicked(chord, num, c){
+    
     this[chord] = num
     let curAct = "curActiveC" + c
+    console.log(document.getElementById(chord+num))
     if(this[curAct] != ''){
-      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
@@ -365,20 +400,31 @@ export class AppComponent {
         if(counter == 8){
           counter = 1
         }
-
+        let html = ""
         // let element = (<HTMLElement><any>document.createElement("button"));
-        let html = '<button id="chord'+ (at+1).toString() + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        if(at==10){
+          html = '<button id="chord'+ (at+1).toString() + "1" + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        else{
+          html = '<button id="chord'+ (at+1).toString() + (i+1) + '" value="chord'+ (at+1).toString() + ',' + (i+1) + ',' + (at+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        
         let foo = document.getElementById(at.toString())
         foo.insertAdjacentHTML('beforeend', html)
-
-        let element = document.getElementById('chord'+ (at+1).toString() + (i+1))
+        let element = document.getElementById('1')
+        if(at == 10){
+          element = document.getElementById('chord'+ (at+1).toString() + "1" + (i+1))
+        }
+        else {
+          element = document.getElementById('chord'+ (at+1).toString() + (i+1))
+        }
         // // this.rowsNeedAddingButtons++
         element.innerHTML = counter.toString() + "(" + this.octives + ")"
         counter++
         // // this.newRowInnerHtml.toString()
         element.addEventListener("click", this.here.bind(this));
         element.classList.add("col-sm-11")
-        element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
         this.check[at]==true
       }
     }
@@ -395,14 +441,29 @@ export class AppComponent {
       this.rowsNeedAddingButtons++
       this.end++
       for(let i = 0; i < curAmountCols+1; i++){
-        let html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        let html = "here"
+        // let element = (<HTMLElement><any>document.createElement("button"));
+        if(i==10){
+          html = '<button id="chord'+ (i+1).toString() + '1' + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        else{
+          html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
+        }
+        console.log(html)
         let foo = document.getElementById(i.toString())
         foo.insertAdjacentHTML('beforeend', html)
-        let element= document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        let element = document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        if(i==10){
+          element = document.getElementById("chord" + (i+1).toString() + "1" + this.curAmountRows.toString());
+        }
+        else{
+          element = document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
+        }
+        // let element= document.getElementById("chord" + (i+1).toString() + this.curAmountRows.toString());
         element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
         element.classList.add("col-sm-11")
         element.addEventListener("click", this.here.bind(this));
-        element.setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
       }
       this.newRowInnerHtml++
     }
@@ -583,8 +644,15 @@ playCurrentTrack(){
   //arpeggioLoop.start(0);
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
+<<<<<<< HEAD
 
   let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 8;
+=======
+  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  maxl= parseInt(eleml[0].max);
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * maxl;
+  console.log(maxl)
+>>>>>>> f4e3ac590998b794d999e0ea51d18a491ac75698
   for (let i = 0; i < s; i++){
     let ns = s;
     let k = 4*(i/ns);
@@ -595,8 +663,8 @@ playCurrentTrack(){
   //set the transport to repeat
   tone.Transport.loopEnd = '1m'
   tone.Transport.loop = true
-  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-  maxl= parseInt(eleml[0].max);
+  // let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  // maxl= parseInt(eleml[0].max);
   pattern = [];
   for (var i = 0; i < maxl; ++i) {// reads pattern input values
     pattern.push(eleml[i].value);
@@ -702,6 +770,35 @@ stop() {
         step_opt2.onclick = step_opt2_handler;
         step_opt3.onclick = step_opt3_handler;
         step_opt4.onclick = step_opt4_handler;	*/
+
+
+        //particles.js
+        this.myStyle = {
+          'position': 'fixed',
+          'width': '100%',
+          'height': '100%',
+          'z-index': -1,
+          'top': 0,
+          'left': 0,
+          'right': 0,
+          'bottom': 0,
+          'background-color' : 'black'
+      };
+
+      this.myParams = {
+              particles: {
+                  number: {
+                      value: 50,
+                  },
+                  color: {
+                      value: '#ffffff'
+                  },
+                  shape: {
+                      type: 'triangle',
+                  },
+          }
+       };
+  
 		var step_opt6 = <HTMLElement>document.getElementById('option-six') as HTMLInputElement;
 		step_opt6.checked = true;//default value
 		var maxl = 8;

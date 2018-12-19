@@ -1,9 +1,9 @@
 .contFluid {
-    background-color: rgb(158, 158, 158);
+    background-color: rgba(92, 92, 92, 0.548);
     align-content: center;
 }
 button:hover {
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 .active {
     background-color: red;
@@ -12,33 +12,36 @@ button:active{
     background:olive;
 }
 .row{
+    color: rgb(146, 146, 146);
     text-align: center;
 }
 .col {
     width: 5%;
     padding: 2px;
-    background-color: rgba(128, 128, 128, 0.404);
+
 }
 .chordRow {
-    background-color: rgba(128, 128, 128, 0.301);
+    background-color: rgba(128, 128, 128, 0.548);
 }
 .tonicRoot {
     /* background-color: red; */
+    margin: 10px;
     padding:5px;
-    background-color: rgba(128, 128, 128, 0.301);
+    background-color: rgba(128, 128, 128, 0.548);
 }
 
 .mode {
     /* background-color: purple; */
-    background-color: rgba(128, 128, 128, 0.301);
-    padding:5px
+    background-color: rgba(128, 128, 128, 0.548);
+    padding:5px;
+    margin: 10px;
 }
 .trBut{
     width: 50px;
     padding: 5px;
 }
 .b {
-    background-color: rgb(78, 78, 78);
+    background-color: rgb(0, 0, 0);
     border: none;
     color: white;
     padding: 5px;
@@ -52,23 +55,38 @@ button:active{
     width: 80px;
 }
 .playBut{
-    background-color: rgb(255, 218, 10);
+    background-color: rgb(64, 212, 0);
     border: none;
     color: white;
-    padding: 10px;
+    padding: 7.5px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 18px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 15px;
 }
+
+.adjustments{
+    padding: 5px;
+}
+.adjustmentsButtons {
+    background-color: rgb(43, 43, 43);
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 1px;
+    cursor: pointer;
+    border-radius:20px;
+}
 .stopBut{
     background-color: rgb(255, 10, 10);
     border: none;
     color: white;
-    padding: 10px;
+    padding: 7.5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -101,7 +119,11 @@ button:active{
     margin: 5px;
 }
 .bpm{
-    background-color: rgba(128, 128, 128, 0.301);
+    background-color: rgba(128, 128, 128, 0.548);
+    padding: 5px;
+
+    border-radius: 5px;
+    margin: 10px;
 }
 
 /* Slider */
@@ -130,14 +152,14 @@ input[type=radio] {
 }
 
 label {
-  color: #892c76;
+  color: #ffffff;
   display: inline-block;
   cursor: pointer;
   font-weight: bold;
   box-sizing: content-box;
-  width: 60px;
+  width: 35px;
   padding: 10px 20px;
-  margin: -7px;
+  margin: -2px;
 
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -149,18 +171,18 @@ label {
 
 input[type=radio]:checked + label {
   color: black;
-  background: #42f4bc;
+  background: #da150f;
 }
 
 label + input[type=radio] + label {
-  border-left: solid 3px #42f4bc;
+  border-left: solid 1.5px #000000;
 }
 
 .radio-group {
-  border: solid 3px #42f4bc;
+  border: solid 2px #000000;
   display: inline-block;
-  margin: 20px;
-  border-radius: 12px;
+  margin: 1px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
@@ -175,8 +197,9 @@ input[type=number]{
 
 
 
-canvas {
-	margin:auto;
+.canvas {
+    margin:auto;
+    border: 1px solid #892c76;
 }
 
 /*input {
@@ -194,13 +217,18 @@ canvas {
 }
 .loader.loading  { display: block; }
 
+
+.col{
+	flex-grow: 0;
+}
+
 /*---------------------------- number input --------------------------------------------------*/
 input[type=number]{
   color: white;
-  background: #332f35;
-  border: 3px solid #892c76;
-  border-radius: 60px;
-  padding:10px;
-  width: 60px;
-  margin: 5px;
+  background: #000000;
+  border: 3px solid #000000;
+  border-radius: 40px;
+  padding:5px;
+  width: 40px;
+  margin: 2.5px;
 }

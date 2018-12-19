@@ -1,15 +1,23 @@
+<particles class="particle" [params]="myParams" [style]="myStyle" [width]="width" [height]="height"></particles>
 <div style="text-align:center">
         <div class="container-fluid">
             <div class="col-sm-12">
-                <h1>Chord Progression</h1>
+                <!-- <h1>Chord Progression</h1> -->
             </div>
 
             <div class="row justify-content-center col-sm-12">
-                Columns: <button (click)="addCol()">+</button>
-                <!-- <button (click)="removeCol()">-</button> -->
-                Rows: <button (click)="addButton()">add</button>
-                <div class="row chordRow col-sm-12 justify-content-center border rounded">
-                    <div id="0" class="col border rounded">
+                <div class="col-sm-6 d-flex justify-content-start">
+                   <span class="adjustments"> Columns: <button class="adjustmentsButtons" (click)="addCol()"><span class="glyphicon glyphicon-plus"></span></button></span>
+                    <!-- <button (click)="removeCol()">-</button> -->
+                    <span class="adjustments"> Rows: <button class="adjustmentsButtons" (click)="addButton()"><span class="glyphicon glyphicon-plus"></span></button></span>
+                </div>
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class=""> <button class="playBut" (click)="play()"><span class="glyphicon glyphicon-play"></span></button></div>
+                    <div class=""> <button class="stopBut" (click)="stop()"><span class="glyphicon glyphicon-stop"></span></button></div>
+                    <!-- <div class=""> <button class="playCurrentBut" (click)="playCurrentTrack()">PCT</button></div> -->
+                </div>
+                <div class="row chordRow col-sm-12 justify-content-center border-light rounded">
+                    <div id="0" class="col">
                         <button id="chord11" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord1', 1, 1)">1</button>
                         <button id="chord12" class="b col-sm-11" (click)="chordClicked('chord1', 2, 1)">2</button>
                         <button id="chord13" class="b col-sm-11" (click)="chordClicked('chord1', 3, 1)">3</button>
@@ -18,7 +26,8 @@
                         <button id="chord16" class="b col-sm-11" (click)="chordClicked('chord1', 6, 1)">6</button>
                         <button id="chord17" class="b col-sm-11" (click)="chordClicked('chord1', 7, 1)">7</button>
                     </div>
-                    <div id="1" class="col border rounded">
+
+                    <div id="1" class="col">
                         <button id="chord21" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord2', 1, 2)">1</button>
                         <button id="chord22" class="b col-sm-11" (click)="chordClicked('chord2', 2, 2)">2</button>
                         <button id="chord23" class="b col-sm-11" (click)="chordClicked('chord2', 3, 2)">3</button>
@@ -27,7 +36,7 @@
                         <button id="chord26" class="b col-sm-11" (click)="chordClicked('chord2', 6, 2)">6</button>
                         <button id="chord27" class="b col-sm-11" (click)="chordClicked('chord2', 7, 2)">7</button>
                     </div>
-                    <div id="2" class="col border rounded">
+                    <div id="2" class="col">
                             <button id="chord31" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord3', 1, 3)">1</button>
                             <button id="chord32" class="b col-sm-11" (click)="chordClicked('chord3', 2, 3)">2</button>
                             <button id="chord33" class="b col-sm-11" (click)="chordClicked('chord3', 3, 3)">3</button>
@@ -36,7 +45,7 @@
                             <button id="chord36" class="b col-sm-11" (click)="chordClicked('chord3', 6, 3)">6</button>
                             <button id="chord37" class="b col-sm-11" (click)="chordClicked('chord3', 7, 3)">7</button>
                         </div>
-                        <div id="3" class="col border rounded">
+                        <div id="3" class="col">
                             <button id="chord41" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord4', 1, 4)">1</button>
                             <button id="chord42" class="b col-sm-11" (click)="chordClicked('chord4', 2, 4)">2</button>
                             <button id="chord43" class="b col-sm-11" (click)="chordClicked('chord4', 3, 4)">3</button>
@@ -45,7 +54,7 @@
                             <button id="chord46" class="b col-sm-11" (click)="chordClicked('chord4', 6, 4)">6</button>
                             <button id="chord47" class="b col-sm-11" (click)="chordClicked('chord4', 7, 4)">7</button>
                         </div>
-                        <div id="4" class="col border rounded">
+                        <div id="4" class="col">
                             <button id="chord51" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord5', 1, 5)">1</button>
                             <button id="chord52" class="b col-sm-11" (click)="chordClicked('chord5', 2, 5)">2</button>
                             <button id="chord53" class="b col-sm-11" (click)="chordClicked('chord5', 3, 5)">3</button>
@@ -54,7 +63,7 @@
                             <button id="chord56" class="b col-sm-11" (click)="chordClicked('chord5', 6, 5)">6</button>
                             <button id="chord57" class="b col-sm-11" (click)="chordClicked('chord5', 7, 5)">7</button>
                         </div>
-                        <div id="5" class="col border rounded">
+                        <div id="5" class="col">
                             <button id="chord61" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord6', 1, 6)">1</button>
                             <button id="chord62" class="b col-sm-11" (click)="chordClicked('chord6', 2, 6)">2</button>
                             <button id="chord63" class="b col-sm-11" (click)="chordClicked('chord6', 3, 6)">3</button>
@@ -63,7 +72,7 @@
                             <button id="chord66" class="b col-sm-11" (click)="chordClicked('chord6', 6, 6)">6</button>
                             <button id="chord67" class="b col-sm-11" (click)="chordClicked('chord6', 7, 6)">7</button>
                         </div>
-                        <div id="6" class="col border rounded">
+                        <div id="6" class="col">
                             <button id="chord71" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord7', 1, 7)">1</button>
                             <button id="chord72" class="b col-sm-11" (click)="chordClicked('chord7', 2, 7)">2</button>
                             <button id="chord73" class="b col-sm-11" (click)="chordClicked('chord7', 3, 7)">3</button>
@@ -72,7 +81,7 @@
                             <button id="chord76" class="b col-sm-11" (click)="chordClicked('chord7', 6, 7)">6</button>
                             <button id="chord77" class="b col-sm-11" (click)="chordClicked('chord7', 7, 7)">7</button>
                         </div>
-                        <div id="7" class="col border rounded">
+                        <div id="7" class="col">
                             <button id="chord81" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord8', 1, 8)">1</button>
                             <button id="chord82" class="b col-sm-11" (click)="chordClicked('chord8', 2, 8)">2</button>
                             <button id="chord83" class="b col-sm-11" (click)="chordClicked('chord8', 3, 8)">3</button>
@@ -81,7 +90,7 @@
                             <button id="chord86" class="b col-sm-11" (click)="chordClicked('chord8', 6, 8)">6</button>
                             <button id="chord87" class="b col-sm-11" (click)="chordClicked('chord8', 7, 8)">7</button>
                         </div>
-                        <div id="8" class="col border rounded" style="display: none;">
+                        <div id="8" class="col" style="display: none;">
                             <button id="chord91" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord9', 1, 9)">1</button>
                             <button id="chord92" class="b col-sm-11" (click)="chordClicked('chord9', 2, 9)">2</button>
                             <button id="chord93" class="b col-sm-11" (click)="chordClicked('chord9', 3, 9)">3</button>
@@ -90,7 +99,7 @@
                             <button id="chord96" class="b col-sm-11" (click)="chordClicked('chord9', 6, 9)">6</button>
                             <button id="chord97" class="b col-sm-11" (click)="chordClicked('chord9', 7, 9)">7</button>
                         </div>
-                        <div id="9" class="col border rounded" style="display: none;">
+                        <div id="9" class="col" style="display: none;">
                             <button id="chord101" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord10', 1, 10)">1</button>
                             <button id="chord102" class="b col-sm-11" (click)="chordClicked('chord10', 2, 10)">2</button>
                             <button id="chord103" class="b col-sm-11" (click)="chordClicked('chord10', 3, 10)">3</button>
@@ -99,7 +108,7 @@
                             <button id="chord106" class="b col-sm-11" (click)="chordClicked('chord10', 6, 10)">6</button>
                             <button id="chord107" class="b col-sm-11" (click)="chordClicked('chord10', 7, 10)">7</button>
                         </div>
-                        <div id="10" class="col border rounded" style="display: none;">
+                        <div id="10" class="col" style="display: none;">
                             <button id="chord1111" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord111', 1, 11)">1</button>
                             <button id="chord1112" class="b col-sm-11" (click)="chordClicked('chord111', 2, 11)">2</button>
                             <button id="chord1113" class="b col-sm-11" (click)="chordClicked('chord111', 3, 11)">3</button>
@@ -108,7 +117,7 @@
                             <button id="chord1116" class="b col-sm-11" (click)="chordClicked('chord111', 6, 11)">6</button>
                             <button id="chord1117" class="b col-sm-11" (click)="chordClicked('chord111', 7, 11)">7</button>
                         </div>
-                        <div id="11" class="col border rounded" style="display: none;">
+                        <div id="11" class="col" style="display: none;">
                             <button id="chord121" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord12', 1, 12)">1</button>
                             <button id="chord122" class="b col-sm-11" (click)="chordClicked('chord12', 2, 12)">2</button>
                             <button id="chord123" class="b col-sm-11" (click)="chordClicked('chord12', 3, 12)">3</button>
@@ -117,7 +126,7 @@
                             <button id="chord126" class="b col-sm-11" (click)="chordClicked('chord12', 6, 12)">6</button>
                             <button id="chord127" class="b col-sm-11" (click)="chordClicked('chord12', 7, 12)">7</button>
                         </div>
-                        <div id="12" class="col border rounded" style="display: none;">
+                        <div id="12" class="col" style="display: none;">
                             <button id="chord131" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord13', 1, 13)">1</button>
                             <button id="chord132" class="b col-sm-11" (click)="chordClicked('chord13', 2, 13)">2</button>
                             <button id="chord133" class="b col-sm-11" (click)="chordClicked('chord13', 3, 13)">3</button>
@@ -126,7 +135,7 @@
                             <button id="chord136" class="b col-sm-11" (click)="chordClicked('chord13', 6, 13)">6</button>
                             <button id="chord137" class="b col-sm-11" (click)="chordClicked('chord13', 7, 13)">7</button>
                         </div>
-                        <div id="13" class="col border rounded" style="display: none;">
+                        <div id="13" class="col" style="display: none;">
                             <button id="chord141" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord14', 1, 14)">1</button>
                             <button id="chord142" class="b col-sm-11" (click)="chordClicked('chord14', 2, 14)">2</button>
                             <button id="chord143" class="b col-sm-11" (click)="chordClicked('chord14', 3, 14)">3</button>
@@ -135,7 +144,7 @@
                             <button id="chord146" class="b col-sm-11" (click)="chordClicked('chord14', 6, 14)">6</button>
                             <button id="chord147" class="b col-sm-11" (click)="chordClicked('chord14', 7, 14)">7</button>
                         </div>
-                        <div id="14" class="col border rounded" style="display: none;">
+                        <div id="14" class="col" style="display: none;">
                             <button id="chord151" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord15', 1, 15)">1</button>
                             <button id="chord152" class="b col-sm-11" (click)="chordClicked('chord15', 2, 15)">2</button>
                             <button id="chord153" class="b col-sm-11" (click)="chordClicked('chord15', 3, 15)">3</button>
@@ -144,7 +153,7 @@
                             <button id="chord156" class="b col-sm-11" (click)="chordClicked('chord15', 6, 15)">6</button>
                             <button id="chord157" class="b col-sm-11" (click)="chordClicked('chord15', 7, 15)">7</button>
                         </div>
-                        <div id="15" class="col border rounded" style="display: none;">
+                        <div id="15" class="col" style="display: none;">
                             <button id="chord161" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord16', 1, 16)">1</button>
                             <button id="chord162" class="b col-sm-11" (click)="chordClicked('chord16', 2, 16)">2</button>
                             <button id="chord163" class="b col-sm-11" (click)="chordClicked('chord16', 3, 16)">3</button>
@@ -154,15 +163,52 @@
                             <button id="chord167" class="b col-sm-11" (click)="chordClicked('chord16', 7, 16)">7</button>
                         </div>
                 </div>
-                <div class="col-sm-2 justify-content-center">
+                <!-- <div class="col-sm-2 justify-content-center">
                     <app-pattern></app-pattern>
+                </div> -->
+            </div>
+        </div>
+          <div class="row justify-content-center col-sm-12">
+              <div class="col-sm-3">
+                  <div class="tonicRoot border-light rounded">
+                  <h4>Tonic/Root</h4>
+                    <div class="row justify-content-center">
+                        <button id="C" class="b trBut" style="background-color: red;" (click)="changeTonicRoot('C')">C</button>
+                        <button id="CSHARP" class="b trBut" (click)="changeTonicRoot('CSHARP')">C#</button>
+                        <button id="D" class="b trBut" (click)="changeTonicRoot('D')">D</button>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button id="DSHARP" class="b trBut" (click)="changeTonicRoot('DSHARP')">D#</button>
+                        <button id="E" class="b trBut" (click)="changeTonicRoot('E')">E</button>
+                        <button id="F" class="b trBut" (click)="changeTonicRoot('F')">F</button>
+                    </div>
+                     <div class="row justify-content-center">
+                        <button id="FSHARP" class="b trBut" (click)="changeTonicRoot('FSHARP')">F#</button>
+                        <button id="G" class="b trBut" (click)="changeTonicRoot('G')">G</button>
+                        <button id="GSHARP" class="b trBut" (click)="changeTonicRoot('GSHARP')">G#</button>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button id="A" class="b trBut" (click)="changeTonicRoot('A')">A</button>
+                        <button id="ASHARP" class="b trBut" (click)="changeTonicRoot('ASHARP')">A#</button>
+                        <button id="B" class="b trBut" (click)="changeTonicRoot('B')">B</button>
+                    </div>
                 </div>
-                <div class="col-sm-2 justify-content-center">
-                    <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
-                    <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
-                    <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>
+                <div class="bpm border-light rounded">
+                        <h4>BPM</h4>
+                            <div class="bpmClass">
+                                <button id='1n' (click)="changeBPM('1')" style="background-color: red;" class="b">30</button>
+                                <button id='2n' (click)="changeBPM('2')" class="b">60</button>
+                                <button id='3n' (click)="changeBPM('3')" class="b">90</button>
+                                <button id='4n' (click)="changeBPM('4')" class="b">120</button>
+                                <button id='5n' (click)="changeBPM('5')" class="b">150</button>
+                                <button id='6n' (click)="changeBPM('6')" class="b">180</button>
+                                <button id='7n' (click)="changeBPM('7')" class="b">210</button>
+                                <button id='8n' (click)="changeBPM('8')" class="b">240</button>
+                            </div>
+                        </div>
                 </div>
-				<div class="mode col-sm-2 border rounded">
+                <div class="col-sm-2">
+                    <div class="mode border-light rounded">
 					<h4>Distortion</h4>
 					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
 					  <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
@@ -171,31 +217,11 @@
   					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
 					<h4>Delay</h4>
 					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
-  					<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+                      <button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+                      </div>
 				</div>
-            </div>
-        </div>
-          <div class="row justify-content-center col-sm-12">
-              <div class="tonicRoot col-sm-5 border rounded">
-                  <h4>Tonic/Root</h4>
-                    <div class="row justify-content-center">
-                        <button id="C" class="b trBut" style="background-color: red;" (click)="changeTonicRoot('C')">C</button>
-                        <button id="CSHARP" class="b trBut" (click)="changeTonicRoot('CSHARP')">C#</button>
-                        <button id="D" class="b trBut" (click)="changeTonicRoot('D')">D</button>
-                        <button id="DSHARP" class="b trBut" (click)="changeTonicRoot('DSHARP')">D#</button>
-                        <button id="E" class="b trBut" (click)="changeTonicRoot('E')">E</button>
-                        <button id="F" class="b trBut" (click)="changeTonicRoot('F')">F</button>
-                    </div>
-                    <div class="row justify-content-center">
-                        <button id="FSHARP" class="b trBut" (click)="changeTonicRoot('FSHARP')">F#</button>
-                        <button id="G" class="b trBut" (click)="changeTonicRoot('G')">G</button>
-                        <button id="GSHARP" class="b trBut" (click)="changeTonicRoot('GSHARP')">G#</button>
-                        <button id="A" class="b trBut" (click)="changeTonicRoot('A')">A</button>
-                        <button id="ASHARP" class="b trBut" (click)="changeTonicRoot('ASHARP')">A#</button>
-                        <button id="B" class="b trBut" (click)="changeTonicRoot('B')">B</button>
-                    </div>
-                </div>
-              <div class="mode col-sm-2 border rounded">
+              <div class="col-sm-2">
+                  <div class="mode border-light rounded">
                   <h4>Mode</h4>
                   <button id = "ionian" class="b" style="background-color: red;" (click)="changeMode('ionian')">Ionian</button>
                   <button id = "aeolian" class="b" (click)="changeMode('aeolian')">Aeolian</button>
@@ -203,48 +229,47 @@
 				  <button id = "arabian" class="b" (click)="changeMode('arabian')">Arabian</button>
 				  <button id = "indian" class="b" (click)="changeMode('indian')">Indian</button>
 				  <button id = "spanish" class="b" (click)="changeMode('spanish')">Spanish</button>
-				  <button id = "oriental" class="b" (click)="changeMode('oriental')">Oriental</button>
-              </div>
-              <div class="bpm col-sm-4 border rounded">
-                <h4>BPM</h4>
-                <div class="bpmClass">
-                    <button id='1n' (click)="changeBPM('1')" style="background-color: red;" class="b">30</button>
-                    <button id='2n' (click)="changeBPM('2')" class="b">60</button>
-                    <button id='3n' (click)="changeBPM('3')" class="b">90</button>
-                    <button id='4n' (click)="changeBPM('4')" class="b">120</button>
-                    <button id='5n' (click)="changeBPM('5')" class="b">150</button>
-                    <button id='6n' (click)="changeBPM('6')" class="b">180</button>
-                    <button id='7n' (click)="changeBPM('7')" class="b">210</button>
-                    <button id='8n' (click)="changeBPM('8')" class="b">240</button>
+                  <button id = "oriental" class="b" (click)="changeMode('oriental')">Oriental</button>		  
+				  <button id = "ethiopian" class="b" (click)="changeMode('ethiopian')">Ethiopian</button>
+				  <button id = "blues" class="b" (click)="changeMode('blues')">Blues</button>
+				  <button id = "natural_major" class="b" (click)="changeMode('natural_major')">Natural major</button>
+				  <button id = "chromatic" class="b" (click)="changeMode('chromatic')">Chromatic</button>
+				  <button id = "dorian" class="b" (click)="changeMode('dorian')">Dorian</button>
+				  <button id = "balinese" class="b" (click)="changeMode('balinese')">Balinese</button>
+				  <button id = "bebop_major" class="b" (click)="changeMode('bebop_major')">Bebop major</button>
+				  <button id = "hungarian_major" class="b" (click)="changeMode('hungarian_major')">Hungarian major</button>
+				  <button id = "hungarian_minor" class="b" (click)="changeMode('hungarian_minor')">Hungarian minor</button>
+				  <button id = "pentatonic_major" class="b" (click)="changeMode('pentatonic_major')">Pentatonic major</button>
+				  <button id = "pentatonic_minor" class="b" (click)="changeMode('pentatonic_minor')">Pentatonic minor</button>			  
                 </div>
+              </div>
+              <div class="col-sm-4">
+                    <div class="mode border-light rounded">
+                            <h4>Arpeggio</h4>
+                            <canvas id="myCanvas" class="convas" width="420" height="420">Your browser does not support the HTML5 canvas tag.</canvas>
+                    
+                            <form>
+                                <div class="radio-group">
+                                    <input type="radio" id="option-one" (click)="step_opt1_handler()" name="selector"><label for="option-one">3 notes</label>
+                                    <input type="radio" id="option-two" (click)="step_opt2_handler()" name="selector"><label for="option-two">4 notes</label>
+                                    <input type="radio" id="option-three" (click)="step_opt3_handler()" name="selector"><label for="option-three">5 notes</label>
+                                    <input type="radio" id="option-four" (click)="step_opt4_handler()" name="selector"><label for="option-four">6 notes</label>
+                                    <input type="radio" id="option-five" (click)="step_opt5_handler()" name="selector"><label for="option-five">7 notes</label>
+                                    <input type="radio" id="option-six" (click)="step_opt6_handler()" name="selector"><label for="option-six">8 notes</label>
+                                </div>
+                            </form>
+                    
+                            <div id="container" class="quantity">
+                                <input type="number" name="value" id="value1" min="1" max="8" value="1" (click)="autodraw()">
+                                <input type="number" name="value" id="value2" min="1" max="8" value="2" (click)="autodraw()">
+                                <input type="number" name="value" id="value3" min="1" max="8" value="3" (click)="autodraw()">
+                                <input type="number" name="value" id="value4" min="1" max="8" value="4" (click)="autodraw()">
+                                <input type="number" name="value" id="value5" min="1" max="8" value="5" (click)="autodraw()">
+                                <input type="number" name="value" id="value6" min="1" max="8" value="6" (click)="autodraw()">
+                                <input type="number" name="value" id="value7" min="1" max="8" value="7" (click)="autodraw()">
+                                <input type="number" name="value" id="value8" min="1" max="8" value="8" (click)="autodraw()">
+                            </div><br><br>
+                    
+                        </div>
             </div>
-            </div>
-
-		<h1>Arpeggio Pattern</h1>
-		<canvas id="myCanvas" width="420" height="420" style="border:3px solid #892c76;">Your browser does not support the HTML5 canvas tag.</canvas>
-
-		<form>
-			<div class="radio-group">
-				<input type="radio" id="option-one" (click)="step_opt1_handler()" name="selector"><label for="option-one">3 notes</label>
-				<input type="radio" id="option-two" (click)="step_opt2_handler()" name="selector"><label for="option-two">4 notes</label>
-				<input type="radio" id="option-three" (click)="step_opt3_handler()" name="selector"><label for="option-three">5 notes</label>
-				<input type="radio" id="option-four" (click)="step_opt4_handler()" name="selector"><label for="option-four">6 notes</label>
-				<input type="radio" id="option-five" (click)="step_opt5_handler()" name="selector"><label for="option-five">7 notes</label>
-				<input type="radio" id="option-six" (click)="step_opt6_handler()" name="selector"><label for="option-six">8 notes</label>
-			</div>
-		</form>
-
-		<div id="container" class="quantity">
-			<input type="number" name="value" id="value1" min="1" max="8" value="1" (click)="autodraw()">
-			<input type="number" name="value" id="value2" min="1" max="8" value="2" (click)="autodraw()">
-			<input type="number" name="value" id="value3" min="1" max="8" value="3" (click)="autodraw()">
-			<input type="number" name="value" id="value4" min="1" max="8" value="4" (click)="autodraw()">
-			<input type="number" name="value" id="value5" min="1" max="8" value="5" (click)="autodraw()">
-			<input type="number" name="value" id="value6" min="1" max="8" value="6" (click)="autodraw()">
-			<input type="number" name="value" id="value7" min="1" max="8" value="7" (click)="autodraw()">
-			<input type="number" name="value" id="value8" min="1" max="8" value="8" (click)="autodraw()">
-		</div><br><br>
-
-
-
-          </div>
+        </div>
