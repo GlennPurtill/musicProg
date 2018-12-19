@@ -217,6 +217,11 @@ input[type=number]{
 }
 .loader.loading  { display: block; }
 
+
+.col{
+	flex-grow: 0;
+}
+
 /*---------------------------- number input --------------------------------------------------*/
 input[type=number]{
   color: white;
