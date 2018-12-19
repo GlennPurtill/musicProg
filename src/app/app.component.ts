@@ -11,11 +11,12 @@ let maxl = 8;
 let curAmountCols = 8;
 let playstate = false;
 
+var chorus = new tone.Chorus(4, 2.5, 0.5);
 var vol = new tone.Volume(-10);
 var dist = new tone.Distortion(0.9);
 var reverb = new tone.JCReverb(0.9);
 var delay = new tone.FeedbackDelay(0.8);
-let bassSynth = new tone.FMSynth().chain(delay, reverb, dist, tone.Master);
+let bassSynth = new tone.FMSynth().chain(delay, chorus, reverb, dist, tone.Master);
 let arpeggioSynth = new tone.MonoSynth(
 
   {
@@ -45,7 +46,7 @@ let arpeggioSynth = new tone.MonoSynth(
     "exponent"  : 2
     }
   }
-).chain( vol, delay, reverb, dist, tone.Master);
+).chain( vol, delay, chorus, reverb, dist, tone.Master);
 
 let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
 let tempArpeggio = ['','','','','','','','']
@@ -146,6 +147,7 @@ export class AppComponent {
   distortionS = "on"
   reverbS = "on"
   delayS = "on"
+  chorusS= "on"
   
 	ionian = this.makeScale(ionian_SCALE);
 	aeolian = this.makeScale(aeolian_SCALE);
@@ -268,7 +270,7 @@ export class AppComponent {
     let curAct = "curActiveC" + c
     console.log(document.getElementById(chord+num))
     if(this[curAct] != ''){
-      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(47, 47, 47); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
@@ -330,6 +332,20 @@ export class AppComponent {
        document.getElementById("delay").innerHTML="OFF";
  		   document.getElementById("delay").style.backgroundColor = '';
        this.delayS = "off";
+ 	   }
+	this.autoupdate();
+   }
+   
+   chorusSwitch(val){
+     if(this.chorusS == "off"){
+     document.getElementById("chorus").innerHTML="ON";
+     document.getElementById("chorus").style.backgroundColor = 'red';
+     this.chorusS = "on";
+     }
+     else{
+       document.getElementById("chorus").innerHTML="OFF";
+ 		   document.getElementById("chorus").style.backgroundColor = '';
+       this.chorusS = "off";
  	   }
 	this.autoupdate();
    }
@@ -396,7 +412,7 @@ export class AppComponent {
         // // this.newRowInnerHtml.toString()
         element.addEventListener("click", this.here.bind(this));
         element.classList.add("col-sm-11")
-        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(47, 47, 47); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
         this.check[at]==true
       }
     }
@@ -435,7 +451,7 @@ export class AppComponent {
         element.innerHTML = this.newRowInnerHtml.toString() + "(" + this.octives + ")"
         element.classList.add("col-sm-11")
         element.addEventListener("click", this.here.bind(this));
-        element.setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+        element.setAttribute("style", "background-color: rgb(47, 47, 47); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
       }
       this.newRowInnerHtml++
     }
@@ -450,6 +466,7 @@ playCurrentTrack(){
   var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
   var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
   var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
+  var chorusSlideVal = parseFloat((<HTMLInputElement>document.getElementById("chorusSlide")).value);
 
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
@@ -468,6 +485,12 @@ playCurrentTrack(){
 	}
 	else{
 		delay.wet.value =  (delaySlideVal/100);
+	}
+	if(this.chorusS == "off"){
+		chorus.wet.value = 0;
+	}
+	else{
+		chorus.wet.value =  (chorusSlideVal/100);
 	}
   console.log(this.bpm)
   let arpeggioSpeed = this.bpm
@@ -587,6 +610,7 @@ playCurrentTrack(){
   var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
   var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
   var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
+  var chorusSlideVal = parseFloat((<HTMLInputElement>document.getElementById("chorusSlide")).value);
 
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
@@ -605,6 +629,12 @@ playCurrentTrack(){
 	}
 	else{
 		delay.wet.value =  (delaySlideVal/100);
+	}
+	if(this.chorusS == "off"){
+		chorus.wet.value = 0;
+	}
+	else{
+		chorus.wet.value =  (chorusSlideVal/100);
 	}
   console.log(this.bpm)
   let arpeggioSpeed = this.bpm
@@ -775,6 +805,7 @@ stop() {
 		this.distortionSwitch("off");
 		this.reverbSwitch("off");
 		this.delaySwitch("off");
+		this.chorusSwitch("off");
     this.distSlide();
   }
 
@@ -828,7 +859,7 @@ stop() {
 		ctx.strokeStyle="#892c76";
 		// "#42f4bc" aqua color code
 		// "#892c76" purple color code
-		ctx.fillStyle="#42f4bc";
+		ctx.fillStyle="white";
 		ctx.beginPath();
 		if(maxl==3){
 			for(i=0; i< 3;i++){
