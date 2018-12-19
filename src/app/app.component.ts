@@ -3,7 +3,7 @@ import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 import { Pattern } from './classes/pattern';
 import * as p5 from 'p5';
-//import { DataPatternsService } from './services/data-patterns.service';
+import { DataPatternsService } from './services/data-patterns.service';
 let setVol
 let bassLoop;
 let arpeggioLoop;
@@ -56,8 +56,8 @@ let flag_raise = true;
 export class AppComponent {
 
 
-  // constructor(private patternService: DataPatternsService) {
-  // }
+  constructor(private patternService: DataPatternsService) {
+  }
 
   title = 'musicProg';
   bpm = '1n'
@@ -198,6 +198,16 @@ export class AppComponent {
     }
 };
   //all_ionian_scales = [this.ionian.C, this.ionian.CSHARP, this.ionian.D, this.ionian.DSHARP, this.ionian.E, this.ionian.F, this.ionian.FSHARP, this.ionian.G, this.ionian.GSHARP, this.ionian.A, this.ionian.ASHARP, this.ionian.B]
+
+
+  saveBassPattern(){
+    this.saveBass();
+    console.log("inside saveBassPattern")
+    let len = tempArr.length.toString();
+    let myArr: string[];
+    myArr = tempArr.slice();
+    this.patternService.savePatternFromExternal(len, myArr)
+  }
 
   changeBPM(val){
     this.bpm = val + "n"
@@ -446,31 +456,29 @@ playCurrentTrack(){
     pattern.push(eleml[i].value);	
      
   }
-  
-  curCols = parseInt(this.scurAmountCols)
-  for (let num = 0; num<curCols-1; num++){
-    
-    let c = (num + 1) + ""
-    c = "chord" + c
-    let d = "ionian"
-    let example = "D"
-    //get mode
-    let mode = this.mode
-    let instrument = 'bass'
-    let tr = this.tonicRoot
-    tempArr[num] = this[mode][instrument][tr][this[c] - 1] //dynamically changing scale
-  }
-
-  for (let num =0 ; num<maxl; num++){
-    // let d = (num + 1) + ""
-    // var c = "value" + d
-    let mode = this.mode
-    let instrument = 'arpeggio'
-    let tr = this.tonicRoot
-    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1] 
-  }
-
+  this.saveBass();
+  this.saveArpeggio();
   // console.log("chords " + this.chord1 + " " + this.chord2 + " " + this.chord3 + " " + this.chord4 + " " + this.chord5 + " " + this.chord6 + " " + this.chord7 + " " + this.chord8 + " tonic/root: " + this.tonicRoot + " mode: " + this.mode)
+}
+
+saveBass(){
+  curCols = parseInt(this.scurAmountCols)
+  for (let num = 0; num<curCols; num++){
+    let c = (num + 1) + "";
+    c = "chord" + c;
+    let mode = this.mode;
+    let instrument = 'bass';
+    let tr = this.tonicRoot;
+    tempArr[num] = this[mode][instrument][tr][this[c] - 1]; //dynamically changing scale
+  }
+}
+saveArpeggio(){
+  for (let num =0 ; num<maxl; num++){
+    let mode = this.mode;
+    let instrument = 'arpeggio';
+    let tr = this.tonicRoot;
+    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1];
+  }
 }
 
 
@@ -481,7 +489,7 @@ secondLoop(time){
   if(tempArpeggioIndex == 6){
     tempArpeggioIndex = 0
   }
-  console.log("arpeggio closed" )
+  console.log("arpeggio closed")
 }
 
 

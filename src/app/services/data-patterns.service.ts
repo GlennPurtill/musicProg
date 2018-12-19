@@ -4,18 +4,17 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Pattern } from '../classes/pattern';
 
-let length; 
-  let title; 
-  let structure;
-  let id; 
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataPatternsService {
 
-  
-  pattern_name = 'PATTERN A';
+  length: number; 
+  title: string; 
+  structure: string[];
+  id: number; 
   
   private nextId: number;
 
@@ -31,13 +30,10 @@ export class DataPatternsService {
   }
 
 
-  // getPatterns(){
-  //   return this.http.get(".../assets/mydata.json").pipe(map(res => res.json()));
-  // }
+  public addPattern(myPattern: Pattern): void {
+    console.log("inside addPattern")
 
-  public addPattern(text: string): void {
-    
-    let pattern = new Pattern(id, length, title, structure);
+    let pattern = myPattern;
     let patterns = this.getPatterns();
     patterns.push(pattern);
 
@@ -52,13 +48,32 @@ export class DataPatternsService {
 
   public removePattern(id: number): void {
     let patterns = this.getPatterns();
-    patterns = patterns.filter((pattern)=> pattern.title != title);
+    patterns = patterns.filter((pattern)=> pattern.title != this.title);
     this.setLocalStoragePatterns(patterns);
   }
 
   // helper function 
   private setLocalStoragePatterns(patterns: Pattern[]): void{
+        console.log("inside setLocalStoragePatterns")
     localStorage.setItem('patterns', JSON.stringify({ patterns: patterns }))
+
+  }
+
+  public getPatternsMapping(){
+    let localStorageItem = JSON.parse(localStorage.getItem('patterns'));
+    return localStorageItem.patterns.map(res => res.json());
+  }
+
+  public savePatternFromExternal(title: string, structure: string[]){
+    console.log("inside savePatternFromExternal")
+    this.title = title;
+    this.structure = structure;
+    this.id = this.id + 1;
+    this.length = structure.length
+    let pattern = new Pattern(this.id, this.length, this.title, this.structure);
+    this.addPattern(pattern);
+    
+
   }
   
 

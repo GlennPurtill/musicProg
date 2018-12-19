@@ -1,5 +1,11 @@
-<div>
- 
+<div >
+    <!-- <input type="text" [(ngModel)]="patternText" value={{patternText}}/>
+    <button class="btn btn-primary" (click)="addPattern()">Submit</button> -->
+    <!-- <button class="btn btn-primary" (click)="addPattern()">Save Pattern</button>  -->
+    <div *ngFor="let pattern of patterns"> 
 
-  hello
-</div>
+      <button id="pattern_a" class="btn btn-primary" style="background-color: red;" (click)="play_pattern_a">{{pattern.title}}</button>
+      
+    </div>
+
+  </div>

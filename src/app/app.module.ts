@@ -6,13 +6,12 @@ import { MatButtonModule } from '@angular/material';
 import { HttpModule } from '@angular/http';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { DataPatternsService } from './services/data-patterns.service';
-//import { PatternItemComponent } from './components/pattern-item/pattern-item.component';
+// import { PatternItemComponent } from './components/pattern-item/pattern-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatternComponent,
-    //PatternItemComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +19,7 @@ import { DataPatternsService } from './services/data-patterns.service';
     MatButtonModule,
     HttpModule
   ],
-  providers: [DataPatternsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

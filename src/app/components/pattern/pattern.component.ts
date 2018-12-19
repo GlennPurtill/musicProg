@@ -6,30 +6,22 @@ import { Pattern } from '../../classes/pattern';
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.css']
-  //providers:  [ DataPatternsService ]
 })
 export class PatternComponent implements OnInit {
   
   public patternText: string;
+  public patterns: Pattern[]; 
    
-  // constructor(private service: DataPatternsService) { 
-  //   this.patternText = ''
-  // }
-  ngOnInit() {
-    //this.patterns = this.service.getPatterns();
-    // this.service.getPatterns().subscribe((posts) => {
-    //   this.posts = posts
-    // });   
+  constructor(private service: DataPatternsService) { 
+    this.patternText = ''
   }
-  // private addPattern(): void {
-  //   this.service.addPattern(this.patternText);
-  //   this.patternText = '';
-  // }
+  ngOnInit() {
+
+    this.service.getPatternsMapping().subscribe((patterns) => {
+      this.patterns = patterns;
+    });
+
+  }
+  
 }
 
-interface Post{
-  id:number, 
-  title:string, 
-  body:string,
-  userId:number
-}
