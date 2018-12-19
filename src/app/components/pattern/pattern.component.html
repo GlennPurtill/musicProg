@@ -2,10 +2,9 @@
     <!-- <input type="text" [(ngModel)]="patternText" value={{patternText}}/>
     <button class="btn btn-primary" (click)="addPattern()">Submit</button> -->
     <!-- <button class="btn btn-primary" (click)="addPattern()">Save Pattern</button>  -->
+    Pattern Name: <input id = "this.com.pat_input" type="text" [value] = "self.patternText" (input)="newPattern($event)">
+    <button class="btn btn-primary" (click)="this.com.saveBassPattern()">Save Pattern</button><br> 
     <div *ngFor="let pattern of patterns"> 
-
-      <button id="pattern_a" class="btn btn-primary" style="background-color: red;" (click)="play_pattern_a">{{pattern.title}}</button>
-      
+        <button id="pattern_a" class="btn btn-primary" style="background-color: red;" (click)="play_pattern_a" [value] = this.patternText></button>
     </div>
-
   </div>

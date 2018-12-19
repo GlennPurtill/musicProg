@@ -1,110 +1,13 @@
-<!-- <div class="container-fluid" style="text-align:center">
-    <div class="container col-sm-12">
-      <div class="row justify-content-center">
-        <div class="col-sm-10 border">
-             <div class="col-sm-1">
-              <button id="chord11" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord1', 1, 1)">1</button>
-              <button id="chord12" class="b col-sm-11" (click)="chordClicked('chord1', 2, 1)">2</button>
-              <button id="chord13" class="b col-sm-11" (click)="chordClicked('chord1', 3, 1)">3</button>
-              <button id="chord14" class="b col-sm-11" (click)="chordClicked('chord1', 4, 1)">4</button>
-              <button id="chord15" class="b col-sm-11" (click)="chordClicked('chord1', 5, 1)">5</button>
-              <button id="chord16" class="b col-sm-11" (click)="chordClicked('chord1', 6, 1)">6</button>
-              <button id="chord17" class="b col-sm-11" (click)="chordClicked('chord1', 7, 1)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord21" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord2', 1, 2)">1</button>
-                <button id="chord22" class="b col-sm-11" (click)="chordClicked('chord2', 2, 2)">2</button>
-                <button id="chord23" class="b col-sm-11" (click)="chordClicked('chord2', 3, 2)">3</button>
-                <button id="chord24" class="b col-sm-11" (click)="chordClicked('chord2', 4, 2)">4</button>
-                <button id="chord25" class="b col-sm-11" (click)="chordClicked('chord2', 5, 2)">5</button>
-                <button id="chord26" class="b col-sm-11" (click)="chordClicked('chord2', 6, 2)">6</button>
-                <button id="chord27" class="b col-sm-11" (click)="chordClicked('chord2', 7, 2)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord31" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord3', 1, 3)">1</button>
-                <button id="chord32" class="b col-sm-11" (click)="chordClicked('chord3', 2, 3)">2</button>
-                <button id="chord33" class="b col-sm-11" (click)="chordClicked('chord3', 3, 3)">3</button>
-                <button id="chord34" class="b col-sm-11" (click)="chordClicked('chord3', 4, 3)">4</button>
-                <button id="chord35" class="b col-sm-11" (click)="chordClicked('chord3', 5, 3)">5</button>
-                <button id="chord36" class="b col-sm-11" (click)="chordClicked('chord3', 6, 3)">6</button>
-                <button id="chord37" class="b col-sm-11" (click)="chordClicked('chord3', 7, 3)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord41" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord4', 1, 4)">1</button>
-                <button id="chord42" class="b col-sm-11" (click)="chordClicked('chord4', 2, 4)">2</button>
-                <button id="chord43" class="b col-sm-11" (click)="chordClicked('chord4', 3, 4)">3</button>
-                <button id="chord44" class="b col-sm-11" (click)="chordClicked('chord4', 4, 4)">4</button>
-                <button id="chord45" class="b col-sm-11" (click)="chordClicked('chord4', 5, 4)">5</button>
-                <button id="chord46" class="b col-sm-11" (click)="chordClicked('chord4', 6, 4)">6</button>
-                <button id="chord47" class="b col-sm-11" (click)="chordClicked('chord4', 7, 4)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord51" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord5', 1, 5)">1</button>
-                <button id="chord52" class="b col-sm-11" (click)="chordClicked('chord5', 2, 5)">2</button>
-                <button id="chord53" class="b col-sm-11" (click)="chordClicked('chord5', 3, 5)">3</button>
-                <button id="chord54" class="b col-sm-11" (click)="chordClicked('chord5', 4, 5)">4</button>
-                <button id="chord55" class="b col-sm-11" (click)="chordClicked('chord5', 5, 5)">5</button>
-                <button id="chord56" class="b col-sm-11" (click)="chordClicked('chord5', 6, 5)">6</button>
-                <button id="chord57" class="b col-sm-11" (click)="chordClicked('chord5', 7, 5)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord61" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord6', 1, 6)">1</button>
-                <button id="chord62" class="b col-sm-11" (click)="chordClicked('chord6', 2, 6)">2</button>
-                <button id="chord63" class="b col-sm-11" (click)="chordClicked('chord6', 3, 6)">3</button>
-                <button id="chord64" class="b col-sm-11" (click)="chordClicked('chord6', 4, 6)">4</button>
-                <button id="chord65" class="b col-sm-11" (click)="chordClicked('chord6', 5, 6)">5</button>
-                <button id="chord66" class="b col-sm-11" (click)="chordClicked('chord6', 6, 6)">6</button>
-                <button id="chord67" class="b col-sm-11" (click)="chordClicked('chord6', 7, 6)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord71" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord7', 1, 7)">1</button>
-                <button id="chord72" class="b col-sm-11" (click)="chordClicked('chord7', 2, 7)">2</button>
-                <button id="chord73" class="b col-sm-11" (click)="chordClicked('chord7', 3, 7)">3</button>
-                <button id="chord74" class="b col-sm-11" (click)="chordClicked('chord7', 4, 7)">4</button>
-                <button id="chord75" class="b col-sm-11" (click)="chordClicked('chord7', 5, 7)">5</button>
-                <button id="chord76" class="b col-sm-11" (click)="chordClicked('chord7', 6, 7)">6</button>
-                <button id="chord77" class="b col-sm-11" (click)="chordClicked('chord7', 7, 7)">7</button>
-            </div>
-            <div class="col-sm-1">
-                <button id="chord81" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord8', 1, 8)">1</button>
-                <button id="chord82" class="b col-sm-11" (click)="chordClicked('chord8', 2, 8)">2</button>
-                <button id="chord83" class="b col-sm-11" (click)="chordClicked('chord8', 3, 8)">3</button>
-                <button id="chord84" class="b col-sm-11" (click)="chordClicked('chord8', 4, 8)">4</button>
-                <button id="chord85" class="b col-sm-11" (click)="chordClicked('chord8', 5, 8)">5</button>
-                <button id="chord86" class="b col-sm-11" (click)="chordClicked('chord8', 6, 8)">6</button>
-                <button id="chord87" class="b col-sm-11" (click)="chordClicked('chord8', 7, 8)">7</button>
-            </div>
-        </div>
-        <div class="col-sm-2" style="background-color: blue;">
-
-        </div>
-      </div>
-    </div>
-</div> -->
-
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
         <div class="container-fluid">
             <div class="col-sm-12">
                 <h1>Chord Progression</h1>
             </div>
-            <!-- <div class="row col-sm-3 justify-content-center">
-                <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
-                <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
-                <div class="col-sm-3"> <button class="playCurrentBut" (click)="playCurrentTrack()">PLAY CURRENT TRACK</button></div>  
-            </div>
-            <div class="row col-sm-3 justify-content-center">
-                <div class="col-sm-3"> <button class="playBut" (click)="entirePlayBut()">PLAY PATTERNS</button></div>
-                <div class="col-sm-3"> <button class="stopBut" (click)="stop()">STOP</button></div>
-                <div class="col-sm-3">   
-                    <div class="col-sm-1"> <button class="playCurrentBut" (click)="addPattern()">+</button></div>  
-                    <div class="col-sm-1"> <button class="playCurrentBut" (click)="removeLastPattern()">-</button></div>  
-                </div>
-            </div> -->
+
             <div class="row justify-content-center col-sm-12">
                 Columns: <button (click)="addCol()">+</button>
-                <button (click)="removeCol()">-</button>
-                <button (click)="addButton()">add</button>
+                <!-- <button (click)="removeCol()">-</button> -->
+                Rows: <button (click)="addButton()">add</button>
                 <div class="row chordRow col-sm-12 justify-content-center border rounded">
                     <div id="0" class="col border rounded">
                         <button id="chord11" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord1', 1, 1)">1</button>
@@ -197,13 +100,13 @@
                             <button id="chord107" class="b col-sm-11" (click)="chordClicked('chord10', 7, 10)">7</button>
                         </div>
                         <div id="10" class="col border rounded" style="display: none;">
-                            <button id="chord111" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord11', 1, 11)">1</button>
-                            <button id="chord112" class="b col-sm-11" (click)="chordClicked('chord11', 2, 11)">2</button>
-                            <button id="chord113" class="b col-sm-11" (click)="chordClicked('chord11', 3, 11)">3</button>
-                            <button id="chord114" class="b col-sm-11" (click)="chordClicked('chord11', 4, 11)">4</button>
-                            <button id="chord115" class="b col-sm-11" (click)="chordClicked('chord11', 5, 11)">5</button>
-                            <button id="chord116" class="b col-sm-11" (click)="chordClicked('chord11', 6, 11)">6</button>
-                            <button id="chord117" class="b col-sm-11" (click)="chordClicked('chord11', 7, 11)">7</button>
+                            <button id="chord1111" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord111', 1, 11)">1</button>
+                            <button id="chord1112" class="b col-sm-11" (click)="chordClicked('chord111', 2, 11)">2</button>
+                            <button id="chord1113" class="b col-sm-11" (click)="chordClicked('chord111', 3, 11)">3</button>
+                            <button id="chord1114" class="b col-sm-11" (click)="chordClicked('chord111', 4, 11)">4</button>
+                            <button id="chord1115" class="b col-sm-11" (click)="chordClicked('chord111', 5, 11)">5</button>
+                            <button id="chord1116" class="b col-sm-11" (click)="chordClicked('chord111', 6, 11)">6</button>
+                            <button id="chord1117" class="b col-sm-11" (click)="chordClicked('chord111', 7, 11)">7</button>
                         </div>
                         <div id="11" class="col border rounded" style="display: none;">
                             <button id="chord121" class="b col-sm-11" style="background-color: red;" (click)="chordClicked('chord12', 1, 12)">1</button>
@@ -252,9 +155,7 @@
                         </div>
                 </div>
                 <div class="col-sm-2 justify-content-center">
-                    <button class="btn btn-primary" (click)="saveBassPattern()">Save Pattern</button>
                     <app-pattern></app-pattern>
-                   
                 </div>
                 <div class="col-sm-2 justify-content-center">
                     <div class="col-sm-3"> <button class="playBut" (click)="play()">PLAY</button></div>
@@ -263,11 +164,14 @@
                 </div>
 				<div class="mode col-sm-2 border rounded">
 					<h4>Distortion</h4>
-					<button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
+					  <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
 					<h4>Reverb</h4>
-					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
+  					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
 					<h4>Delay</h4>
-					<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
+  					<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
 				</div>
             </div>
         </div>
@@ -295,6 +199,11 @@
                   <h4>Mode</h4>
                   <button id = "ionian" class="b" style="background-color: red;" (click)="changeMode('ionian')">Ionian</button>
                   <button id = "aeolian" class="b" (click)="changeMode('aeolian')">Aeolian</button>
+				  <button id = "romanian" class="b" (click)="changeMode('romanian')">Romanian</button>
+				  <button id = "arabian" class="b" (click)="changeMode('arabian')">Arabian</button>
+				  <button id = "indian" class="b" (click)="changeMode('indian')">Indian</button>
+				  <button id = "spanish" class="b" (click)="changeMode('spanish')">Spanish</button>
+				  <button id = "oriental" class="b" (click)="changeMode('oriental')">Oriental</button>
               </div>
               <div class="bpm col-sm-4 border rounded">
                 <h4>BPM</h4>
@@ -320,16 +229,20 @@
 				<input type="radio" id="option-two" (click)="step_opt2_handler()" name="selector"><label for="option-two">4 notes</label>
 				<input type="radio" id="option-three" (click)="step_opt3_handler()" name="selector"><label for="option-three">5 notes</label>
 				<input type="radio" id="option-four" (click)="step_opt4_handler()" name="selector"><label for="option-four">6 notes</label>
+				<input type="radio" id="option-five" (click)="step_opt5_handler()" name="selector"><label for="option-five">7 notes</label>
+				<input type="radio" id="option-six" (click)="step_opt6_handler()" name="selector"><label for="option-six">8 notes</label>
 			</div>
 		</form>
 
 		<div id="container" class="quantity">
-			<input type="number" name="value" id="value1" min="1" max="6" value="1" (click)="autodraw()">
-			<input type="number" name="value" id="value2" min="1" max="6" value="2" (click)="autodraw()">
-			<input type="number" name="value" id="value3" min="1" max="6" value="3" (click)="autodraw()">
-			<input type="number" name="value" id="value4" min="1" max="6" value="4" (click)="autodraw()">
-			<input type="number" name="value" id="value5" min="1" max="6" value="5" (click)="autodraw()">
-			<input type="number" name="value" id="value6" min="1" max="6" value="6" (click)="autodraw()">
+			<input type="number" name="value" id="value1" min="1" max="8" value="1" (click)="autodraw()">
+			<input type="number" name="value" id="value2" min="1" max="8" value="2" (click)="autodraw()">
+			<input type="number" name="value" id="value3" min="1" max="8" value="3" (click)="autodraw()">
+			<input type="number" name="value" id="value4" min="1" max="8" value="4" (click)="autodraw()">
+			<input type="number" name="value" id="value5" min="1" max="8" value="5" (click)="autodraw()">
+			<input type="number" name="value" id="value6" min="1" max="8" value="6" (click)="autodraw()">
+			<input type="number" name="value" id="value7" min="1" max="8" value="7" (click)="autodraw()">
+			<input type="number" name="value" id="value8" min="1" max="8" value="8" (click)="autodraw()">
 		</div><br><br>
 
 

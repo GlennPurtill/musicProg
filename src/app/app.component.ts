@@ -4,11 +4,22 @@ import { attachEmbeddedView } from '@angular/core/src/view';
 import { Pattern } from './classes/pattern';
 import * as p5 from 'p5';
 import { DataPatternsService } from './services/data-patterns.service';
+//import { PatternComponent } from './components/pattern/pattern.component';
+declare var $: any;
+
 let setVol
 let bassLoop;
 let arpeggioLoop;
-let bassSynth = new tone.FMSynth().toMaster();
+let curAmountCols = 8;
+let playstate = false;
+
+var vol = new tone.Volume(-10);
+var dist = new tone.Distortion(0.9);
+var reverb = new tone.JCReverb(0.9);
+var delay = new tone.FeedbackDelay(0.8);
+let bassSynth = new tone.FMSynth().chain(delay, reverb, dist, tone.Master);
 let arpeggioSynth = new tone.MonoSynth(
+
   {
     "frequency"  : "C4" ,
     "detune"  : 0 ,
@@ -36,9 +47,10 @@ let arpeggioSynth = new tone.MonoSynth(
     "exponent"  : 2
     }
   }
-).toMaster();
+).chain( vol, delay, reverb, dist, tone.Master);
+
 let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
-let tempArpeggio = ['C6','D6','E6','F6','G6','A6']
+let tempArpeggio = ['','','','','','','','']
 let tempArpeggioIndex = 0;
 let index = 0;
 let counter = 0;
@@ -46,6 +58,16 @@ let curCols;
 let maxl;
 let pattern;
 let flag_raise = true;
+let playerc= "multi"
+let pat_input;
+
+var ionian_SCALE = [0,2,4,5,7,9,11,12];
+var aeolian_SCALE =[0,2,3,5,7,8,10,12];
+var romanian_SCALE =[0,2,3,6,7,9,10,12];
+var arabian_SCALE =[0,1,4,5,7,8,11,12];
+var indian_SCALE =[0,1,3,4,7,8,10,12];
+var spanish_SCALE =[0,1,4,5,7,8,10,12];
+var oriental_SCALE = [0,1,4,5,6,9,10,12];
 
 @Component({
   selector: 'app-root',
@@ -59,6 +81,9 @@ export class AppComponent {
   constructor(private patternService: DataPatternsService) {
   }
 
+  after_update_binding_patterns;
+
+  pat_input;
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
@@ -99,7 +124,7 @@ export class AppComponent {
   curBlue = ''
   mode = 'ionian'
   curMode = 'ionian'
-  curAmountCols = 8
+  // curAmountCols = 8
   scurAmountCols = '8'
   rows_that_need_adding = 0
   newRowInnerHtml = 1
@@ -115,7 +140,17 @@ export class AppComponent {
   distortionS = "on"
   reverbS = "on"
   delayS = "on"
-
+  
+	ionian = this.makeScale(ionian_SCALE);
+	aeolian = this.makeScale(aeolian_SCALE);
+	romanian = this.makeScale(romanian_SCALE);
+	arabian = this.makeScale(arabian_SCALE);
+	indian = this.makeScale(indian_SCALE);
+	spanish = this.makeScale(spanish_SCALE);
+	oriental = this.makeScale(oriental_SCALE);
+	
+  
+  
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
@@ -130,8 +165,8 @@ export class AppComponent {
   // A = ['A4','B4','C#5','D5','E5','F#5','G#5']
   // ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
   // B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
-
-  ionian = {
+  
+  /*ionian = {
     bass: {
       C : ['C2','D2','E2','F2','G2','A2','B2','C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#2','D#2','F2','F#2','G#2','A#2','C3','C#3','D#3','F3','F#3','G#3','A#3','C4','C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
@@ -148,7 +183,7 @@ export class AppComponent {
     },
 
     arpeggio: {
-      
+
       C : ['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','D6','E6','F6','G6','A6','B6','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6','C#6','D#6','F6','F#6','G#6','A#6','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
       D : ['D4','E4','F#4','G4','A4','B4','C#5','D5','E5','F#5','G5','A5','B5','C#6','D6','E6','F#6','G6','A6','B6','C#5','D5','E5','F#5','G5','A5','B5','C#6'],
@@ -162,10 +197,10 @@ export class AppComponent {
       ASHARP : ['A#4','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6','A#6','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6'],
         B : ['B4','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6','B6','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6']
     }
-    
- };
 
-  aeolian = {
+ };*/
+
+ /* aeolian = {
     bass: {
       C : ['C2','D2','E2','F2','G2','A2','B2','C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#2','D#2','F2','F#2','G#2','A#2','C3','C#3','D#3','F3','F#3','G#3','A#3','C4','C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
@@ -182,7 +217,7 @@ export class AppComponent {
     },
 
     arpeggio: {
-      
+
       C : ['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','D6','E6','F6','G6','A6','B6','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6','C#6','D#6','F6','F#6','G#6','A#6','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
       D : ['D4','E4','F#4','G4','A4','B4','C#5','D5','E5','F#5','G5','A5','B5','C#6','D6','E6','F#6','G6','A6','B6','C#5','D5','E5','F#5','G5','A5','B5','C#6'],
@@ -196,18 +231,21 @@ export class AppComponent {
       ASHARP : ['A#4','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6','A#6','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6'],
         B : ['B4','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6','B6','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6']
     }
-};
+};*/
   //all_ionian_scales = [this.ionian.C, this.ionian.CSHARP, this.ionian.D, this.ionian.DSHARP, this.ionian.E, this.ionian.F, this.ionian.FSHARP, this.ionian.G, this.ionian.GSHARP, this.ionian.A, this.ionian.ASHARP, this.ionian.B]
 
 
   saveBassPattern(){
     this.saveBass();
-    console.log("inside saveBassPattern")
+    //pat_input =  (<HTMLInputElement>document.getElementById("this.com.pat_input")).value;
+    console.log(pat_input);
     let len = tempArr.length.toString();
     let myArr: string[];
     myArr = tempArr.slice();
-    this.patternService.savePatternFromExternal(len, myArr)
+    this.patternService.savePatternFromAppComp(len, myArr);
   }
+
+
 
   changeBPM(val){
     this.bpm = val + "n"
@@ -216,10 +254,10 @@ export class AppComponent {
     }
     document.getElementById(this.bpm).style.backgroundColor = 'red';
     this.curBpm = val + "n"
+	  this.autoupdate();
   }
 
   chordClicked(chord, num, c){
-    this.stop()
     this[chord] = num
     let curAct = "curActiveC" + c
     if(this[curAct] != ''){
@@ -227,6 +265,7 @@ export class AppComponent {
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
+	this.autoupdate();
   }
 
   here(c) {
@@ -241,6 +280,7 @@ export class AppComponent {
     }
     document.getElementById(val).style.backgroundColor = 'red';
     this.curMode = val
+	this.autoupdate();
   }
 
    distortionSwitch(val){
@@ -254,6 +294,7 @@ export class AppComponent {
   		document.getElementById("distortion").style.backgroundColor = '';
       this.distortionS = "off";
 	   }
+	this.autoupdate();
   }
 
 
@@ -269,6 +310,7 @@ export class AppComponent {
  		   document.getElementById("reverb").style.backgroundColor = '';
        this.reverbS = "off";
  	   }
+	this.autoupdate();
   }
 
    delaySwitch(val){
@@ -282,6 +324,7 @@ export class AppComponent {
  		   document.getElementById("delay").style.backgroundColor = '';
        this.delayS = "off";
  	   }
+	this.autoupdate();
    }
 
   changeTonicRoot(val){
@@ -291,26 +334,27 @@ export class AppComponent {
     }
     document.getElementById(val).style.backgroundColor = 'red';
     this.curTonicRoot = val
+	this.autoupdate();
   }
 
   temp = []
 
   addCol(){
-    if(this.curAmountCols < 15){
-      this.curAmountCols++
-      this.scurAmountCols = "" + this.curAmountCols
-      // console.log("Added Col: " + x)
-      let x = this.curAmountCols.toString();
+    if(curAmountCols < 15){
+      curAmountCols++
+      this.scurAmountCols = "" + curAmountCols
+      console.log("Added Col: " + curAmountCols)
+      let x = (curAmountCols-1).toString();
       document.getElementById(x).style.display = "block"
-      this.addCertainAmountOfButtons(this.curAmountCols)
+      this.addCertainAmountOfButtons(curAmountCols)
     }
   }
 
   removeCol(){
-    if(this.curAmountCols > 7){
-      document.getElementById(this.curAmountCols.toString()).style.display = "none"
-      this.curAmountCols--
-      this.scurAmountCols = "" +this.curAmountCols
+    if(curAmountCols > 7){
+      document.getElementById(curAmountCols.toString()).style.display = "none"
+      curAmountCols--
+      this.scurAmountCols = "" +curAmountCols
     }
   }
 
@@ -350,7 +394,7 @@ export class AppComponent {
       this.curAmountRows++
       this.rowsNeedAddingButtons++
       this.end++
-      for(let i = 0; i < this.curAmountCols+1; i++){
+      for(let i = 0; i < curAmountCols+1; i++){
         let html = '<button id="chord'+ (i+1).toString() + this.curAmountRows.toString() + '" value="chord'+ (i+1).toString() + ',' + this.curAmountRows.toString() + ',' + (i+1).toString() +'"></button>'  // chordClicked('chord16', 2, 16)
         let foo = document.getElementById(i.toString())
         foo.insertAdjacentHTML('beforeend', html)
@@ -367,24 +411,110 @@ export class AppComponent {
 
 playCurrentTrack(){
   this.stop()
-    var dist = new tone.Distortion(0.9).toMaster();
-	if(this.distortionS == "on"){
-		var synth = new tone.Synth().connect(dist);
+  playstate = true;
+  	playerc = "single";
+  // Get Slider values
+  var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
+  var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
+  var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
+
+	if(this.distortionS == "off"){
+		dist.wet.value = 0;
 	}
 	else{
-		var synth = new tone.Synth().toMaster();
+		dist.wet.value =  (distSlideVal/100);
+	}
+	if(this.reverbS == "off"){
+		reverb.wet.value = 0;
+	}
+	else{
+		reverb.wet.value =  (reverbSlideVal/100);
+	}
+	if(this.delayS == "off"){
+		delay.wet.value = 0;
+	}
+	else{
+		delay.wet.value =  (delaySlideVal/100);
+	}
+  console.log(this.bpm)
+  let arpeggioSpeed = this.bpm
+  let x = this.chord1 //num value of button pressed (1..7)
+  bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+  //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
+  tone.Transport.start();
+  bassLoop.start(0);
+  //arpeggioLoop.start(0);
+  //schedule a few notes
+  //tone.Transport.schedule(this.secondLoop, 0)
+
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 2;
+  for (let i = 0; i < s; i++){
+    let ns = s;
+    let k = 4*(i/ns);
+    let usi = "0:"+k + ":0"
+    tone.Transport.schedule(this.secondLoop, usi);
+  }
+
+  //set the transport to repeat
+  tone.Transport.loopEnd = '1m'
+  tone.Transport.loop = true
+  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  maxl= parseInt(eleml[0].max);
+  pattern = [];
+  for (var i = 0; i < maxl; ++i) {// reads pattern input values
+    pattern.push(eleml[i].value);
+
+  }
+
+  curCols = parseInt(this.scurAmountCols)
+  for (let num = 0; num<curCols; num++){
+    let c = (num + 1) + ""
+    if(num == 10){
+      c = "chord1" + c
+    }
+    else{
+      c = "chord" + c
+    }
+    let d = "ionian"
+    let example = "D"
+    //get mode
+    let mode = this.mode
+    let instrument = 'bass'
+    let tr = this.tonicRoot
+    tempArr[num] = this[mode][instrument][tr][this[c] - 1] //dynamically changing scale
+  }
+
+  for (let num =0 ; num<maxl; num++){
+    // let d = (num + 1) + ""
+    // var c = "value" + d
+    let mode = this.mode
+    let instrument = 'arpeggio'
+    let tr = this.tonicRoot
+    tempArpeggio[num] = this[mode][instrument][tr][pattern[num]-1]
+  }
+
+    /*
+	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
+	if(this.distortionS == "off"){
+		dist.wet.value = 0;
+	}
+	if(this.reverbS == "off"){
+		reverb.wet.value = 0;
+	}
+	if(this.delayS == "off"){
+		delay.wet.value = 0;
 	}
 
   let x = this.chord1 //num value of button pressed (1..7)
   let time = 5
   let tempArr = ['C4','D4','E4','F4','G4','A4','B4']
   let index = 0;
-  let curCols = this.curAmountCols++
-  this.scurAmountCols = "" + this.curAmountCols
+  let curCols = curAmountCols++
+  this.scurAmountCols = "" + curAmountCols
   let counter = 0
   var loop = new tone.Loop(function(time){ //Tone.Loop creates a looped callback at the specified interval. The callback can be started, stopped and scheduled along the Transport’s timeline.
     synth.triggerAttackRelease(tempArr[index], 0.2, time)
-    //console.log(this.curBlue)
+    console.log(index.toString())
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
     }
@@ -408,27 +538,43 @@ playCurrentTrack(){
     if(num == 7){
       tone.Transport.start();
     }
-  }
+  }*/
 }
-
+	autoupdate(){
+		if(playstate == true){
+			this.stop();
+			this.play();
+		}
+	}
   play() {
+	  this.stop();
+	  playstate = true;
+// Get Slider values
+	playerc= "multi"
+  var distSlideVal = parseFloat((<HTMLInputElement>document.getElementById("distSlide")).value);
+  var reverbSlideVal = parseFloat((<HTMLInputElement>document.getElementById("reverbSlide")).value);
+  var delaySlideVal = parseFloat((<HTMLInputElement>document.getElementById("delaySlide")).value);
 
-
-  var dist = new tone.Distortion(0.9);
-	var reverb = new tone.JCReverb(0.9);
-	var delay = new tone.FeedbackDelay(0.8);
-	var synth = new tone.Synth().chain(delay, reverb, dist, tone.Master);
 	if(this.distortionS == "off"){
 		dist.wet.value = 0;
+	}
+	else{
+		dist.wet.value =  (distSlideVal/100);
 	}
 	if(this.reverbS == "off"){
 		reverb.wet.value = 0;
 	}
+	else{
+		reverb.wet.value =  (reverbSlideVal/100);
+	}
 	if(this.delayS == "off"){
 		delay.wet.value = 0;
 	}
-
-  let arpeggioSpeed = '6n'
+	else{
+		delay.wet.value =  (delaySlideVal/100);
+	}
+  console.log(this.bpm)
+  let arpeggioSpeed = this.bpm
   let x = this.chord1 //num value of button pressed (1..7)
   bassLoop = new tone.Loop(this.firstLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
   //arpeggioLoop = new tone.Loop(this.secondLoop, this.bpm); // second parameter shoudld be how many notes selected from arpeggaitor
@@ -437,10 +583,10 @@ playCurrentTrack(){
   //arpeggioLoop.start(0);
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
-  
-  let s = arpeggioSpeed.charAt(0);
-  for (let i = 0; i < parseInt(s); i++){
-    let ns = parseInt(s);
+
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 8;
+  for (let i = 0; i < s; i++){
+    let ns = s;
     let k = 4*(i/ns);
     let usi = "0:"+k + ":0"
     tone.Transport.schedule(this.secondLoop, usi);
@@ -453,8 +599,8 @@ playCurrentTrack(){
   maxl= parseInt(eleml[0].max);
   pattern = [];
   for (var i = 0; i < maxl; ++i) {// reads pattern input values
-    pattern.push(eleml[i].value);	
-     
+    pattern.push(eleml[i].value);
+
   }
   this.saveBass();
   this.saveArpeggio();
@@ -464,14 +610,20 @@ playCurrentTrack(){
 saveBass(){
   curCols = parseInt(this.scurAmountCols)
   for (let num = 0; num<curCols; num++){
-    let c = (num + 1) + "";
-    c = "chord" + c;
+    let c = (num + 1) + ""
+    if(num == 10){
+      c = "chord1" + c
+    }
+    else{
+      c = "chord" + c
+    }
     let mode = this.mode;
     let instrument = 'bass';
     let tr = this.tonicRoot;
     tempArr[num] = this[mode][instrument][tr][this[c] - 1]; //dynamically changing scale
   }
 }
+
 saveArpeggio(){
   for (let num =0 ; num<maxl; num++){
     let mode = this.mode;
@@ -483,47 +635,56 @@ saveArpeggio(){
 
 
 secondLoop(time){
-  console.log("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
-  arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.1)
+  //console.log\("tempArpgeggio: "+ tempArpeggio[tempArpeggioIndex])
+  arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], "30n", time, 0.1)
   tempArpeggioIndex++;
-  if(tempArpeggioIndex == 6){
+  if(tempArpeggioIndex == maxl){
     tempArpeggioIndex = 0
   }
-  console.log("arpeggio closed")
 }
 
 
 
 firstLoop(time){
     let currentBeat = tone.Transport.position.split(":");
-    console.log(currentBeat)
+    // console.log(tempArr)
     bassSynth.triggerAttackRelease(tempArr[index], '6n', time, 1)
-    console.log("bass inside first loop", tempArr[index])
+    ////console.log\("bass inside first loop", tempArr[index])
     // loopBeat = new tone.Loop(function(){
-    //   console.log("arpeggio .. " + tempArpeggio[index])
+    //   ////console.log\("arpeggio .. " + tempArpeggio[index])
     //   arpeggioSynth.triggerAttackRelease(tempArpeggio[tempArpeggioIndex], '6n', time, 0.2)
     //   tempArpeggioIndex++;
-      
+
     //   if(tempArpeggioIndex == 6){
     //     tempArpeggioIndex = 0
     //   }
-    // }, this.bpm).start(0); 
+    // }, this.bpm).start(0);
       // parameters are note, duration, time, velocity(vel in normal range)
+    console.log(document.getElementById(index.toString()))
     if(this.curBlue!=undefined){
       document.getElementById(this.curBlue).style.backgroundColor= '';
     }
     document.getElementById(index.toString()).style.backgroundColor= 'blue';
     this.curBlue = index.toString()
     index++
-    if(index == this.curAmountCols){
-      index = 0
+    if(index == curAmountCols){
+		//alert(playerc)
+		if(playerc == "single"){
+			this.stop()
+			index = 0
+		}
+		else{
+			index = 0
+		}
     }
 }
 
 stop() {
-  for(let i = 0; i < this.curAmountCols+1; i++){
+	playstate = false;
+  for(let i = 0; i < curAmountCols+1; i++){
     document.getElementById(i.toString()).style.backgroundColor= '';
   }
+  tempArpeggioIndex = 0
   tone.Transport.cancel()
 }
 
@@ -541,9 +702,9 @@ stop() {
         step_opt2.onclick = step_opt2_handler;
         step_opt3.onclick = step_opt3_handler;
         step_opt4.onclick = step_opt4_handler;	*/
-		var step_opt4 = <HTMLElement>document.getElementById('option-four') as HTMLInputElement;
-		step_opt4.checked = true;//default value
-		var maxl = 6;
+		var step_opt6 = <HTMLElement>document.getElementById('option-six') as HTMLInputElement;
+		step_opt6.checked = true;//default value
+		var maxl = 8;
 		this.drawing(maxl);
 		// audio
 		this.distortionSwitch("off");
@@ -561,6 +722,7 @@ stop() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		var maxl= parseInt(elem[0].max);
 		this.drawing(maxl);
+		this.autoupdate();
 	}
 
 
@@ -569,7 +731,7 @@ stop() {
 		var maxl= parseInt(elem[0].max);
 		for (var i = 0; i < maxl; ++i) {
 			while(parseInt(elem[i].value) > maxl){
-				// console.log(elem);
+				// //console.log\(elem);
 				let temp = parseInt(elem[i].value) - 1;
 				elem[i].value = "" + (temp);
 			}
@@ -580,6 +742,8 @@ stop() {
 
 	 drawing(val){ // this function draws the arpeggio pattern on canvas
 		var maxl = val;
+		var ar8 = [373,326,280,233,186,140,93,47];
+		var ar7 = [368,315,263,210,158,105,52];
 		var ar6 = [360,300,240,180,120,60];
 		var ar5 =[350,280,210,140,70];
 		var ar4 =[336,252,168,84];
@@ -669,6 +833,40 @@ stop() {
 			};
 			ctx.closePath();
 		}
+		if(maxl==7){
+			for(i=0; i< 7;i++){
+				var x = ar7[6-i];
+				var y = ar7[pattern[i]-1];
+				if(i<6){
+					var x1 = ar7[6-(i+1)];
+					var y1 = ar7[pattern[i+1]-1];
+				}
+				ctx.moveTo(x,y);
+				ctx.arc(x,y,5,0,2*Math.PI);
+				ctx.moveTo(x,y);
+				ctx.lineTo(x1,y1);
+				ctx.stroke();
+				ctx.fill();
+			};
+			ctx.closePath();
+		}
+		if(maxl==8){
+			for(i=0; i< 8;i++){
+				var x = ar8[7-i];
+				var y = ar8[pattern[i]-1];
+				if(i<7){
+					var x1 = ar8[7-(i+1)];
+					var y1 = ar8[pattern[i+1]-1];
+				}
+				ctx.moveTo(x,y);
+				ctx.arc(x,y,5,0,2*Math.PI);
+				ctx.moveTo(x,y);
+				ctx.lineTo(x1,y1);
+				ctx.stroke();
+				ctx.fill();
+			};
+			ctx.closePath();
+		}
 
 	}
 
@@ -685,6 +883,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt2_handler() {
@@ -700,6 +899,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt3_handler() {
@@ -715,6 +915,7 @@ stop() {
 			}
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 	 step_opt4_handler() {
@@ -722,9 +923,42 @@ stop() {
 		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
 		for (var i = 0; i < elem.length; ++i) {
 			elem[i].max = "6";
+			if(i >= 6){
+				elem[i].style.display = "none";
+			}
+			else{
+				elem[i].style.display = "inline-block";
+			}
+		}
+		this.drawing(maxl);
+		this.autoupdate();
+    }
+
+	 step_opt5_handler() {
+		var maxl=7;
+		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+		for (var i = 0; i < elem.length; ++i) {
+			elem[i].max = "7";
+			if(i >= 7){
+				elem[i].style.display = "none";
+			}
+			else{
+				elem[i].style.display = "inline-block";
+			}
+		}
+		this.drawing(maxl);
+		this.autoupdate();
+    }
+
+	 step_opt6_handler() {
+		var maxl=8;
+		let elem = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+		for (var i = 0; i < elem.length; ++i) {
+			elem[i].max = "8";
 			elem[i].style.display = "inline-block";
 		}
 		this.drawing(maxl);
+		this.autoupdate();
     }
 
 
@@ -764,6 +998,80 @@ function draw() {
     line(i*w, height, i*w, y);
   }
 }*/
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+makeScale(inputScale){
+	let keys = ['C', 'CSHARP','D', 'DSHARP','E','F', 'FSHARP','G', 'GSHARP','A', 'ASHARP','B'];
+	let bassvalues = [];
+	let arpeggiovalues = [];
+	for(let i=0; i<12;i++){
+		bassvalues.push(this.makeScaleBass(inputScale,i));
+		arpeggiovalues.push(this.makeScaleArpeggio(inputScale,i));
+	}
+	
+	let bass = {};
+	keys.forEach((key, i) => bass[key] = bassvalues[i]);
+	let arp = {};
+	keys.forEach((key, i) => arp[key] = arpeggiovalues[i]);
+	
+	let keys2 =["arpeggio", "bass"];
+	let values=[arp,bass];	
+	let result1 = {};
+	keys2.forEach((key, i) => result1[key] = values[i]);
+	return result1;	
+}
+	
+makeScaleBass(inputScale, scaleIndex) {			
+	let notes_names = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
+				"C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
+                "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1", "B1",
+                "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+                "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3",
+                "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+                "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5",
+                "C6", "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6", "B6",
+                "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
+                "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8", "G#8", "A8", "A#8", "B8",
+                "C9", "C#9", "D9", "D#9", "E9", "F9", "F#9", "G9"];
+
+	let startingNote = 36+scaleIndex;  // 36 = C2 
+	let myScale = [];
+	myScale.push( notes_names[inputScale[0] + startingNote] );
+	for(let j=0; j<4; j++){ 
+		for(let i=1; i<inputScale.length; i++) {
+			myScale.push( notes_names[inputScale[i] + startingNote] );
+		}
+		startingNote=startingNote+12;
+	}
+	return myScale;
+ }
+ 
+makeScaleArpeggio(inputScale, scaleIndex) {		
+	let notes_names = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
+				"C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
+                "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1", "B1",
+                "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+                "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3",
+                "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+                "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5",
+                "C6", "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6", "B6",
+                "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
+                "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8", "G#8", "A8", "A#8", "B8",
+                "C9", "C#9", "D9", "D#9", "E9", "F9", "F#9", "G9"];
+
+	//var inputScale = [0,2,4,5,7,9,11,12];
+	let startingNote = 60+scaleIndex;  // 60 = C4 = middle C
+	let myScale = [];
+	myScale.push( notes_names[inputScale[0] + startingNote] );
+	for(let j=0; j<4; j++){ 
+		for(let i=1; i<inputScale.length; i++) {
+			myScale.push( notes_names[inputScale[i] + startingNote] );
+		}
+		startingNote=startingNote+12;
+	}
+	return myScale;
+ }
+
 
 
 }

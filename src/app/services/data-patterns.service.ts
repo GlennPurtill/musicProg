@@ -11,22 +11,18 @@ import { Pattern } from '../classes/pattern';
 })
 export class DataPatternsService {
 
-  length: number; 
+  length: string; 
   title: string; 
   structure: string[];
   id: number; 
+  titleBeingInputtedDynamically: string;
   
-  private nextId: number;
 
    
   constructor(private service: DataPatternsService) { 
     let patterns = this.getPatterns();
-    if (patterns.length == 0){
-      this.nextId = 0;
-    } else{
-      let maxId = patterns[patterns.length - 1].id;
-      this.nextId = maxId + 1;
-    }
+    this.id = 0;
+    
   }
 
 
@@ -61,21 +57,26 @@ export class DataPatternsService {
 
   public getPatternsMapping(){
     let localStorageItem = JSON.parse(localStorage.getItem('patterns'));
-    return localStorageItem.patterns.map(res => res.json());
+    return localStorageItem.patterns
   }
 
-  public savePatternFromExternal(title: string, structure: string[]){
+  public savePatternFromAppComp(length: string, structure: string[]){
     console.log("inside savePatternFromExternal")
-    this.title = title;
+    
     this.structure = structure;
     this.id = this.id + 1;
-    this.length = structure.length
+    this.length = length
+    this.title = this.titleBeingInputtedDynamically;
     let pattern = new Pattern(this.id, this.length, this.title, this.structure);
     this.addPattern(pattern);
-    
-
-  }
   
+  }
+
+
+  public setTitleFromPatComponent(updateName){
+    this.titleBeingInputtedDynamically = updateName;
+  }
+ 
 
  
 }
