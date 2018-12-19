@@ -7,6 +7,7 @@ declare var $: any;
 let setVol
 let bassLoop;
 let arpeggioLoop;
+let maxl = 8;
 let curAmountCols = 8;
 let playstate = false;
 
@@ -52,7 +53,7 @@ let tempArpeggioIndex = 0;
 let index = 0;
 let counter = 0;
 let curCols;
-let maxl;
+// let maxl;
 let pattern;
 let flag_raise = true;
 let playerc= "multi"
@@ -100,7 +101,7 @@ export class AppComponent {
   chord10 = '1'
   curActiveC10 = 'chord101'
   chord111 = '1'
-  curActiveC11 = 'chord11121'
+  curActiveC11 = 'chord1111'
   chord12 = '1'
   curActiveC12 = 'chord121'
   chord13 = '1'
@@ -238,10 +239,12 @@ export class AppComponent {
   }
 
   chordClicked(chord, num, c){
+    
     this[chord] = num
     let curAct = "curActiveC" + c
+    console.log(document.getElementById(chord+num))
     if(this[curAct] != ''){
-      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(78, 78, 78); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
+      document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
     document.getElementById(chord+num).style.backgroundColor = 'red';
     this[curAct] = chord+num
@@ -574,8 +577,10 @@ playCurrentTrack(){
   //arpeggioLoop.start(0);
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
-
-  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 6;
+  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  maxl= parseInt(eleml[0].max);
+  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * maxl;
+  console.log(maxl)
   for (let i = 0; i < s; i++){
     let ns = s;
     let k = 4*(i/ns);
@@ -586,8 +591,8 @@ playCurrentTrack(){
   //set the transport to repeat
   tone.Transport.loopEnd = '1m'
   tone.Transport.loop = true
-  let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
-  maxl= parseInt(eleml[0].max);
+  // let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
+  // maxl= parseInt(eleml[0].max);
   pattern = [];
   for (var i = 0; i < maxl; ++i) {// reads pattern input values
     pattern.push(eleml[i].value);
