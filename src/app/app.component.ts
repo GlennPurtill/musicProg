@@ -65,6 +65,19 @@ var arabian_SCALE =[0,1,4,5,7,8,11,12];
 var indian_SCALE =[0,1,3,4,7,8,10,12];
 var spanish_SCALE =[0,1,4,5,7,8,10,12];
 var oriental_SCALE = [0,1,4,5,6,9,10,12];
+var ethiopian_SCALE = [0,2,4,5,7,8,11,12];
+var blues_SCALE = [0,3,5,6,7,10,12];
+var natural_major_SCALE = [0,2,4,5,7,9,11,12];
+var chromatic_SCALE = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+var dorian_SCALE = [0,2,3,5,7,9,10,12];
+var balinese_SCALE = [0,1,3,7,8,12];
+var hungarian_major_SCALE = [0,3,4,6,7,9,10,12];
+var hungarian_minor_SCALE = [0,2,3,6,7,8,11,12];
+var pentatonic_major_SCALE = [0,2,4,7,9,12];
+var pentatonic_minor_SCALE = [0,3,5,7,10,12];
+var pentatonic_minor_SCALE =[0,2,4,5,7,8,9,11,12];
+var bebop_major_SCALE =[0,2,4,5,7,8,9,11,12];
+
 
 @Component({
   selector: 'app-root',
@@ -141,6 +154,17 @@ export class AppComponent {
 	indian = this.makeScale(indian_SCALE);
 	spanish = this.makeScale(spanish_SCALE);
 	oriental = this.makeScale(oriental_SCALE);
+	ethiopian = this.makeScale(ethiopian_SCALE);
+	blues = this.makeScale(blues_SCALE);
+	natural_major = this.makeScale(natural_major_SCALE);
+	chromatic = this.makeScale(chromatic_SCALE);
+	dorian = this.makeScale(dorian_SCALE);
+	balinese = this.makeScale(balinese_SCALE);
+	hungarian_major = this.makeScale(hungarian_major_SCALE);
+	hungarian_minor = this.makeScale(hungarian_minor_SCALE);
+	pentatonic_major = this.makeScale(pentatonic_major_SCALE);
+	pentatonic_minor = this.makeScale(pentatonic_minor_SCALE);
+	bebop_major = this.makeScale(bebop_major_SCALE);
 	
   
   
