@@ -57,6 +57,14 @@ let pattern;
 let flag_raise = true;
 let playerc= "multi"
 
+var ionian_SCALE = [0,2,4,5,7,9,11,12];
+var aeolian_SCALE =[0,2,3,5,7,8,10,12];
+var romanian_SCALE =[0,2,3,6,7,9,10,12];
+var arabian_SCALE =[0,1,4,5,7,8,11,12];
+var indian_SCALE =[0,1,3,4,7,8,10,12];
+var spanish_SCALE =[0,1,4,5,7,8,10,12];
+var oriental_SCALE = [0,1,4,5,6,9,10,12];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -121,7 +129,16 @@ export class AppComponent {
   reverbS = "on"
   delayS = "on"
   
-
+	ionian = this.makeScale(ionian_SCALE);
+	aeolian = this.makeScale(aeolian_SCALE);
+	romanian = this.makeScale(romanian_SCALE);
+	arabian = this.makeScale(arabian_SCALE);
+	indian = this.makeScale(indian_SCALE);
+	spanish = this.makeScale(spanish_SCALE);
+	oriental = this.makeScale(oriental_SCALE);
+	
+  
+  
 
   check = [true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false]
   //  C = ['C4','D4','E4','F4','G4','A4','B4']
@@ -136,8 +153,8 @@ export class AppComponent {
   // A = ['A4','B4','C#5','D5','E5','F#5','G#5']
   // ASHARP = ['A#4','C5','D5','D#5','F5','G5','A5']
   // B = ['B4','C#5','D#5','E5','F#5','G#5','A#5']
-
-  ionian = {
+  
+  /*ionian = {
     bass: {
       C : ['C2','D2','E2','F2','G2','A2','B2','C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#2','D#2','F2','F#2','G#2','A#2','C3','C#3','D#3','F3','F#3','G#3','A#3','C4','C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
@@ -169,9 +186,9 @@ export class AppComponent {
         B : ['B4','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6','B6','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6']
     }
 
- };
+ };*/
 
-  aeolian = {
+ /* aeolian = {
     bass: {
       C : ['C2','D2','E2','F2','G2','A2','B2','C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5'],
       CSHARP : ['C#2','D#2','F2','F#2','G#2','A#2','C3','C#3','D#3','F3','F#3','G#3','A#3','C4','C#4','D#4','F4','F#4','G#4','A#4','C5','C#5','D#5','F5','F#5','G#5','A#5','C6'],
@@ -202,7 +219,7 @@ export class AppComponent {
       ASHARP : ['A#4','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6','A#6','C5','D5','D#5','F5','G5','A5','A#5','C6','D6','D#6','F6','G6','A6'],
         B : ['B4','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6','B6','C#5','D#5','E5','F#5','G#5','A#5','B5','C#6','D#6','E6','F#6','G#6','A#6']
     }
-};
+};*/
   //all_ionian_scales = [this.ionian.C, this.ionian.CSHARP, this.ionian.D, this.ionian.DSHARP, this.ionian.E, this.ionian.F, this.ionian.FSHARP, this.ionian.G, this.ionian.GSHARP, this.ionian.A, this.ionian.ASHARP, this.ionian.B]
 
   changeBPM(val){
@@ -238,6 +255,7 @@ export class AppComponent {
     }
     document.getElementById(val).style.backgroundColor = 'red';
     this.curMode = val
+	this.autoupdate();
   }
 
    distortionSwitch(val){
@@ -956,6 +974,80 @@ function draw() {
     line(i*w, height, i*w, y);
   }
 }*/
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+makeScale(inputScale){
+	let keys = ['C', 'CSHARP','D', 'DSHARP','E','F', 'FSHARP','G', 'GSHARP','A', 'ASHARP','B'];
+	let bassvalues = [];
+	let arpeggiovalues = [];
+	for(let i=0; i<12;i++){
+		bassvalues.push(this.makeScaleBass(inputScale,i));
+		arpeggiovalues.push(this.makeScaleArpeggio(inputScale,i));
+	}
+	
+	let bass = {};
+	keys.forEach((key, i) => bass[key] = bassvalues[i]);
+	let arp = {};
+	keys.forEach((key, i) => arp[key] = arpeggiovalues[i]);
+	
+	let keys2 =["arpeggio", "bass"];
+	let values=[arp,bass];	
+	let result1 = {};
+	keys2.forEach((key, i) => result1[key] = values[i]);
+	return result1;	
+}
+	
+makeScaleBass(inputScale, scaleIndex) {			
+	let notes_names = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
+				"C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
+                "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1", "B1",
+                "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+                "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3",
+                "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+                "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5",
+                "C6", "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6", "B6",
+                "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
+                "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8", "G#8", "A8", "A#8", "B8",
+                "C9", "C#9", "D9", "D#9", "E9", "F9", "F#9", "G9"];
+
+	let startingNote = 36+scaleIndex;  // 36 = C2 
+	let myScale = [];
+	myScale.push( notes_names[inputScale[0] + startingNote] );
+	for(let j=0; j<4; j++){ 
+		for(let i=1; i<inputScale.length; i++) {
+			myScale.push( notes_names[inputScale[i] + startingNote] );
+		}
+		startingNote=startingNote+12;
+	}
+	return myScale;
+ }
+ 
+makeScaleArpeggio(inputScale, scaleIndex) {		
+	let notes_names = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
+				"C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
+                "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1", "B1",
+                "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+                "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3",
+                "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+                "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5",
+                "C6", "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6", "B6",
+                "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
+                "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8", "G#8", "A8", "A#8", "B8",
+                "C9", "C#9", "D9", "D#9", "E9", "F9", "F#9", "G9"];
+
+	//var inputScale = [0,2,4,5,7,9,11,12];
+	let startingNote = 60+scaleIndex;  // 60 = C4 = middle C
+	let myScale = [];
+	myScale.push( notes_names[inputScale[0] + startingNote] );
+	for(let j=0; j<4; j++){ 
+		for(let i=1; i<inputScale.length; i++) {
+			myScale.push( notes_names[inputScale[i] + startingNote] );
+		}
+		startingNote=startingNote+12;
+	}
+	return myScale;
+ }
+
 
 
 }
