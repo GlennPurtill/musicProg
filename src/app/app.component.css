@@ -159,7 +159,7 @@ label {
   box-sizing: content-box;
   width: 35px;
   padding: 10px 20px;
-  margin: -7px;
+  margin: -2px;
 
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -175,11 +175,11 @@ input[type=radio]:checked + label {
 }
 
 label + input[type=radio] + label {
-  border-left: solid 1px #000000;
+  border-left: solid 1.5px #000000;
 }
 
 .radio-group {
-  border: solid 1.5px #000000;
+  border: solid 2px #000000;
   display: inline-block;
   margin: 1px;
   border-radius: 6px;
