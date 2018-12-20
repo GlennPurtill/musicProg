@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core';
 import * as tone from 'tone'
 import { attachEmbeddedView } from '@angular/core/src/view';
 import { Pattern } from './classes/pattern';
@@ -90,21 +90,33 @@ var bebop_major_SCALE =[0,2,4,5,7,8,9,11,12];
 })
 
 export class AppComponent {
-<<<<<<< HEAD
 
+  @Input()
+  private pattern: Pattern;
 
-  constructor(private patternService: DataPatternsService) {
+  public patternText: string;
+
+  private removePattern(): void {
+    console.log("removePattern");
+
+    this.service.removePattern(this.pattern.id);
   }
 
+  public loadPattern() : void{
+    console.log("loadPattern");
+  }
+
+  constructor(private service: DataPatternsService) {
+    this.patternText = '';
+  }
+  
   after_update_binding_patterns;
 
   pat_input;
-=======
   myStyle: object = {};
   myParams: object = {};
   width: number = 100;
   height: number = 100;
->>>>>>> f4e3ac590998b794d999e0ea51d18a491ac75698
   title = 'musicProg';
   bpm = '1n'
   curBpm = '1n'
@@ -270,12 +282,11 @@ export class AppComponent {
 
   saveBassPattern(){
     this.saveBass();
-    //pat_input =  (<HTMLInputElement>document.getElementById("this.com.pat_input")).value;
-    console.log(pat_input);
+    pat_input =  (<HTMLInputElement>document.getElementById("this.com.pat_input")).value;
     let len = tempArr.length.toString();
     let myArr: string[];
     myArr = tempArr.slice();
-    this.patternService.savePatternFromAppComp(len, myArr);
+    //this.patternService.savePatternFromAppComp(pat_input, len, myArr);
   }
 
 
@@ -644,15 +655,10 @@ playCurrentTrack(){
   //arpeggioLoop.start(0);
   //schedule a few notes
   //tone.Transport.schedule(this.secondLoop, 0)
-<<<<<<< HEAD
-
-  let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * 8;
-=======
   let eleml = (<HTMLInputElement[]><any>document.getElementsByName("value"));
   maxl= parseInt(eleml[0].max);
   let s = parseInt(arpeggioSpeed.substring(0, arpeggioSpeed.length-1)) * maxl;
   console.log(maxl)
->>>>>>> f4e3ac590998b794d999e0ea51d18a491ac75698
   for (let i = 0; i < s; i++){
     let ns = s;
     let k = 4*(i/ns);
@@ -1170,5 +1176,16 @@ makeScaleArpeggio(inputScale, scaleIndex) {
  }
 
 
+
+  addPattern() {
+  this.saveBass()
+  this.service.addPattern("8", "Verse", ["C4","A4","F4","G4","C4","A4","F4","G4"]);
+  this.service.addPattern((this.patternText.length).toString(), this.patternText, tempArr);
+  this.patternText = '';
+}
+
+examp(){
+  console.log("example")
+}
 
 }

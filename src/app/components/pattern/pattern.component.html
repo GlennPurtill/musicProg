@@ -1,10 +1,15 @@
-<div >
-    <!-- <input type="text" [(ngModel)]="patternText" value={{patternText}}/>
-    <button class="btn btn-primary" (click)="addPattern()">Submit</button> -->
-    <!-- <button class="btn btn-primary" (click)="addPattern()">Save Pattern</button>  -->
-    Pattern Name: <input id = "this.com.pat_input" type="text" [value] = "self.patternText" (input)="newPattern($event)">
-    <button class="btn btn-primary" (click)="this.com.saveBassPattern()">Save Pattern</button><br> 
-    <div *ngFor="let pattern of patterns"> 
-        <button id="pattern_a" class="btn btn-primary" style="background-color: red;" (click)="play_pattern_a" [value] = this.patternText></button>
+<!-- <div >
+    
+    Pattern Name: <input id = "this.com.pat_input" type="text">
+    <button class="btn btn-primary" (click)="updateDisplay(); this.com.saveBassPattern(); ">Save Pattern</button><br> 
+    <label for="patterns">Load Pattern</label>
+    <select id="patterns" required>
+        <option *ngFor="let pattern of patterns" [value]="pattern">{{pattern.title}}</option>
+      </select>
+  </div> -->
+
+  <div class="pattern-input-wrapper">
+        <input type="text" [(ngModel)]="patternText" value={{patternText}}/>
+        <button class="btn btn-primary" (click)="addPattern()">Save this Bass Line</button>
     </div>
-  </div>
+      
