@@ -270,8 +270,18 @@ export class AppComponent {
     if(this[curAct] != ''){
       document.getElementById(this[curAct]).setAttribute("style", "background-color: rgb(0, 0, 0); border: none; color: white; padding: 5px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px 2px; cursor: pointer; border-radius: 12px; width: 80px;")
     }
-    document.getElementById(chord+num).style.backgroundColor = 'red';
-    this[curAct] = chord+num
+
+    let curChord = ''
+      curChord = chord + num
+    console.log(chord+"1"+num)
+    if(chord == 'chord11'){
+      document.getElementById(chord+'1'+num).style.backgroundColor = 'red';
+    }
+    else {
+      document.getElementById(chord+num).style.backgroundColor = 'red';
+    }
+    // document.getElementById(chord+'1'+num).style.backgroundColor = 'red';
+    this[curAct] = curChord
 	this.autoupdate();
   }
 
@@ -721,6 +731,7 @@ stop() {
     document.getElementById(i.toString()).style.backgroundColor= '';
   }
   tempArpeggioIndex = 0
+  // tempArr=[]
   tone.Transport.cancel()
 }
 
