@@ -164,17 +164,18 @@
                     </div>
                 </div>
                 <div class="col-sm-2 justify-content-center">
-                    <div class="pattern-wrapper">
+                    <!-- <div class="pattern-wrapper">
                             <div class="pattern-input-wrapper">
                                     <input type="text" [(ngModel)]="patternText" value={{patternText}}/>
                                     <button class="btn btn-primary" (click)="addPattern()">Save this Bass Line</button>
                                 </div>
                         <div *ngFor="let pattern of service.getPatterns()">
                                 <div class="patternWrapper">
-                                        <button class="removePattern" (click)="removePattern()">remove</button><button (click)="loadPattern()">{{pattern.title}}</button>
-                                      </div>
+                                    <button class="removePattern" (click)="removePattern()">remove</button><button (click)="loadPattern()">{{pattern.title}}</button>
+                                </div>
                         </div>
-                    </div>
+                        
+                    </div> -->
                 </div>
         </div>
           <div class="row justify-content-center col-sm-12">
@@ -248,7 +249,7 @@
 				  <button id = "dorian" class="b" (click)="changeMode('dorian')">Dorian</button>
 				  <button id = "balinese" class="b" (click)="changeMode('balinese')">Balinese</button>
 				  <button id = "natural_major" class="b" (click)="changeMode('natural_major')">Natural major</button>
-				  <button id = "bebop_major" class="b" (click)="changeMode('bebop_major')">Bebop major</button>
+				  <button id = "bebop_major" class="b" (click)="changeMode('bebop_major')">Bebop <br>major</button>
 				  <button id = "hungarian_major" class="b" (click)="changeMode('hungarian_major')">Hungarian major</button>
 				  <button id = "hungarian_minor" class="b" (click)="changeMode('hungarian_minor')">Hungarian minor</button>
 				  <button id = "pentatonic_major" class="b" (click)="changeMode('pentatonic_major')">Pentatonic major</button>

@@ -97,7 +97,7 @@ export class AppComponent {
 
   public patternText: string;
 
-  private removePattern(): void {
+ removePattern() {
     console.log("removePattern");
 
     this.service.removePattern(this.pattern.id);
@@ -1233,7 +1233,7 @@ makeScaleArpeggio(inputScale, scaleIndex) {
 
   addPattern() {
   this.saveBass()
-  this.service.addPattern("8", "Verse", ["C4","A4","F4","G4","C4","A4","F4","G4"]);
+ // this.service.addPattern("8", "Verse", ["C4","A4","F4","G4","C4","A4","F4","G4"]);
   this.service.addPattern((this.patternText.length).toString(), this.patternText, tempArr);
   this.patternText = '';
 }

@@ -21,7 +21,6 @@ export class PatternComponent implements OnInit {
   }
 
   private addPattern(): void {
-    this.service.addPattern("8", "Verse", ["C4","A4","F4","G4","C4","A4","F4","G4"]);
     // this.service.setNewTitle(this.patternText);
     // this.service.setNewLenAndStructure();
     this.patternText = '';
