@@ -13,8 +13,8 @@ let playstate = false;
 
 var chorus = new tone.Chorus(4, 2.5, 0.5);
 var vol = new tone.Volume(-10);
-var dist = new tone.Distortion(0.9);
-var reverb = new tone.JCReverb(0.9);
+var dist = new tone.Distortion(0.3);
+var reverb = new tone.JCReverb(0.5);
 var delay = new tone.FeedbackDelay(0.8);
 let bassSynth = new tone.FMSynth().chain(delay, chorus, reverb, dist, tone.Master);
 let arpeggioSynth = new tone.MonoSynth(
