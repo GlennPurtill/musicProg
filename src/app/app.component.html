@@ -209,16 +209,20 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="mode border-light rounded">
-					<h4>Distortion</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
-					  <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
-					<h4>Reverb</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
-  					<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
-					<h4>Delay</h4>
-					<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
-                      <button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
-                      </div>
+					    <h4>Distortion</h4>
+					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
+					            <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
+					    <h4>Reverb</h4>
+					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
+  					            <button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
+					    <h4>Delay</h4>
+					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
+                                <button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+                        <h4>Chorus</h4>
+                            <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="chorusSlide" (click)="autoupdate()"></div>
+                             <button id = "chorus" class="b" (click)="chorusSwitch('on')">on</button>
+                    </div>
+                    
 				</div>
               <div class="col-sm-2">
                   <div class="mode border-light rounded">
@@ -244,7 +248,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                    <div class="mode border-light rounded">
+                    <div class="mode border-light rounded" style="width: 450px">
                             <h4>Arpeggio</h4>
                             <canvas id="myCanvas" class="convas" width="420" height="420">Your browser does not support the HTML5 canvas tag.</canvas>
                     
