@@ -1,5 +1,10 @@
 /*@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');*/
-
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+.everything{
+	/*font-family: "Comic Sans MS", cursive, sans-serif;*/
+	/*font-family: 'Noto Sans TC', sans-serif;*/
+	font-family: 'Quicksand', sans-serif;
+}
 .contFluid {
     background-color: rgba(92, 92, 92, 0.548);
     align-content: center;

@@ -1,5 +1,5 @@
 <particles class="particle" [params]="myParams" [style]="myStyle" [width]="width" [height]="height"></particles>
-<div style="text-align:center">
+<div class="everything" style="text-align:center">
         <div class="container-fluid">
             <div class="col-sm-12">
                 <!-- <h1>Chord Progression</h1> -->
@@ -209,20 +209,19 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="mode border-light rounded">
-					    <h4>Distortion</h4>
-					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
-					            <button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
-					    <h4>Reverb</h4>
-					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
-  					            <button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
-					    <h4>Delay</h4>
-					        <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
-                                <button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
-                        <h4>Chorus</h4>
-                            <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="chorusSlide" (click)="autoupdate()"></div>
-                             <button id = "chorus" class="b" (click)="chorusSwitch('on')">on</button>
-                    </div>
-                    
+						<h4>Distortion</h4>
+							<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="distSlide" (click)="autoupdate()"></div>
+							<button id = "distortion" class="b" (click)="distortionSwitch('on')">on</button>
+						<h4>Reverb</h4>
+							<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="reverbSlide" (click)="autoupdate()"></div>
+							<button id = "reverb" class="b" (click)="reverbSwitch('on')">on</button>
+						<h4>Delay</h4>
+							<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="delaySlide" (click)="autoupdate()"></div>
+							<button id = "delay" class="b" (click)="delaySwitch('on')">on</button>
+						<h4>Chorus</h4>
+							<div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="chorusSlide" (click)="autoupdate()"></div>
+							<button id = "chorus" class="b" (click)="chorusSwitch('on')">on</button>
+                     </div>
 				</div>
               <div class="col-sm-2">
                   <div class="mode border-light rounded">
@@ -236,10 +235,10 @@
                   <button id = "oriental" class="b" (click)="changeMode('oriental')">Oriental</button>		  
 				  <button id = "ethiopian" class="b" (click)="changeMode('ethiopian')">Ethiopian</button>
 				  <button id = "blues" class="b" (click)="changeMode('blues')">Blues</button>
-				  <button id = "natural_major" class="b" (click)="changeMode('natural_major')">Natural major</button>
 				  <button id = "chromatic" class="b" (click)="changeMode('chromatic')">Chromatic</button>
 				  <button id = "dorian" class="b" (click)="changeMode('dorian')">Dorian</button>
 				  <button id = "balinese" class="b" (click)="changeMode('balinese')">Balinese</button>
+				  <button id = "natural_major" class="b" (click)="changeMode('natural_major')">Natural major</button>
 				  <button id = "bebop_major" class="b" (click)="changeMode('bebop_major')">Bebop major</button>
 				  <button id = "hungarian_major" class="b" (click)="changeMode('hungarian_major')">Hungarian major</button>
 				  <button id = "hungarian_minor" class="b" (click)="changeMode('hungarian_minor')">Hungarian minor</button>
@@ -248,7 +247,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                    <div class="mode border-light rounded" style="width: 450px">
+                    <div class="mode border-light rounded" style="width: 450px;">
                             <h4>Arpeggio</h4>
                             <canvas id="myCanvas" class="convas" width="420" height="420">Your browser does not support the HTML5 canvas tag.</canvas>
                     
@@ -272,8 +271,7 @@
                                 <input type="number" name="value" id="value6" min="1" max="8" value="6" (click)="autodraw()">
                                 <input type="number" name="value" id="value7" min="1" max="8" value="7" (click)="autodraw()">
                                 <input type="number" name="value" id="value8" min="1" max="8" value="8" (click)="autodraw()">
-                            </div><br><br>
-                    
-                        </div>
+                            </div>
+                        </div><br><br>
             </div>
         </div>
