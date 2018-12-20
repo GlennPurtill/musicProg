@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .patternWrapper {
     border-bottom: 1px solid #efefef;
     text-align: left;
@@ -17,9 +18,19 @@
     background-color: transparent;
   }
   
+=======
+/*@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');*/
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+.everything{
+	/*font-family: "Comic Sans MS", cursive, sans-serif;*/
+	/*font-family: 'Noto Sans TC', sans-serif;*/
+	font-family: 'Quicksand', sans-serif;
+}
+>>>>>>> 3c3c178ab0ecca2d275e469974678b93fe58d8d8
 .contFluid {
     background-color: rgba(92, 92, 92, 0.548);
     align-content: center;
+	text-align: center;
 }
 button:hover {
     /* background-color: yellow; */
@@ -40,18 +51,18 @@ button:active{
 
 }
 .chordRow {
-    background-color: rgba(128, 128, 128, 0.548);
+    background-color: rgba(128, 128, 128, 0.1);
 }
 .tonicRoot {
     /* background-color: red; */
     margin: 10px;
     padding:5px;
-    background-color: rgba(128, 128, 128, 0.548);
+    background-color: rgba(128, 128, 128, 0.1);
 }
 
 .mode {
     /* background-color: purple; */
-    background-color: rgba(128, 128, 128, 0.548);
+    background-color: rgba(128, 128, 128, 0.1);
     padding:5px;
     margin: 10px;
 }
@@ -60,7 +71,8 @@ button:active{
     padding: 5px;
 }
 .b {
-    background-color: rgb(0, 0, 0);
+    /*background-color: rgb(0, 0, 0);*/
+	background-color: rgb(47, 47, 47);/*#2f2f2f;*/
     border: none;
     color: white;
     padding: 5px;
@@ -138,24 +150,35 @@ button:active{
     margin: 5px;
 }
 .bpm{
-    background-color: rgba(128, 128, 128, 0.548);
+    background-color: rgba(128, 128, 128, 0.1);
     padding: 5px;
-
     border-radius: 5px;
     margin: 10px;
 }
 
 /* Slider */
 .slider {
+padding: 5px;
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 80%; /* Full-width */
   height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
+  background: rgb(211, 211, 211, 0.1); /*#d3d3d3; /* Grey background */
+  border-radius: 10px;
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  color: red;
+}
+
+/* FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: red; 
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: red; 
 }
 
 /* Mouse-over effects */
@@ -168,6 +191,10 @@ input[type=radio] {
   position: absolute;
   visibility: hidden;
   display: none;
+}
+
+input[type=range] {
+  display: inline-block;
 }
 
 label {
@@ -194,11 +221,11 @@ input[type=radio]:checked + label {
 }
 
 label + input[type=radio] + label {
-  border-left: solid 1.5px #000000;
+  border-left: solid 1.5px red;
 }
 
 .radio-group {
-  border: solid 2px #000000;
+  border: solid 2px red;
   display: inline-block;
   margin: 1px;
   border-radius: 6px;
@@ -218,7 +245,7 @@ input[type=number]{
 
 .canvas {
     margin:auto;
-    border: 1px solid #892c76;
+    border: 1px solid #2f2f2f;
 }
 
 /*input {
@@ -241,6 +268,7 @@ input[type=number]{
 	flex-grow: 0;
 }
 
+<<<<<<< HEAD
 .pattern-wrapper {
     margin: 20px auto 20px auto;
     width: 227.5px;
@@ -248,14 +276,24 @@ input[type=number]{
     border: 5px solid rgba(73, 204, 249, 1.0);
     padding: 20px;
 }
+=======
+>>>>>>> 3c3c178ab0ecca2d275e469974678b93fe58d8d8
 
 /*---------------------------- number input --------------------------------------------------*/
 input[type=number]{
   color: white;
   background: #000000;
-  border: 3px solid #000000;
+  border: 3px solid red;
   border-radius: 40px;
   padding:5px;
   width: 40px;
   margin: 2.5px;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+.everything{
+	/*font-family: "Comic Sans MS", cursive, sans-serif;*/
+	/*font-family: 'Noto Sans TC', sans-serif;*/
+	font-family: 'Quicksand', sans-serif;
 }
